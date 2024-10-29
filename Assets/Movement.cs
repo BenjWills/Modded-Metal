@@ -12,26 +12,34 @@ public class Movement : MonoBehaviour
     bool isGrounded;
     Rigidbody rb;
     [SerializeField] float jumpForce;
+    float trueJumpForce;
 
     // Start is called before the first frame update
     void Start()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
+        rb = GetComponent<Rigidbody>();
+        trueJumpForce = jumpForce * 50;
     }
 
     // Update is called once per frame
     void Update()
     {
         MovePlayer();
+        GroundCheck();
     }
 
     void GroundCheck()
     {
-        if (Physics.BoxCast(new Vector3(transform.position.x, transform.position.y -1, transform.position.z), transform.lossyScale / 2, -transform.up, transform.rotation, 1) == true)
+        if (Physics.BoxCast(new Vector3(transform.position.x, transform.position.y -0.2f, transform.position.z), transform.lossyScale / 2, -transform.up, transform.rotation, 1) == true)
         {
             Debug.Log("Grounded");
             isGrounded = true;
+        }
+        else
+        {
+            isGrounded = false;
         }
     }
 
@@ -41,11 +49,12 @@ public class Movement : MonoBehaviour
         transform.position += new Vector3(direction.x, 0, direction.y) * moveSpeed * Time.deltaTime;
     }
 
-    public void Jump(InputAction.CallbackContext context)
+    public void OnJump()
     {
         if (isGrounded == true) 
         {
-            rb.AddForce(new Vector3(transform.position.x, jumpForce, transform.position.z), ForceMode.Force);
+            rb.AddForce(new Vector3(transform.position.x, trueJumpForce, transform.position.z), ForceMode.Force);
+            Debug.Log("Jump");
         }
     }
 }
