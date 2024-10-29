@@ -3,19 +3,23 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Camera : MonoBehaviour
+public class CameraScript : MonoBehaviour
 {
     PlayerInput playerInput;
     InputAction lookAction;
     float XRotation;
-    [SerializeField] float mouseSensitivity;
+    float YRotation;
+    [SerializeField] float mouseSensX;
+    [SerializeField] float mouseSensY;
     [SerializeField] Transform playerBody;
+    [SerializeField] Transform orientation;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+        playerInput = GameObject.Find("PlayerOBJ").GetComponent<PlayerInput>();
         lookAction = playerInput.actions.FindAction("Look");
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     // Update is called once per frame
@@ -28,13 +32,15 @@ public class Camera : MonoBehaviour
     {
         Vector2 mouseInput = lookAction.ReadValue<Vector2>();
 
-        float mouseX = mouseInput.x * mouseSensitivity * Time.deltaTime;
-        float mouseY = mouseInput.y * mouseSensitivity * Time.deltaTime;
+        float mouseX = mouseInput.x * mouseSensX * Time.deltaTime;
+        float mouseY = mouseInput.y * mouseSensY * Time.deltaTime;
 
+        YRotation += mouseX;
         XRotation -= mouseY;
+
         XRotation = Mathf.Clamp(XRotation, -90, 90);
 
-        transform.localRotation = Quaternion.Euler(XRotation, 0, 0);
-        playerBody.Rotate(Vector3.up, mouseX);
+        transform.rotation = Quaternion.Euler(XRotation, YRotation, 0);
+        orientation.rotation = Quaternion.Euler(0, YRotation, 0);
     }
 }
