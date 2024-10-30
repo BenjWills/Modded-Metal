@@ -11,13 +11,12 @@ public class CameraScript : MonoBehaviour
     float YRotation;
     [SerializeField] float mouseSensX;
     [SerializeField] float mouseSensY;
-    [SerializeField] Transform playerBody;
     [SerializeField] Transform orientation;
 
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GameObject.Find("PlayerOBJ").GetComponent<PlayerInput>();
+        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         lookAction = playerInput.actions.FindAction("Look");
         Cursor.lockState = CursorLockMode.Locked;
     }
