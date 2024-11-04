@@ -42,6 +42,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float crouchSpeed;
     [SerializeField] float crouchYScale;
     float startYScale;
+    RaycastHit hit;
 
     [Header("Slope")]
     bool exitingSlope;
@@ -131,7 +132,7 @@ public class Movement : MonoBehaviour
             rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
             moveSpeed = crouchSpeed;
         }
-        else if (crouchAction.triggered && isCrouching == true)
+        else if (crouchAction.triggered && isCrouching == true && !CantStand())
         {
             isCrouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
@@ -219,6 +220,18 @@ public class Movement : MonoBehaviour
         return Vector3.ProjectOnPlane(moveDirection, slopeHit.normal).normalized;
     }
 
+    public bool CantStand()
+    {
+        if (Physics.Raycast(transform.position, Vector3.up, out hit, playerHeight * 0.5f + 0.3f))
+        {
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
     //applies a rigidbidy force to make the player jump
     public void OnJump()
     {
@@ -270,6 +283,16 @@ public class Movement : MonoBehaviour
     void StopSlide()
     {
         isSliding = false;
-        transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        if (CantStand())
+        {
+            isCrouching = true;
+            transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
+            rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
+            moveSpeed = crouchSpeed;
+        }
+        else
+        {
+            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        }
     }
 }
