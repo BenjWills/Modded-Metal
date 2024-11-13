@@ -55,8 +55,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float sliderForce;
     float sliderTimer;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         playerInput = GetComponent<PlayerInput>();
         moveAction = playerInput.actions.FindAction("Move");
@@ -64,6 +63,11 @@ public class Movement : MonoBehaviour
         crouchAction = playerInput.actions.FindAction("Crouch");
         slideAction = playerInput.actions.FindAction("Slide");
         rb = GetComponent<Rigidbody>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
         startYScale = transform.localScale.y;
     }
 
