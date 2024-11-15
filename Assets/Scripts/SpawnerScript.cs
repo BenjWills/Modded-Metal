@@ -8,13 +8,21 @@ public class SpawnerScript : MonoBehaviour
     [SerializeField] GameObject obstacle;
     public bool[] upSpace;
     public bool[] downSpace;
+    public bool[] leftSpace;
+    public bool[] rightSpace;
+    public bool[] forwardSpace;
+    public bool[] backwardSpace;
+    public bool[] hieghtBigger;
     public bool checkDone;
+    public bool spawnDone;
     public RaycastHit hit;
     public float playerHeight;
 
     public BaseSpawnerState currentState;
     public readonly UpDownState uds = new();
     public readonly SpawnUpDownState suds = new();
+    public readonly HieghtCheckState hcs = new();
+    public readonly CheckSdesState css = new();
 
 
     // Start is called before the first frame update

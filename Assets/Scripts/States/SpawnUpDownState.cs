@@ -6,6 +6,7 @@ public class SpawnUpDownState : BaseSpawnerState
 {
     public override void EnterState(SpawnerScript ss)
     {
+        ss.checkDone = false;
         for (int i = 0; i < ss.spawnSpots.Length; i++)
         {
             if (ss.upSpace[i] == true)
@@ -19,9 +20,13 @@ public class SpawnUpDownState : BaseSpawnerState
                 ss.SpawnDown(tempVectorD);
             }
         }
+        ss.spawnDone = true;
     }
     public override void UpdateState(SpawnerScript ss)
     {
-
+        if (ss.spawnDone == true)
+        {
+            ss.TransitionToSate(ss.hcs);
+        }
     }
 }
