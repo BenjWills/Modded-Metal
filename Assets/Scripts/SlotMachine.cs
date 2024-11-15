@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class SlotMachine : MonoBehaviour
 {
@@ -10,21 +11,29 @@ public class SlotMachine : MonoBehaviour
 
     public string[] buff1;
     int buffI1;
+    private TextMeshProUGUI buff1Txt;
     public string[] buff2;
     int buffI2;
+    private TextMeshProUGUI buff2Txt;
     public string[] debuff;
     int debuffI;
+    private TextMeshProUGUI debuffTxt;
 
     private void Awake()
     {
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
+        buff1Txt = GameObject.Find("Buff1Text (TMP)").GetComponent<TextMeshProUGUI>();
+        buff2Txt = GameObject.Find("Buff2Text (TMP)").GetComponent<TextMeshProUGUI>();
+        debuffTxt = GameObject.Find("DebuffText (TMP)").GetComponent<TextMeshProUGUI>();
     }
 
     // Start is called before the first frame update
     void Start()
     {
-
+        buff1Txt.text = "None";
+        buff2Txt.text = "None";
+        debuffTxt.text = "None";
     }
 
     // Update is called once per frame
@@ -34,7 +43,6 @@ public class SlotMachine : MonoBehaviour
         {
             if (hit.collider.gameObject.CompareTag("Player") && interactAction.triggered)
             {
-                Debug.Log("hit");
                 RandomStats();
             }
         }
@@ -48,13 +56,18 @@ public class SlotMachine : MonoBehaviour
         {
             buffI2 = Random.Range(0, buff2.Length);
         }
-        debuffI = Random.Range(0, debuff.Length);
 
-        Debug.Log(buff1[buffI1]);
+        debuffI = Random.Range(0, debuff.Length);
+        buff1Txt.text = buff1[buffI1];
+
         if (doSecondBuff == 0)
         {
-            Debug.Log(buff2[buffI2]);
+            buff2Txt.text = buff2[buffI2];
         }
-        Debug.Log(debuff[debuffI]);
+        else
+        {
+            buff2Txt.text = "None";
+        }
+        debuffTxt.text = debuff[debuffI];
     }
 }

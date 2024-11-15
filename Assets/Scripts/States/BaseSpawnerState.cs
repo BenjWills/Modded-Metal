@@ -5,6 +5,6 @@ using UnityEngine;
 public abstract class BaseSpawnerState {
 
     public abstract void EnterState(SpawnerScript ss);
-    public abstract void UpdaterState(SpawnerScript ss);
+    public abstract void UpdateState(SpawnerScript ss);
 
 }
