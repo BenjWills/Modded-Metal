@@ -6,13 +6,18 @@ public class SpawnerScript : MonoBehaviour
 {
     public GameObject[] spawnSpots;
     [SerializeField] GameObject obstacle;
+    [SerializeField] GameObject[] obstacles;
     public bool[] upSpace;
     public bool[] downSpace;
     public bool[] leftSpace;
     public bool[] rightSpace;
     public bool[] forwardSpace;
     public bool[] backwardSpace;
-    public bool[] hieghtBigger;
+    public bool[] zBig;
+    public bool[] xBig;
+    public float[] randomX;
+    public float[] randomY;
+    public float[] randomZ;
     public bool checkDone;
     public bool spawnDone;
     public RaycastHit hit;
@@ -23,6 +28,7 @@ public class SpawnerScript : MonoBehaviour
     public readonly SpawnUpDownState suds = new();
     public readonly HieghtCheckState hcs = new();
     public readonly CheckSdesState css = new();
+    public readonly SpawnSidesState sss = new();
 
 
     // Start is called before the first frame update
@@ -46,26 +52,32 @@ public class SpawnerScript : MonoBehaviour
 
     public void SpawnUp(Vector3 vector)
     {
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
         Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
     public void SpawnDown(Vector3 vector)
     {
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
         Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
-    public void SpawnLeft()
+    public void SpawnLeft(Vector3 vector)
     {
-
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
+        Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
-    public void SpawnRight()
+    public void SpawnRight(Vector3 vector)
     {
-
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
+        Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
-    public void SpawnForward()
+    public void SpawnForward(Vector3 vector)
     {
-
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
+        Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
-    public void SpawnBack()
+    public void SpawnBack(Vector3 vector)
     {
-
+        obstacle = obstacles[Random.Range(0, obstacles.Length)];
+        Instantiate(obstacle, vector, obstacle.transform.rotation);
     }
 }
