@@ -6,6 +6,7 @@ using TMPro;
 
 public class SlotMachine : MonoBehaviour
 {
+    Movement movementScript;
     PlayerInput playerInput;
     InputAction interactAction;
 
@@ -21,6 +22,7 @@ public class SlotMachine : MonoBehaviour
 
     private void Awake()
     {
+        movementScript = GameObject.Find("Player").GetComponent<Movement>();
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
         buff1Txt = GameObject.Find("Buff1Text (TMP)").GetComponent<TextMeshProUGUI>();
@@ -51,6 +53,7 @@ public class SlotMachine : MonoBehaviour
     void RandomStats()
     {
         buffI1 = Random.Range(0, buff1.Length);
+
         int doSecondBuff = Random.Range(0, 3);
         if (doSecondBuff == 0)
         {
@@ -69,5 +72,10 @@ public class SlotMachine : MonoBehaviour
             buff2Txt.text = "None";
         }
         debuffTxt.text = debuff[debuffI];
+    }
+
+    void ApplyStats()
+    {
+
     }
 }
