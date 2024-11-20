@@ -34,6 +34,9 @@ public class SpawnSidesState : BaseSpawnerState
 
     public override void UpdateState(SpawnerScript ss)
     {
-
+        if (ss.spawnDone == true && ss.reset == true)
+        {
+            ss.TransitionToSate(ss.uds);
+        }
     }
 }

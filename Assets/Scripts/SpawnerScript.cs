@@ -20,6 +20,7 @@ public class SpawnerScript : MonoBehaviour
     public float[] randomZ;
     public bool checkDone;
     public bool spawnDone;
+    public bool reset;
     public RaycastHit hit;
     public float playerHeight;
 
@@ -48,6 +49,12 @@ public class SpawnerScript : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void ResetObstacle()
+    {
+        reset = true;
+        StartCoroutine(ResetWaitTime());
     }
 
     public void SpawnUp(Vector3 vector)
@@ -79,5 +86,11 @@ public class SpawnerScript : MonoBehaviour
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
         Instantiate(obstacle, vector, obstacle.transform.rotation);
+    }
+
+    IEnumerator ResetWaitTime()
+    {
+        yield return new WaitForEndOfFrame();
+        reset = false;
     }
 }
