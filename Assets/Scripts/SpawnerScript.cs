@@ -24,6 +24,8 @@ public class SpawnerScript : MonoBehaviour
     public bool reset;
     public RaycastHit hit;
     public float playerHeight;
+    [SerializeField] int spawnChance;
+    int spawnNumber;
 
     public BaseSpawnerState currentState;
     public readonly UpDownState uds = new();
@@ -69,31 +71,55 @@ public class SpawnerScript : MonoBehaviour
     public void SpawnUp(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
     public void SpawnDown(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
     public void SpawnLeft(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
     public void SpawnRight(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
     public void SpawnForward(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
     public void SpawnBack(Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        Instantiate(obstacle, vector, obstacle.transform.rotation);
+        spawnNumber = Random.Range(0, spawnChance);
+        if (spawnNumber == spawnChance - 1)
+        {
+            Instantiate(obstacle, vector, obstacle.transform.rotation);
+        }
     }
 }

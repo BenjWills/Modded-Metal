@@ -401,6 +401,7 @@ MonoBehaviour:
   spawnDone: 0
   reset: 0
   playerHeight: 2
+  spawnChance: 2
 --- !u!4 &242344573
 Transform:
   m_ObjectHideFlags: 0
