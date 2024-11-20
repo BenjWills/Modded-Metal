@@ -6,6 +6,11 @@ public class UpDownState : BaseSpawnerState
 {
     public override void EnterState(SpawnerScript ss)
     {
+        ss.RemoveObstacles();
+
+        ss.spawnDone = false;
+        ss.reset = false;
+
         ss.upSpace = new bool[ss.spawnSpots.Length];
         ss.downSpace = new bool[ss.spawnSpots.Length];
 

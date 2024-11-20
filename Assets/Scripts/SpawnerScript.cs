@@ -7,6 +7,7 @@ public class SpawnerScript : MonoBehaviour
     public GameObject[] spawnSpots;
     [SerializeField] GameObject obstacle;
     [SerializeField] GameObject[] obstacles;
+    [SerializeField] GameObject[] activeObstacles;
     public bool[] upSpace;
     public bool[] downSpace;
     public bool[] leftSpace;
@@ -51,10 +52,18 @@ public class SpawnerScript : MonoBehaviour
         currentState.EnterState(this);
     }
 
-    public void ResetObstacle()
+    public void ResetBool()
     {
         reset = true;
-        StartCoroutine(ResetWaitTime());
+    }
+
+    public void RemoveObstacles()
+    {
+        activeObstacles = GameObject.FindGameObjectsWithTag("Obstacle");
+        for (int i = 0; i < activeObstacles.Length; i++)
+        {
+            Destroy(activeObstacles[i]);
+        }
     }
 
     public void SpawnUp(Vector3 vector)
@@ -86,11 +95,5 @@ public class SpawnerScript : MonoBehaviour
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
         Instantiate(obstacle, vector, obstacle.transform.rotation);
-    }
-
-    IEnumerator ResetWaitTime()
-    {
-        yield return new WaitForEndOfFrame();
-        reset = false;
     }
 }

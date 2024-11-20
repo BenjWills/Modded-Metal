@@ -385,6 +385,7 @@ MonoBehaviour:
   - {fileID: 2652501892115927027, guid: cfc6c7dd94eba314c820c0f0736b979d, type: 3}
   - {fileID: 1571230190280977028, guid: 93135a44c3de3a94eaf488dea03f5234, type: 3}
   - {fileID: 2691968746394293583, guid: 0acbebdaa7dcb684bbc7da5f6f69eb3f, type: 3}
+  activeObstacles: []
   upSpace: 
   downSpace: 
   leftSpace: 
@@ -670,6 +671,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d15e10d5a2e889f45a65685f46dd09e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menuOpen: 0
   mouseSensX: 30
   mouseSensY: 30
   orientation: {fileID: 2038067404}
@@ -1478,7 +1480,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 920345741}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 242344572}
+        m_TargetAssemblyTypeName: SpawnerScript, Assembly-CSharp
+        m_MethodName: ResetBool
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &920345741
 MonoBehaviour:
   m_ObjectHideFlags: 0
