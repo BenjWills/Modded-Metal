@@ -24,8 +24,15 @@ public class SpawnerScript : MonoBehaviour
     public bool reset;
     public RaycastHit hit;
     public float playerHeight;
+
     [SerializeField] int spawnChance;
     int spawnNumber;
+    [SerializeField] Quaternion up;
+    [SerializeField] Quaternion down;
+    [SerializeField] Quaternion left;
+    [SerializeField] Quaternion right;
+    [SerializeField] Quaternion forward;
+    [SerializeField] Quaternion backward;
 
     public BaseSpawnerState currentState;
     public readonly UpDownState uds = new();
@@ -74,7 +81,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, up);
         }
     }
     public void SpawnDown(Vector3 vector)
@@ -83,7 +90,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, down);
         }
     }
     public void SpawnLeft(Vector3 vector)
@@ -92,7 +99,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, left);
         }
     }
     public void SpawnRight(Vector3 vector)
@@ -101,7 +108,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, right);
         }
     }
     public void SpawnForward(Vector3 vector)
@@ -110,7 +117,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, forward);
         }
     }
     public void SpawnBack(Vector3 vector)
@@ -119,7 +126,7 @@ public class SpawnerScript : MonoBehaviour
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, obstacle.transform.rotation);
+            Instantiate(obstacle, vector, backward);
         }
     }
 }
