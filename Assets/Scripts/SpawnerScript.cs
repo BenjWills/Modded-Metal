@@ -27,12 +27,12 @@ public class SpawnerScript : MonoBehaviour
 
     [SerializeField] int spawnChance;
     int spawnNumber;
-    [SerializeField] Quaternion up;
-    [SerializeField] Quaternion down;
-    [SerializeField] Quaternion left;
-    [SerializeField] Quaternion right;
-    [SerializeField] Quaternion forward;
-    [SerializeField] Quaternion backward;
+    Quaternion up;
+    Quaternion down;
+    Quaternion left;
+    Quaternion right;   
+    Quaternion forward;
+    Quaternion backward;
 
     public BaseSpawnerState currentState;
     public readonly UpDownState uds = new();
@@ -46,6 +46,13 @@ public class SpawnerScript : MonoBehaviour
     void Start()
     {
         spawnSpots = GameObject.FindGameObjectsWithTag("Spawnable");
+        up = Quaternion.Euler(Vector3.up);
+        down = Quaternion.Euler(Vector3.down);
+        left = Quaternion.Euler(Vector3.left);
+        right = Quaternion.Euler(Vector3.right);
+        forward = Quaternion.Euler(Vector3.forward);
+        backward = Quaternion.Euler(Vector3.back);
+
         TransitionToSate(uds);
     }
 
