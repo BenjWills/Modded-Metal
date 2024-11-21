@@ -82,58 +82,33 @@ public class SpawnerScript : MonoBehaviour
         }
     }
 
-    public void SpawnUp(Vector3 vector)
+    public void SpawnObstacle(string direction, Vector3 vector)
     {
         obstacle = obstacles[Random.Range(0, obstacles.Length)];
         spawnNumber = Random.Range(0, spawnChance);
         if (spawnNumber == spawnChance - 1)
         {
-            Instantiate(obstacle, vector, up);
+            GameObject newSpawn = Instantiate(obstacle, vector, up);
+            newSpawn.transform.up = CheckForDirection(direction, newSpawn);
         }
     }
-    public void SpawnDown(Vector3 vector)
+
+    public Vector3 CheckForDirection(string direction, GameObject newSpawn)
     {
-        obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        spawnNumber = Random.Range(0, spawnChance);
-        if (spawnNumber == spawnChance - 1)
+        switch(direction)
         {
-            Instantiate(obstacle, vector, down);
-        }
-    }
-    public void SpawnLeft(Vector3 vector)
-    {
-        obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        spawnNumber = Random.Range(0, spawnChance);
-        if (spawnNumber == spawnChance - 1)
-        {
-            Instantiate(obstacle, vector, left);
-        }
-    }
-    public void SpawnRight(Vector3 vector)
-    {
-        obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        spawnNumber = Random.Range(0, spawnChance);
-        if (spawnNumber == spawnChance - 1)
-        {
-            Instantiate(obstacle, vector, right);
-        }
-    }
-    public void SpawnForward(Vector3 vector)
-    {
-        obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        spawnNumber = Random.Range(0, spawnChance);
-        if (spawnNumber == spawnChance - 1)
-        {
-            Instantiate(obstacle, vector, forward);
-        }
-    }
-    public void SpawnBack(Vector3 vector)
-    {
-        obstacle = obstacles[Random.Range(0, obstacles.Length)];
-        spawnNumber = Random.Range(0, spawnChance);
-        if (spawnNumber == spawnChance - 1)
-        {
-            Instantiate(obstacle, vector, backward);
+            default:
+                return newSpawn.transform.up;
+            case "down":
+                return -newSpawn.transform.up;
+            case "left":
+                return -newSpawn.transform.right;
+            case "right":
+                return newSpawn.transform.right;
+            case "forward":
+                return newSpawn.transform.forward;
+            case "backward":
+                return -newSpawn.transform.forward;
         }
     }
 }

@@ -19,12 +19,12 @@ public class SpawnUpDownState : BaseSpawnerState
             if (ss.upSpace[i] == true)
             {
                 Vector3 tempVectorU = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y + ss.spawnSpots[i].transform.localScale.y / 2 + 0.5f, ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
-                ss.SpawnUp(tempVectorU);
+                ss.SpawnObstacle("up", tempVectorU);
             }
             if (ss.downSpace[i] == true)
             {
                 Vector3 tempVectorD = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y - ss.spawnSpots[i].transform.localScale.y / 2 - 0.5f, ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
-                ss.SpawnDown(tempVectorD);
+                ss.SpawnObstacle("down", tempVectorD);
             }
         }
         ss.spawnDone = true;
