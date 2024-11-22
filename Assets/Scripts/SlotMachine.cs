@@ -10,6 +10,8 @@ public class SlotMachine : MonoBehaviour
     PlayerInput playerInput;
     InputAction interactAction;
 
+    Transform slotMachine;
+
     public string[] buff1;
     int buffI1;
     private TextMeshProUGUI buff1Txt;
@@ -22,6 +24,7 @@ public class SlotMachine : MonoBehaviour
 
     private void Awake()
     {
+        slotMachine = GameObject.Find("Slot Machine").GetComponent<Transform>();
         movementScript = GameObject.Find("Player").GetComponent<Movement>();
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
@@ -41,9 +44,9 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.SphereCast(new Vector3(0, 0, 0), 3, transform.forward, out RaycastHit hit) == true)
+        if (movementScript.playerBody.position.x - slotMachine.position.x <= 5 && movementScript.playerBody.position.z - slotMachine.position.z <= 5)
         {
-            if (hit.collider.gameObject.CompareTag("Player") && interactAction.triggered)
+            if (interactAction.triggered)
             {
                 RandomStats();
             }
@@ -62,20 +65,86 @@ public class SlotMachine : MonoBehaviour
 
         debuffI = Random.Range(0, debuff.Length);
         buff1Txt.text = buff1[buffI1];
+        ApplyStats(buff1[buffI1]);
 
         if (doSecondBuff == 0)
         {
             buff2Txt.text = buff2[buffI2];
+            ApplyStats(buff2[buffI2]);
         }
         else
         {
             buff2Txt.text = "None";
         }
         debuffTxt.text = debuff[debuffI];
+        ApplyStats(debuff[debuffI]);
     }
 
-    void ApplyStats()
+    void ApplyStats(string buffName)
     {
-
+        if (buffName == "Increase Speed")
+        {
+            movementScript.moveSpeed += 5;
+        }
+        else
+        {
+            movementScript.moveSpeed = 5;
+        }
+        if (buffName == "Increase Jump")
+        {
+            movementScript.jumpForce += 5;
+        }
+        else
+        {
+            movementScript.jumpForce = 8;
+        }
+        if (buffName == "Quicker Slide")
+        {
+            movementScript.sliderForce += 100;
+        }
+        else
+        {
+            movementScript.sliderForce = 200;
+        }
+        if (buffName == "Decrease Size")
+        {
+            movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y / 2, movementScript.playerBody.localScale.z);
+        }
+        else
+        {
+            movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
+        }
+        if (buffName == "Increase Crouch Speed")
+        {
+            movementScript.crouchSpeed += 3.5f;
+        }
+        else
+        {
+            movementScript.crouchSpeed = 3.5f;
+        }
+        if (buffName == "Increase Size")
+        {
+            movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y * 1.8f, movementScript.playerBody.localScale.z);
+        }
+        else
+        {
+            movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
+        }
+        if (buffName == "Reduce Speed")
+        {
+            movementScript.moveSpeed -= 3;
+        }
+        else
+        {
+            movementScript.moveSpeed = 5;
+        }
+        if (buffName == "Reduce Jump")
+        {
+            movementScript.jumpForce -= 3;
+        }
+        else
+        {
+            movementScript.jumpForce = 8;
+        }
     }
 }

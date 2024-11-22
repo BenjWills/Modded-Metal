@@ -7,7 +7,7 @@ public class SpawnerScript : MonoBehaviour
     public GameObject[] spawnSpots;
     [SerializeField] GameObject obstacle;
     [SerializeField] GameObject[] obstacles;
-    [SerializeField] GameObject[] activeObstacles;
+    GameObject[] activeObstacles;
     public bool[] upSpace;
     public bool[] downSpace;
     public bool[] leftSpace;
@@ -28,11 +28,6 @@ public class SpawnerScript : MonoBehaviour
     [SerializeField] int spawnChance;
     int spawnNumber;
     Quaternion up;
-    Quaternion down;
-    Quaternion left;
-    Quaternion right;   
-    Quaternion forward;
-    Quaternion backward;
 
     public BaseSpawnerState currentState;
     public readonly UpDownState uds = new();
@@ -47,11 +42,6 @@ public class SpawnerScript : MonoBehaviour
     {
         spawnSpots = GameObject.FindGameObjectsWithTag("Spawnable");
         up = Quaternion.Euler(Vector3.up);
-        down = Quaternion.Euler(Vector3.down);
-        left = Quaternion.Euler(Vector3.left);
-        right = Quaternion.Euler(Vector3.right);
-        forward = Quaternion.Euler(Vector3.forward);
-        backward = Quaternion.Euler(Vector3.back);
 
         TransitionToSate(uds);
     }
@@ -109,6 +99,21 @@ public class SpawnerScript : MonoBehaviour
                 return newSpawn.transform.forward;
             case "backward":
                 return -newSpawn.transform.forward;
+        }
+    }
+
+    public Vector3 RandomPosition(string position, GameObject spawnObject, float randomValueX, float randomValueY, float randomValueZ)
+    {
+        switch (position)
+        {
+            default :
+                return new Vector3(spawnObject.transform.position.x + randomValueX, spawnObject.transform.position.y + randomValueY, (spawnObject.transform.position.z + (spawnObject.transform.localScale.z/2)) + 0.5f);
+            case "back":
+                return new Vector3(spawnObject.transform.position.x + randomValueX, spawnObject.transform.position.y + randomValueY, (spawnObject.transform.position.z - (spawnObject.transform.localScale.z / 2)) - 0.5f);
+            case "left":
+                return new Vector3((spawnObject.transform.position.x - (spawnObject.transform.localScale.x / 2)) - 0.5f, spawnObject.transform.position.y + randomValueY, spawnObject.transform.position.z + randomValueZ);
+            case "right":
+                return new Vector3((spawnObject.transform.position.x + (spawnObject.transform.localScale.x / 2)) + 0.5f, spawnObject.transform.position.y + randomValueY, spawnObject.transform.position.z + randomValueZ);
         }
     }
 }

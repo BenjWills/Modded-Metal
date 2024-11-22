@@ -11,22 +11,22 @@ public class SpawnSidesState : BaseSpawnerState
 
             if (ss.forwardSpace[i] == true)
             {
-                Vector3 tempVectorF = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y + ss.randomY[i], ss.spawnSpots[i].transform.position.z + ss.spawnSpots[i].transform.localScale.z / 2 + 0.5f);
+                Vector3 tempVectorF = ss.RandomPosition("forward", ss.spawnSpots[i], ss.randomX[i], ss.randomY[i], ss.randomZ[i]);
                 ss.SpawnObstacle("forward",tempVectorF);
             }
             if (ss.backwardSpace[i] == true)
             {
-                Vector3 tempVectorB = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y + ss.randomY[i], ss.spawnSpots[i].transform.position.z - ss.spawnSpots[i].transform.localScale.z / 2 - 0.5f);
+                Vector3 tempVectorB = ss.RandomPosition("back", ss.spawnSpots[i], ss.randomX[i], ss.randomY[i], ss.randomZ[i]);
                 ss.SpawnObstacle("backward", tempVectorB);
             }
             if (ss.leftSpace[i] == true)
             {
-                Vector3 tempVectorL = new Vector3(ss.spawnSpots[i].transform.position.x - ss.spawnSpots[i].transform.localScale.x / 2 - 0.5f, ss.spawnSpots[i].transform.position.y + ss.randomY[i], ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
+                Vector3 tempVectorL = ss.RandomPosition("left", ss.spawnSpots[i], ss.randomX[i], ss.randomY[i], ss.randomZ[i]);
                 ss.SpawnObstacle("left", tempVectorL);
             }
             if (ss.rightSpace[i] == true)
             {
-                Vector3 tempVectorR = new Vector3(ss.spawnSpots[i].transform.position.x + ss.spawnSpots[i].transform.localScale.x / 2 + 0.5f, ss.spawnSpots[i].transform.position.y + ss.randomY[i], ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
+                Vector3 tempVectorR = ss.RandomPosition("right", ss.spawnSpots[i], ss.randomX[i], ss.randomY[i], ss.randomZ[i]);
                 ss.SpawnObstacle("right", tempVectorR);
             }
         }

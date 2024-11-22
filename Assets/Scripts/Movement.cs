@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Movement : MonoBehaviour
 {
     [Header("Player")]
-    [SerializeField] Transform playerBody;
+    public Transform playerBody;
     Rigidbody rb;
 
     [Header("Inputs")]
@@ -18,9 +18,9 @@ public class Movement : MonoBehaviour
     InputAction slideAction;
 
     [Header("Movement")]
-    [SerializeField] float moveSpeed;
-    [SerializeField] float walkSpeed;
-    [SerializeField] float sprintSpeed;
+    public float moveSpeed;
+    public float walkSpeed;
+    public float sprintSpeed;
     Vector2 moveInput;
     Vector3 moveDirection;
     [SerializeField] float groundDrag;
@@ -33,15 +33,15 @@ public class Movement : MonoBehaviour
     bool isSliding = false;
 
     [Header("Jump")]
-    [SerializeField] float jumpForce;
+    public float jumpForce;
     [SerializeField] float jumpCooldown;
     [SerializeField] float airMultiplier;
     bool readyToJump;
 
     [Header("Crouch")]
-    [SerializeField] float crouchSpeed;
+    public float crouchSpeed;
     [SerializeField] float crouchYScale;
-    float startYScale;
+    public float startYScale;
     RaycastHit hit;
 
     [Header("Slope")]
@@ -52,7 +52,7 @@ public class Movement : MonoBehaviour
 
     [Header("Sliding")]
     [SerializeField] float maxSliderTime;
-    [SerializeField] float sliderForce;
+    public float sliderForce;
     float sliderTimer;
 
     private void Awake()
