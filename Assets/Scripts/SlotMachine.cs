@@ -12,8 +12,9 @@ public class SlotMachine : MonoBehaviour
 
     Transform playerPos;
     Transform slotMachine;
-    [SerializeField] int slotMachineRange;
-    RaycastHit smHit;
+
+    SphereCollider slotMachineRange;
+    bool inTrigger;
 
     public string[] buff1;
     int buffI1;
@@ -35,6 +36,10 @@ public class SlotMachine : MonoBehaviour
         buff1Txt = GameObject.Find("Buff1Text (TMP)").GetComponent<TextMeshProUGUI>();
         buff2Txt = GameObject.Find("Buff2Text (TMP)").GetComponent<TextMeshProUGUI>();
         debuffTxt = GameObject.Find("DebuffText (TMP)").GetComponent<TextMeshProUGUI>();
+
+        slotMachineRange = this.gameObject.AddComponent<SphereCollider>();
+        slotMachineRange.radius = 1.2f;
+        slotMachineRange.isTrigger = true;
     }
 
     // Start is called before the first frame update
@@ -48,16 +53,27 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.DrawRay(slotMachine.position, playerPos.position, Color.red);
-        if (Physics.Raycast(slotMachine.position, playerPos.position, out smHit, slotMachineRange) == true)
+        if (inTrigger == true)
         {
-            if (smHit.collider.gameObject.CompareTag("Player"))
+            if (interactAction.triggered)
             {
-                if (interactAction.triggered)
-                {
-                    RandomStats();
-                }
+                RandomStats();
             }
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inTrigger = true;
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            inTrigger = false;
         }
     }
 
@@ -86,6 +102,17 @@ public class SlotMachine : MonoBehaviour
         }
         debuffTxt.text = debuff[debuffI];
         ApplyStats(debuff[debuffI]);
+    }
+    public void RemoveStats()
+    {
+        buff1Txt.text = "None";
+        buff2Txt.text = "None";
+        debuffTxt.text = "None";
+
+        movementScript.moveSpeed = 5;
+        movementScript.jumpForce = 8;
+        movementScript.sliderForce = 200;
+        movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
     }
 
     void ApplyStats(string buffName)

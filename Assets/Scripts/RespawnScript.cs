@@ -7,7 +7,7 @@ public class RespawnScript : MonoBehaviour
     [SerializeField] float lowestLevel;
     GameObject player;
     float playerHeight;
-    Transform respawnPoint;
+    public Transform respawnPoint;
 
     private void Awake()
     {

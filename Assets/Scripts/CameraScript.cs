@@ -7,8 +7,6 @@ public class CameraScript : MonoBehaviour
 {
     PlayerInput playerInput;
     InputAction lookAction;
-    InputAction openMenuAction;
-    [SerializeField] bool menuOpen = false;
     float XRotation;
     float YRotation;
     [SerializeField] float mouseSensX;
@@ -20,7 +18,6 @@ public class CameraScript : MonoBehaviour
     {
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         lookAction = playerInput.actions.FindAction("Look");
-        openMenuAction = playerInput.actions.FindAction("OpenMenu");
         Cursor.lockState = CursorLockMode.Locked;
     }
 
@@ -28,19 +25,6 @@ public class CameraScript : MonoBehaviour
     void Update()
     {
         Look();
-
-        if (openMenuAction.triggered )
-        {
-            menuOpen = !menuOpen;
-        }
-        if (menuOpen == true)
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
     }
 
     void Look()
