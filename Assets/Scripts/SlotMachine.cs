@@ -10,7 +10,10 @@ public class SlotMachine : MonoBehaviour
     PlayerInput playerInput;
     InputAction interactAction;
 
+    Transform playerPos;
     Transform slotMachine;
+    [SerializeField] int slotMachineRange;
+    RaycastHit smHit;
 
     public string[] buff1;
     int buffI1;
@@ -25,6 +28,7 @@ public class SlotMachine : MonoBehaviour
     private void Awake()
     {
         slotMachine = GameObject.Find("Slot Machine").GetComponent<Transform>();
+        playerPos = GameObject.Find("PlayerOBJ").GetComponent<Transform>();
         movementScript = GameObject.Find("Player").GetComponent<Movement>();
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
@@ -44,11 +48,15 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (movementScript.playerBody.position.x - slotMachine.position.x <= 5 && movementScript.playerBody.position.z - slotMachine.position.z <= 5)
+        Debug.DrawRay(slotMachine.position, playerPos.position, Color.red);
+        if (Physics.Raycast(slotMachine.position, playerPos.position, out smHit, slotMachineRange) == true)
         {
-            if (interactAction.triggered)
+            if (smHit.collider.gameObject.CompareTag("Player"))
             {
-                RandomStats();
+                if (interactAction.triggered)
+                {
+                    RandomStats();
+                }
             }
         }
     }
