@@ -103,83 +103,99 @@ public class SlotMachine : MonoBehaviour
         debuffTxt.text = debuff[debuffI];
         ApplyStats(debuff[debuffI]);
     }
+
     public void RemoveStats()
     {
+        ApplyStats("None");
         buff1Txt.text = "None";
         buff2Txt.text = "None";
         debuffTxt.text = "None";
-
-        movementScript.moveSpeed = 5;
-        movementScript.jumpForce = 8;
-        movementScript.sliderForce = 200;
-        movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
     }
 
     void ApplyStats(string buffName)
     {
-        if (buffName == "Increase Speed")
+        movementScript.moveSpeed = ApplySpeed(buffName);
+        movementScript.jumpForce = ApplyJump(buffName);
+        movementScript.crouchSpeed = ApplyCrouch(buffName);
+        movementScript.sliderForce = ApplySlide(buffName);
+        movementScript.playerBody.localScale = ApplySize(buffName);
+
+        if (movementScript.playerBody.localScale.y < movementScript.startYScale)
         {
-            movementScript.moveSpeed += 5;
-        }
-        else
-        {
-            movementScript.moveSpeed = 5;
-        }
-        if (buffName == "Increase Jump")
-        {
+            movementScript.sphereSize = movementScript.sphereSize * 1.8f;
             movementScript.jumpForce += 5;
+            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.gcObject.position.y + movementScript.playerBody.localScale.y /2 + 0.2f, movementScript.gcObject.position.z);
+        }
+        else if (movementScript.playerBody.localScale.y > movementScript.startYScale)
+        {
+            movementScript.sphereSize = movementScript.sphereSize / 2;
+            movementScript.jumpForce = movementScript.startJumpForce;
+            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.gcObject.position.y * - movementScript.playerBody.localScale.y / 2 - 0.2f, movementScript.gcObject.position.z);
         }
         else
         {
-            movementScript.jumpForce = 8;
+            movementScript.sphereSize = movementScript.startSphereSize;
+            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.startGCObject.position.y, movementScript.gcObject.position.z);
         }
-        if (buffName == "Quicker Slide")
+    }
+    float ApplySpeed(string speed)
+    {
+        switch (speed)
         {
-            movementScript.sliderForce += 100;
+            default:
+                return movementScript.moveSpeed = movementScript.startMoveSpeed;
+            case "Increse Speed":
+                return movementScript.moveSpeed += 5;
+            case "Decrease Speed":
+                return movementScript.moveSpeed -= 3;
         }
-        else
+    }
+    float ApplyJump(string jump)
+    {
+        switch (jump)
         {
-            movementScript.sliderForce = 200;
+            default:
+                return movementScript.jumpForce = movementScript.startJumpForce;
+            case "Increase Jump":
+                return movementScript.jumpForce += 5;
+            case "Decrease Jump":
+                return movementScript.jumpForce -= 3;
         }
-        if (buffName == "Decrease Size")
+    }
+    float ApplyCrouch(string crouch)
+    {
+        switch (crouch)
         {
-            movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y / 2, movementScript.playerBody.localScale.z);
+            default:
+                return movementScript.crouchSpeed = movementScript.startCrouchSpeed;
+            case "Increase Crouch Speed":
+                return movementScript.crouchSpeed += 3.5f;
+            case "Decrease Crouch Speed":
+                return movementScript.crouchSpeed -= 2;
         }
-        else
+    }
+    float ApplySlide(string slide)
+    {
+        switch (slide)
         {
-            movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
-        }
-        if (buffName == "Increase Crouch Speed")
+            default:
+                return movementScript.sliderForce = movementScript.startSliderForce;
+            case "Quicker Slide":
+                return movementScript.sliderForce += 100;
+            case "Slower Slide":
+                return movementScript.sliderForce -= 50;
+        } 
+    }
+    Vector3 ApplySize(string size)
+    {
+        switch (size)
         {
-            movementScript.crouchSpeed += 3.5f;
-        }
-        else
-        {
-            movementScript.crouchSpeed = 3.5f;
-        }
-        if (buffName == "Increase Size")
-        {
-            movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y * 1.8f, movementScript.playerBody.localScale.z);
-        }
-        else
-        {
-            movementScript.playerBody.localScale = new Vector3(transform.localScale.x, movementScript.startYScale, transform.localScale.z);
-        }
-        if (buffName == "Reduce Speed")
-        {
-            movementScript.moveSpeed -= 3;
-        }
-        else
-        {
-            movementScript.moveSpeed = 5;
-        }
-        if (buffName == "Reduce Jump")
-        {
-            movementScript.jumpForce -= 3;
-        }
-        else
-        {
-            movementScript.jumpForce = 8;
+            default:
+                return movementScript.playerBody.localScale = new Vector3(movementScript.startXScale, movementScript.startYScale, movementScript.startZScale);
+            case "Decrease Size":
+                return movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y / 2, movementScript.playerBody.localScale.z);
+            case "Increase Size":
+                return movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y * 1.8f, movementScript.playerBody.localScale.z);
         }
     }
 }

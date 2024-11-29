@@ -291,6 +291,7 @@ Transform:
   - {fileID: 1457284899}
   - {fileID: 2038067404}
   - {fileID: 1419244159}
+  - {fileID: 289804464}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &91303957
@@ -352,6 +353,11 @@ MonoBehaviour:
   playerHeight: 2
   maxSliderTime: 0.75
   sliderForce: 200
+  gcObject: {fileID: 289804464}
+  sphereSize: 0.53
+  groundMask:
+    serializedVersion: 2
+    m_Bits: 64
 --- !u!54 &91303959
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -562,7 +568,7 @@ GameObject:
   - component: {fileID: 278772584}
   - component: {fileID: 278772583}
   - component: {fileID: 278772582}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (3)
   m_TagString: Spawnable
   m_Icon: {fileID: 0}
@@ -654,6 +660,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &289804463
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 289804464}
+  m_Layer: 0
+  m_Name: GroundCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &289804464
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 289804463}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.505, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 91303956}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &330585543
 GameObject:
@@ -1312,7 +1349,7 @@ GameObject:
   - component: {fileID: 663401311}
   - component: {fileID: 663401310}
   - component: {fileID: 663401309}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BaseGround
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1417,7 +1454,7 @@ GameObject:
   - component: {fileID: 690184023}
   - component: {fileID: 690184022}
   - component: {fileID: 690184021}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube
   m_TagString: Spawnable
   m_Icon: {fileID: 0}
@@ -1571,7 +1608,7 @@ GameObject:
   - component: {fileID: 842458347}
   - component: {fileID: 842458346}
   - component: {fileID: 842458345}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (2)
   m_TagString: Spawnable
   m_Icon: {fileID: 0}
@@ -1809,7 +1846,7 @@ GameObject:
   - component: {fileID: 1068929588}
   - component: {fileID: 1068929587}
   - component: {fileID: 1068929586}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (4)
   m_TagString: Spawnable
   m_Icon: {fileID: 0}
@@ -2492,7 +2529,7 @@ GameObject:
   - component: {fileID: 1298961617}
   - component: {fileID: 1298961616}
   - component: {fileID: 1298961615}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3348,9 +3385,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1249947658}
-        m_TargetAssemblyTypeName: SlotMachine, Assembly-CSharp
-        m_MethodName: RemoveStats
+      - m_Target: {fileID: 1677060788}
+        m_TargetAssemblyTypeName: MenusScript, Assembly-CSharp
+        m_MethodName: RSButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

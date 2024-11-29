@@ -18,6 +18,7 @@ public class Movement : MonoBehaviour
     InputAction slideAction;
 
     [Header("Movement")]
+    public float startMoveSpeed;
     public float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
@@ -33,15 +34,19 @@ public class Movement : MonoBehaviour
     bool isSliding = false;
 
     [Header("Jump")]
+    public float startJumpForce;
     public float jumpForce;
     [SerializeField] float jumpCooldown;
     [SerializeField] float airMultiplier;
     bool readyToJump;
 
     [Header("Crouch")]
+    public float startCrouchSpeed;
     public float crouchSpeed;
     [SerializeField] float crouchYScale;
+    public float startXScale;
     public float startYScale;
+    public float startZScale;
     RaycastHit hit;
 
     [Header("Slope")]
@@ -52,8 +57,16 @@ public class Movement : MonoBehaviour
 
     [Header("Sliding")]
     [SerializeField] float maxSliderTime;
+    public float startSliderForce;
     public float sliderForce;
     float sliderTimer;
+
+    [Header("Ground Check")]
+    public Transform startGCObject;
+    public Transform gcObject;
+    public float startSphereSize;
+    public float sphereSize;
+    public LayerMask groundMask;
 
     private void Awake()
     {
@@ -63,12 +76,20 @@ public class Movement : MonoBehaviour
         crouchAction = playerInput.actions.FindAction("Crouch");
         slideAction = playerInput.actions.FindAction("Slide");
         rb = GetComponent<Rigidbody>();
+        startSphereSize = sphereSize;
+        startMoveSpeed = moveSpeed;
+        startCrouchSpeed = crouchSpeed;
+        startJumpForce = jumpForce;
+        startSliderForce = sliderForce;
+        startGCObject = gcObject;
     }
 
     // Start is called before the first frame update
     void Start()
     {
+        startXScale = transform.localScale.x;
         startYScale = transform.localScale.y;
+        startZScale = transform.localScale.z;
     }
 
     // Update is called once per frame
@@ -77,7 +98,6 @@ public class Movement : MonoBehaviour
         readyToJump = true;
         MyInput();
         SpeedControl();
-        GroundCheck();
         if (isGrounded == true)
         {
             rb.drag = groundDrag;
@@ -90,6 +110,7 @@ public class Movement : MonoBehaviour
     private void FixedUpdate()
     {
         MovePlayer();
+        isGrounded = GroundCheck();
         if (isSliding == true)
         {
             SlidingMovement();
@@ -97,16 +118,19 @@ public class Movement : MonoBehaviour
     }
 
     //Checks for an object beneath the player
-    void GroundCheck()
+    bool GroundCheck()
     {
-        if (Physics.BoxCast(new Vector3(transform.position.x, transform.position.y + 0.5f, transform.position.z), transform.lossyScale / 2, -transform.up, transform.rotation, 1) == true)
+        if (Physics.CheckSphere(gcObject.position, sphereSize, groundMask))
         {
-            isGrounded = true;
+            return true;
         }
-        else
-        {
-            isGrounded = false;
-        }
+        return false;
+    }
+
+    private void OnDrawGizmos()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireSphere(gcObject.position, sphereSize);
     }
 
     //Checks if a player is pressing a key and activates the movement
