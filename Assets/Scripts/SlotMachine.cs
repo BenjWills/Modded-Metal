@@ -13,6 +13,9 @@ public class SlotMachine : MonoBehaviour
     Transform playerPos;
     Transform slotMachine;
 
+    public Vector3 tallPos;
+    public Vector3 shortPos;
+
     SphereCollider slotMachineRange;
     bool inTrigger;
 
@@ -33,9 +36,9 @@ public class SlotMachine : MonoBehaviour
         movementScript = GameObject.Find("Player").GetComponent<Movement>();
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
-        buff1Txt = GameObject.Find("Buff1Text (TMP)").GetComponent<TextMeshProUGUI>();
-        buff2Txt = GameObject.Find("Buff2Text (TMP)").GetComponent<TextMeshProUGUI>();
-        debuffTxt = GameObject.Find("DebuffText (TMP)").GetComponent<TextMeshProUGUI>();
+        buff1Txt = GameObject.Find("Buff1 Text (TMP)").GetComponent<TextMeshProUGUI>();
+        buff2Txt = GameObject.Find("Buff2 Text (TMP)").GetComponent<TextMeshProUGUI>();
+        debuffTxt = GameObject.Find("Debuff Text (TMP)").GetComponent<TextMeshProUGUI>();
 
         slotMachineRange = this.gameObject.AddComponent<SphereCollider>();
         slotMachineRange.radius = 1.2f;
@@ -124,15 +127,15 @@ public class SlotMachine : MonoBehaviour
         {
             movementScript.sphereSize = movementScript.sphereSize * 1.8f;
             movementScript.jumpForce += 5;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.gcObject.position.y + movementScript.playerBody.localScale.y /2 + 0.2f, movementScript.gcObject.position.z);
+            movementScript.gcObject.position = shortPos;
         }
         else if (movementScript.playerBody.localScale.y > movementScript.startYScale)
         {
             movementScript.sphereSize = movementScript.sphereSize / 2;
             movementScript.jumpForce = movementScript.startJumpForce;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.gcObject.position.y * - movementScript.playerBody.localScale.y / 2 - 0.2f, movementScript.gcObject.position.z);
+            movementScript.gcObject.position = tallPos;
         }
-        else
+        else if (movementScript.playerBody.localScale.y == movementScript.startYScale)
         {
             movementScript.sphereSize = movementScript.startSphereSize;
             movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.startGCObject.position.y, movementScript.gcObject.position.z);
@@ -144,7 +147,7 @@ public class SlotMachine : MonoBehaviour
         {
             default:
                 return movementScript.moveSpeed = movementScript.startMoveSpeed;
-            case "Increse Speed":
+            case "Increase Speed":
                 return movementScript.moveSpeed += 5;
             case "Decrease Speed":
                 return movementScript.moveSpeed -= 3;
