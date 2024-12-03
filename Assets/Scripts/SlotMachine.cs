@@ -135,10 +135,11 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.gcObject.position = tallPos;
         }
-        else if (movementScript.playerBody.localScale.y == movementScript.startYScale)
+        else
         {
+            Debug.Log("burh");
             movementScript.sphereSize = movementScript.startSphereSize;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.startGCObject.position.y, movementScript.gcObject.position.z);
+            movementScript.gcObject.position = new Vector3(0, 0.6f, 0);
         }
     }
     float ApplySpeed(string speed)

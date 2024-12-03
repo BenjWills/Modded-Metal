@@ -64,7 +64,6 @@ public class Movement : MonoBehaviour
     float sliderTimer;
 
     [Header("Ground Check")]
-    public Transform startGCObject;
     public Transform gcObject;
     public float startSphereSize;
     public float sphereSize;
@@ -83,7 +82,6 @@ public class Movement : MonoBehaviour
         startCrouchSpeed = crouchSpeed;
         startJumpForce = jumpForce;
         startSliderForce = sliderForce;
-        startGCObject = gcObject;
     }
 
     // Start is called before the first frame update
@@ -171,7 +169,6 @@ public class Movement : MonoBehaviour
         {
             isCrouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            currentMoveText.text = "Walking";
         }
 
         if (sprintAction.triggered == true && isGrounded == true && isSprinting == false)
@@ -185,7 +182,6 @@ public class Movement : MonoBehaviour
         else if (sprintAction.triggered == true && isSprinting == true)
         {
             isSprinting = false;
-            currentMoveText.text = "Walking";
         }
     }
 
@@ -335,7 +331,6 @@ public class Movement : MonoBehaviour
         else
         {
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            currentMoveText.text = "Walking";
         }
     }
 

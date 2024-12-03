@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Spawnable
   - Obstacle
+  - Level
   layers:
   - Default
   - TransparentFX

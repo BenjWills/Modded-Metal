@@ -8,6 +8,10 @@ public class UpDownState : BaseSpawnerState
     {
         ss.RemoveObstacles();
 
+        int spawnSpotsAmount = GameObject.FindGameObjectsWithTag("Spawnable").Length;
+        ss.spawnSpots = new GameObject[spawnSpotsAmount];
+        ss.spawnSpots = GameObject.FindGameObjectsWithTag("Spawnable");
+
         ss.spawnDone = false;
         ss.reset = false;
 

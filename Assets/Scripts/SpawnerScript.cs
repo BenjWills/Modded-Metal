@@ -40,9 +40,7 @@ public class SpawnerScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        spawnSpots = GameObject.FindGameObjectsWithTag("Spawnable");
         up = Quaternion.Euler(Vector3.up);
-
         TransitionToSate(uds);
     }
 
@@ -56,6 +54,11 @@ public class SpawnerScript : MonoBehaviour
     {
         currentState = state;
         currentState.EnterState(this);
+    }
+
+    public void StartLevelSpawning()
+    {
+        ResetBool();
     }
 
     public void ResetBool()
