@@ -64,6 +64,7 @@ public class Movement : MonoBehaviour
     float sliderTimer;
 
     [Header("Ground Check")]
+    public Vector3 startgcObject;
     public Transform gcObject;
     public float startSphereSize;
     public float sphereSize;
@@ -87,6 +88,7 @@ public class Movement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startgcObject = gcObject.position;
         startXScale = transform.localScale.x;
         startYScale = transform.localScale.y;
         startZScale = transform.localScale.z;
