@@ -31,7 +31,7 @@ public class SlotMachine : MonoBehaviour
     public int debuffI;
     private TextMeshProUGUI debuffTxt;
 
-    public TextMeshProUGUI inputField;
+    public TMP_InputField inputField;
 
     private void Awake()
     {
@@ -92,6 +92,10 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.startgcObject.y, movementScript.gcObject.position.z);
         }
+
+        buff1Txt.text = buff1[buffI1];
+        buff2Txt.text = buff2[buffI2];
+        debuffTxt.text = debuff[debuffI];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -120,19 +124,16 @@ public class SlotMachine : MonoBehaviour
         }
 
         debuffI = Random.Range(0, debuff.Length);
-        buff1Txt.text = buff1[buffI1];
         ApplyStats(buff1[buffI1]);
 
         if (doSecondBuff == 0)
         {
-            buff2Txt.text = buff2[buffI2];
             ApplyStats(buff2[buffI2]);
         }
         else
         {
             buff2Txt.text = "None";
         }
-        debuffTxt.text = debuff[debuffI];
         ApplyStats(debuff[debuffI]);
     }
 
@@ -228,7 +229,7 @@ public class SlotMachine : MonoBehaviour
         }
     }
 
-    public void EndeEdit()
+    public void EndEdit()
     {
         movementScript.moveSpeed = ApplySpeed(inputField.text);
         movementScript.jumpForce = ApplyJump(inputField.text);

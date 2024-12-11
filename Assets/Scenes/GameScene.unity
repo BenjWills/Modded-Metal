@@ -700,8 +700,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1249947658}
         m_TargetAssemblyTypeName: SlotMachine, Assembly-CSharp
-        m_MethodName: EndeEdit
-        m_Mode: 5
+        m_MethodName: EndEdit
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   - Decrease Crouch Speed
   - Slower Slide
   debuffI: 0
-  inputField: {fileID: 0}
+  inputField: {fileID: 272999341}
 --- !u!65 &1249947659
 BoxCollider:
   m_ObjectHideFlags: 0
