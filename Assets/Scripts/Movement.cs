@@ -19,8 +19,8 @@ public class Movement : MonoBehaviour
     InputAction slideAction;
 
     [Header("Movement")]
-    public float startMoveSpeed;
-    public float moveSpeed;
+    public float startSprintSpeed;
+    [SerializeField] float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     Vector2 moveInput;
@@ -78,20 +78,23 @@ public class Movement : MonoBehaviour
         crouchAction = playerInput.actions.FindAction("Crouch");
         slideAction = playerInput.actions.FindAction("Slide");
         rb = GetComponent<Rigidbody>();
+
         startSphereSize = sphereSize;
-        startMoveSpeed = moveSpeed;
+        startSprintSpeed = sprintSpeed;
         startCrouchSpeed = crouchSpeed;
         startJumpForce = jumpForce;
         startSliderForce = sliderForce;
+
+        startgcObject = gcObject.position;
+        startXScale = transform.localScale.x;
+        startYScale = transform.localScale.y;
+        startZScale = transform.localScale.z;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        startgcObject = gcObject.position;
-        startXScale = transform.localScale.x;
-        startYScale = transform.localScale.y;
-        startZScale = transform.localScale.z;
+
     }
 
     // Update is called once per frame

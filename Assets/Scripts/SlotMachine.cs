@@ -13,11 +13,6 @@ public class SlotMachine : MonoBehaviour
     Transform playerPos;
     Transform slotMachine;
 
-    public Vector3 tallPos;
-    public Vector3 shortPos;
-    public Vector3 bothPos;
-    public float bothYHieght;
-
     SphereCollider slotMachineRange;
     bool inTrigger;
 
@@ -65,37 +60,11 @@ public class SlotMachine : MonoBehaviour
             if (interactAction.triggered)
             {
                 RandomStats();
+                buff1Txt.text = buff1[buffI1];
+                buff2Txt.text = buff2[buffI2];
+                debuffTxt.text = debuff[debuffI];
             }
         }
-
-        if (movementScript.playerBody.localScale.y > movementScript.startYScale && movementScript.playerBody.localScale.y != bothYHieght)
-        {
-            movementScript.sphereSize = movementScript.sphereSize * 1.8f;
-            movementScript.jumpForce += 5;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, tallPos.y, movementScript.gcObject.position.z);
-        }
-        else if (movementScript.playerBody.localScale.y < movementScript.startYScale && movementScript.playerBody.localScale.y != bothYHieght)
-        {
-            movementScript.sphereSize = movementScript.sphereSize / 2;
-            movementScript.jumpForce = movementScript.startJumpForce;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, shortPos.y, movementScript.gcObject.position.z);
-        }
-        else if (movementScript.playerBody.localScale.y == bothYHieght)
-        {
-            movementScript.sphereSize = movementScript.startSphereSize;
-            movementScript.jumpForce = movementScript.startJumpForce;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, bothPos.y, movementScript.gcObject.position.z);
-        }
-        else
-        {
-            movementScript.sphereSize = movementScript.startSphereSize;
-            movementScript.jumpForce = movementScript.startJumpForce;
-            movementScript.gcObject.position = new Vector3(movementScript.gcObject.position.x, movementScript.startgcObject.y, movementScript.gcObject.position.z);
-        }
-
-        buff1Txt.text = buff1[buffI1];
-        buff2Txt.text = buff2[buffI2];
-        debuffTxt.text = debuff[debuffI];
     }
 
     private void OnTriggerEnter(Collider other)
@@ -116,24 +85,20 @@ public class SlotMachine : MonoBehaviour
     void RandomStats()
     {
         buffI1 = Random.Range(0, buff1.Length);
+        ApplyStats(buff1[buffI1]);
 
         int doSecondBuff = Random.Range(0, 3);
         if (doSecondBuff == 0)
         {
             buffI2 = Random.Range(0, buff2.Length);
-        }
-
-        debuffI = Random.Range(0, debuff.Length);
-        ApplyStats(buff1[buffI1]);
-
-        if (doSecondBuff == 0)
-        {
             ApplyStats(buff2[buffI2]);
         }
         else
         {
-            buff2Txt.text = "None";
+            ApplyStats("None");
         }
+
+        debuffI = Random.Range(0, debuff.Length);
         ApplyStats(debuff[debuffI]);
     }
 
@@ -147,22 +112,21 @@ public class SlotMachine : MonoBehaviour
 
     void ApplyStats(string buffName)
     {
-        movementScript.moveSpeed = ApplySpeed(buffName);
+        movementScript.sprintSpeed = ApplySpeed(buffName);
         movementScript.jumpForce = ApplyJump(buffName);
         movementScript.crouchSpeed = ApplyCrouch(buffName);
         movementScript.sliderForce = ApplySlide(buffName);
-        movementScript.playerBody.localScale = CompleteSize(buffName);
     }
     float ApplySpeed(string speed)
     {
         switch (speed)
         {
             default:
-                return movementScript.moveSpeed = movementScript.startMoveSpeed;
+                return movementScript.sprintSpeed = movementScript.startSprintSpeed;
             case "Increase Speed":
-                return movementScript.moveSpeed += 5;
+                return movementScript.sprintSpeed += 5;
             case "Decrease Speed":
-                return movementScript.moveSpeed -= 3;
+                return movementScript.sprintSpeed -= 3;
         }
     }
     float ApplyJump(string jump)
@@ -201,40 +165,12 @@ public class SlotMachine : MonoBehaviour
                 return movementScript.sliderForce -= 50;
         } 
     }
-    //Vector3 ApplySize(int size)
-    //{
-    //    switch (size)
-    //    {
-    //        default:
-    //            return movementScript.playerBody.localScale = new Vector3(movementScript.startXScale, movementScript.startYScale, movementScript.startZScale);
-    //        case 1:
-    //            Debug.Log("");
-    //            return movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y / 2, movementScript.playerBody.localScale.z);
-    //        case 2:
-    //            return movementScript.playerBody.localScale = new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y * 1.8f, movementScript.playerBody.localScale.z);
-    //    }
-    //}
-
-    Vector3 CompleteSize(string buffName)
-    {
-        switch (buffName)
-        {
-            default:
-                return new Vector3(movementScript.startXScale, movementScript.startYScale, movementScript.startZScale);
-            case "Decrease Size":
-                Debug.Log("it is");
-                return new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y / 2, movementScript.playerBody.localScale.z);
-            case "Increase Size":
-                return new Vector3(movementScript.playerBody.localScale.x, movementScript.playerBody.localScale.y * 1.8f, movementScript.playerBody.localScale.z);
-        }
-    }
 
     public void EndEdit()
     {
-        movementScript.moveSpeed = ApplySpeed(inputField.text);
-        movementScript.jumpForce = ApplyJump(inputField.text);
-        movementScript.crouchSpeed = ApplyCrouch(inputField.text);
-        movementScript.sliderForce = ApplySlide(inputField.text);
-        movementScript.playerBody.localScale = CompleteSize(inputField.text);
+        ApplyStats(inputField.text);
+        buff1Txt.text = buff1[buffI1];
+        buff2Txt.text = buff2[buffI2];
+        debuffTxt.text = debuff[debuffI];
     }
 }

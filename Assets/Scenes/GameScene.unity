@@ -338,8 +338,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 1457284899}
-  startMoveSpeed: 0
-  moveSpeed: 5
+  startSprintSpeed: 0
+  moveSpeed: 0
   walkSpeed: 7
   sprintSpeed: 10
   groundDrag: 5
@@ -2517,21 +2517,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a229a7501de9d840a72051f127a7695, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tallPos: {x: 0, y: -1.65, z: 0}
-  shortPos: {x: 0, y: -0.27, z: 0}
-  bothPos: {x: 0, y: -0.62, z: 0}
-  bothYHieght: 0.9
   buff1:
   - Increase Speed
   - Increase Jump
   - Quicker Slide
+  - Increase Crouch Speed
   buffI1: 0
   buff2:
-  - Decrease Size
+  - Increase Speed
+  - Increase Jump
+  - Quicker Slide
   - Increase Crouch Speed
   buffI2: 0
   debuff:
-  - Increase Size
   - Decrease Speed
   - Decrease Jump
   - Decrease Crouch Speed
