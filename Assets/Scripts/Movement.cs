@@ -27,7 +27,6 @@ public class Movement : MonoBehaviour
     Vector3 moveDirection;
     [SerializeField] float groundDrag;
     [SerializeField] Transform orientation;
-    [SerializeField] TextMeshProUGUI currentMoveText;
 
     [Header("Bools")]
     bool isGrounded;
@@ -109,12 +108,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
-            currentMoveText.text = "In Air";
             rb.drag = 0;
-        }
-        if (moveInput.x != 0 || moveInput.y != 0 && isCrouching == false && isSliding == false && isSprinting == false && isGrounded == true)
-        {
-            currentMoveText.text = "Walking";
         }
     }
     private void FixedUpdate()
@@ -168,7 +162,6 @@ public class Movement : MonoBehaviour
             isCrouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
-            currentMoveText.text = "Crouching";
             moveSpeed = crouchSpeed;
         }
         else if (crouchAction.triggered && isCrouching == true && !CantStand())
@@ -182,7 +175,6 @@ public class Movement : MonoBehaviour
             isCrouching = false;
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
             isSprinting = true;
-            currentMoveText.text = "Sprinting";
             moveSpeed = sprintSpeed;
         }
         else if (sprintAction.triggered == true && isSprinting == true)
@@ -302,8 +294,6 @@ public class Movement : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
         rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
 
-        currentMoveText.text = "Sliding";
-
         sliderTimer = maxSliderTime;
     }
 
@@ -329,7 +319,6 @@ public class Movement : MonoBehaviour
             isCrouching = true;
             transform.localScale = new Vector3(transform.localScale.x, crouchYScale, transform.localScale.z);
             rb.AddForce(Vector3.down * 5, ForceMode.Impulse);
-            currentMoveText.text = "Crouching";
             moveSpeed = crouchSpeed;
         }
         else
