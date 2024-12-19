@@ -109,6 +109,7 @@ public class Movement : MonoBehaviour
         }
         else
         {
+            currentMoveText.text = "In Air";
             rb.drag = 0;
         }
         if (moveInput.x != 0 || moveInput.y != 0 && isCrouching == false && isSliding == false && isSprinting == false && isGrounded == true)
@@ -280,8 +281,6 @@ public class Movement : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-
-            currentMoveText.text = "Jumping";
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }

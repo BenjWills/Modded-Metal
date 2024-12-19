@@ -91,35 +91,27 @@ public class SlotMachine : MonoBehaviour
 
     void RandomStats()
     {
-        sprintAffected = false;
-        jumpAffected = false;
-        crouchAffected = false;
-        slideAffected = false;
-
-        sprintNumber = 0;
-        jumpNumber = 0;
-        crouchNumber = 0;
-        slideNumber = 0;
+        RemoveStats();
 
         buffI1 = Random.Range(0, buff1.Length);
-        ApplyStats(buff1[buffI1]);
+        ApplyBuff1(buff1[buffI1]);
         buff1Txt.text = buff1[buffI1];
 
         int doSecondBuff = Random.Range(0, 3);
         if (doSecondBuff == 0)
         {
             buffI2 = Random.Range(0, buff2.Length);
-            ApplyStats(buff2[buffI2]);
+            ApplyBuff2(buff2[buffI2]);
             buff2Txt.text = buff2[buffI2];
         }
         else
         {
-            ApplyStats("None");
+            ApplyBuff2("None");
             buff2Txt.text = "None";
         }
 
         debuffI = Random.Range(0, debuff.Length);
-        ApplyStats(debuff[debuffI]);
+        ApplyDebuff(debuff[debuffI]);
         debuffTxt.text = debuff[debuffI];
     }
 
@@ -133,12 +125,88 @@ public class SlotMachine : MonoBehaviour
 
     void ApplyStats(string buffName)
     {
-        movementScript.sprintSpeed = ApplySpeed(buffName);
+        ApplyBuff1(buffName);
+        ApplyBuff2(buffName);
+        ApplyDebuff(buffName);
+
+/*        movementScript.sprintSpeed = ApplySpeed(buffName);
         movementScript.jumpForce = ApplyJump(buffName);
         movementScript.crouchSpeed = ApplyCrouch(buffName);
-        movementScript.sliderForce = ApplySlide(buffName);
+        movementScript.sliderForce = ApplySlide(buffName);*/
     }
-    float ApplySpeed(string speed)
+    void ApplyBuff1(string buffName)
+    {
+        if (buffName == "Increase Speed")
+        {
+            movementScript.sprintSpeed += 3;
+        }
+        else if (buffName == "Increase Jump")
+        {
+            movementScript.jumpForce += 5;
+        }
+        else if (buffName == "Increase Crouch Speed")
+        {
+            movementScript.crouchSpeed += 3.5f;
+        }
+        else if (buffName == "Quicker Slide")
+        {
+            movementScript.sliderForce += 100;
+        }
+        else
+        {
+            movementScript.sprintSpeed = movementScript.startSprintSpeed;
+            movementScript.jumpForce = movementScript.startJumpForce;
+            movementScript.crouchSpeed = movementScript.startCrouchSpeed;
+            movementScript.sliderForce = movementScript.startSliderForce;
+        }
+    }
+    void ApplyBuff2(string buffName)
+    {
+        if (buffName == "Increase Speed")
+        {
+            movementScript.sprintSpeed += 3;
+        }
+        else if (buffName == "Increase Jump")
+        {
+            movementScript.jumpForce += 5;
+        }
+        else if (buffName == "Increase Crouch Speed")
+        {
+            movementScript.crouchSpeed += 3.5f;
+        }
+        else if (buffName == "Quicker Slide")
+        {
+            movementScript.sliderForce += 100;
+        }
+    }
+    void ApplyDebuff(string buffName)
+    {
+        if (buffName == "Decrease Speed")
+        {
+            movementScript.sprintSpeed -= 2;
+        }
+        else if (buffName == "Decrease Jump")
+        {
+            movementScript.jumpForce -= 3;
+        }
+        else if (buffName == "Decrease Crouch Speed")
+        {
+            movementScript.crouchSpeed -= 2;
+        }
+        else if (buffName == "Slower Slide")
+        {
+            movementScript.sliderForce -= 50;
+        }
+        else
+        {
+            movementScript.sprintSpeed = movementScript.startSprintSpeed;
+            movementScript.jumpForce = movementScript.startJumpForce;
+            movementScript.crouchSpeed = movementScript.startCrouchSpeed;
+            movementScript.sliderForce = movementScript.startSliderForce;
+        }
+    }
+
+/*    float ApplySpeed(string speed)
     {
         sprintAffected = true;
         sprintNumber += 1;
@@ -199,7 +267,7 @@ public class SlotMachine : MonoBehaviour
             case "Slower Slide":
                 return movementScript.sliderForce -= 50;
         } 
-    }
+    }*/
 
     public void EndEdit()
     {
