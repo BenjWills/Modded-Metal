@@ -6,12 +6,17 @@ using UnityEngine.SceneManagement;
 
 public class MenusScript : MonoBehaviour
 {
+    GameObject[] gObjects;
+    GameObject go;
+    bool objectsSet = false;
+
     PlayerInput playerInput;
     InputAction openMenuAction;
     bool menuOpen = false;
 
-    [SerializeField] GameObject pauseCanvas;
-    [SerializeField] GameObject mainCanvas;
+    GameObject pauseCanvas;
+    GameObject mainCanvas;
+    GameObject startCanvas;
 
     SlotMachine slotMachine;
     RespawnScript respawnScript;
@@ -20,31 +25,80 @@ public class MenusScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+        gObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+
+        playerInput = SetObject(go.name).GetComponent<PlayerInput>();
+        Debug.Log(go.name);
         openMenuAction = playerInput.actions.FindAction("OpenMenu");
-        respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
-        player = GameObject.Find("Player").GetComponent<Transform>();
-        slotMachine = GameObject.Find("Slot Machine").GetComponent<SlotMachine>();
+        respawnScript = SetObject(go.name).GetComponent<RespawnScript>();
+        Debug.Log(go.name);
+        player = SetObject(go.name).GetComponent<Transform>();
+        slotMachine = SetObject(go.name).GetComponent<SlotMachine>();
+        mainCanvas = SetObject(go.name);
+        pauseCanvas = SetObject(go.name);
+        startCanvas = SetObject(go.name);
+        if (startCanvas != null)
+        {
+            objectsSet = true;
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        mainCanvas.SetActive(!pauseCanvas.activeSelf);
-        pauseCanvas.SetActive(menuOpen);
-        Time.timeScale = mainCanvas.activeSelf ? 1 : 0;
+        if (objectsSet == false)
+        {
+            FindObject();
+        }
+        Scene currentScene = SceneManager.GetActiveScene();
 
-        if (openMenuAction.triggered)
+        if (currentScene.name == "GameScene")
         {
-            menuOpen = !menuOpen;
+            mainCanvas.SetActive(!pauseCanvas.activeSelf);
+            pauseCanvas.SetActive(menuOpen);
+            Time.timeScale = mainCanvas.activeSelf ? 1 : 0;
+
+            if (openMenuAction.triggered)
+            {
+                menuOpen = !menuOpen;
+            }
+            if (menuOpen == true)
+            {
+                Cursor.lockState = CursorLockMode.None;
+            }
+            else
+            {
+                Cursor.lockState = CursorLockMode.Locked;
+            }
         }
-        if (menuOpen == true)
+    }
+
+    GameObject SetObject(string objectName)
+    {
+        switch (objectName)
         {
-            Cursor.lockState = CursorLockMode.None;
+            default:
+                return null;
+            case "PauseCanvas":
+                return go;
+            case "MainCanvas":
+                return go;
+            case "Player":
+                return go;
+            case "Respawn Point":
+                return go;
+            case "Slot Machine":
+                return go;            
+            case "StartCanvas":
+                return go;
         }
-        else
+    }
+
+    void FindObject()
+    {
+        for (int i = 0; i < gObjects.Length; i++)
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            go = gObjects[i];
         }
     }
 
