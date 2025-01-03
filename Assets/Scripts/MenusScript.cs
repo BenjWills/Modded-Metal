@@ -7,9 +7,9 @@ using UnityEngine.SceneManagement;
 public class MenusScript : MonoBehaviour
 {
     GameObject[] gObjects;
-    GameObject go;
-    bool objectsSet = false;
+    Scene currentScene;
 
+    GameObject playerGO;
     PlayerInput playerInput;
     InputAction openMenuAction;
     bool menuOpen = false;
@@ -18,7 +18,9 @@ public class MenusScript : MonoBehaviour
     GameObject mainCanvas;
     GameObject startCanvas;
 
-    SlotMachine slotMachine;
+    GameObject slotMachine;
+    SlotMachine slotMachineScript;
+    GameObject respawnPoint;
     RespawnScript respawnScript;
     Transform player;
 
@@ -26,32 +28,38 @@ public class MenusScript : MonoBehaviour
     void Start()
     {
         gObjects = Resources.FindObjectsOfTypeAll<GameObject>();
+        currentScene = SceneManager.GetActiveScene();
+        Debug.Log(currentScene.name);
 
-        playerInput = SetObject(go.name).GetComponent<PlayerInput>();
-        Debug.Log(go.name);
-        openMenuAction = playerInput.actions.FindAction("OpenMenu");
-        respawnScript = SetObject(go.name).GetComponent<RespawnScript>();
-        Debug.Log(go.name);
-        player = SetObject(go.name).GetComponent<Transform>();
-        slotMachine = SetObject(go.name).GetComponent<SlotMachine>();
-        mainCanvas = SetObject(go.name);
-        pauseCanvas = SetObject(go.name);
-        startCanvas = SetObject(go.name);
-        if (startCanvas != null)
+        if (currentScene.name == "MainMenu")
         {
-            objectsSet = true;
+            for (int i = 0; i < gObjects.Length; i++)
+            {
+                SetObject(startCanvas, gObjects[i]);
+            }
+        }
+        if (currentScene.name == "GameScene")
+        {
+            for (global::System.Int32 i = 0; i < gObjects.Length; i++)
+            {
+                SetObject(mainCanvas, gObjects[i]);
+                SetObject(pauseCanvas, gObjects[i]);
+                SetObject(playerGO, gObjects[i]);
+                SetObject(respawnPoint, gObjects[i]);
+                SetObject(slotMachine, gObjects[i]);
+            }
+
+            playerInput = playerGO.GetComponent<PlayerInput>();
+            respawnScript = respawnPoint.GetComponent<RespawnScript>();
+            player = playerGO.GetComponent<Transform>();
+            slotMachineScript = slotMachine.GetComponent<SlotMachine>();
+            openMenuAction = playerInput.actions.FindAction("OpenMenu");
         }
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (objectsSet == false)
-        {
-            FindObject();
-        }
-        Scene currentScene = SceneManager.GetActiveScene();
-
         if (currentScene.name == "GameScene")
         {
             mainCanvas.SetActive(!pauseCanvas.activeSelf);
@@ -73,32 +81,31 @@ public class MenusScript : MonoBehaviour
         }
     }
 
-    GameObject SetObject(string objectName)
+    void SetObject(GameObject currentgo, GameObject gobject)
     {
-        switch (objectName)
+        switch (gobject.name)
         {
             default:
-                return null;
+                Debug.Log(gobject.name + " was not set!");
+                break;
             case "PauseCanvas":
-                return go;
+                currentgo = gobject;
+                break;
             case "MainCanvas":
-                return go;
+                currentgo = gobject;
+                break;
             case "Player":
-                return go;
+                currentgo = gobject;
+                break;
             case "Respawn Point":
-                return go;
+                currentgo = gobject;
+                break;
             case "Slot Machine":
-                return go;            
+                currentgo = gobject;
+                break;
             case "StartCanvas":
-                return go;
-        }
-    }
-
-    void FindObject()
-    {
-        for (int i = 0; i < gObjects.Length; i++)
-        {
-            go = gObjects[i];
+                currentgo = gobject;
+                break;
         }
     }
 
@@ -130,6 +137,6 @@ public class MenusScript : MonoBehaviour
 
     public void RSButton()
     {
-        slotMachine.RemoveStats();
+        slotMachineScript.RemoveStats();
     }
 }
