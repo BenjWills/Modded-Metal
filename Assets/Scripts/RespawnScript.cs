@@ -28,6 +28,7 @@ public class RespawnScript : MonoBehaviour
         playerHeight = player.transform.position.y;
         if (lowestLevel >= playerHeight)
         {
+            PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
             player.transform.position = respawnPoint.position;
         }
     }

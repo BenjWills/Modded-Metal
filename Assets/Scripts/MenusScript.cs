@@ -6,10 +6,8 @@ using UnityEngine.SceneManagement;
 
 public class MenusScript : MonoBehaviour
 {
-    GameObject[] gObjects;
     Scene currentScene;
 
-    GameObject playerGO;
     PlayerInput playerInput;
     InputAction openMenuAction;
     bool menuOpen = false;
@@ -18,41 +16,28 @@ public class MenusScript : MonoBehaviour
     GameObject mainCanvas;
     GameObject startCanvas;
 
-    GameObject slotMachine;
     SlotMachine slotMachineScript;
-    GameObject respawnPoint;
     RespawnScript respawnScript;
     Transform player;
 
     // Start is called before the first frame update
     void Start()
     {
-        gObjects = Resources.FindObjectsOfTypeAll<GameObject>();
         currentScene = SceneManager.GetActiveScene();
         Debug.Log(currentScene.name);
 
         if (currentScene.name == "MainMenu")
         {
-            for (int i = 0; i < gObjects.Length; i++)
-            {
-                SetObject(startCanvas, gObjects[i]);
-            }
+            startCanvas = GameObject.Find("StartCanvas");
         }
         if (currentScene.name == "GameScene")
         {
-            for (global::System.Int32 i = 0; i < gObjects.Length; i++)
-            {
-                SetObject(mainCanvas, gObjects[i]);
-                SetObject(pauseCanvas, gObjects[i]);
-                SetObject(playerGO, gObjects[i]);
-                SetObject(respawnPoint, gObjects[i]);
-                SetObject(slotMachine, gObjects[i]);
-            }
-
-            playerInput = playerGO.GetComponent<PlayerInput>();
-            respawnScript = respawnPoint.GetComponent<RespawnScript>();
-            player = playerGO.GetComponent<Transform>();
-            slotMachineScript = slotMachine.GetComponent<SlotMachine>();
+            mainCanvas = GameObject.Find("MainCanvas");
+            pauseCanvas = GameObject.Find("PauseCanvas");
+            playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+            respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
+            player = GameObject.Find("Player").GetComponent<Transform>();
+            slotMachineScript = GameObject.Find("Slot Machine").GetComponent<SlotMachine>();
             openMenuAction = playerInput.actions.FindAction("OpenMenu");
         }
     }
@@ -81,34 +66,6 @@ public class MenusScript : MonoBehaviour
         }
     }
 
-    void SetObject(GameObject currentgo, GameObject gobject)
-    {
-        switch (gobject.name)
-        {
-            default:
-                Debug.Log(gobject.name + " was not set!");
-                break;
-            case "PauseCanvas":
-                currentgo = gobject;
-                break;
-            case "MainCanvas":
-                currentgo = gobject;
-                break;
-            case "Player":
-                currentgo = gobject;
-                break;
-            case "Respawn Point":
-                currentgo = gobject;
-                break;
-            case "Slot Machine":
-                currentgo = gobject;
-                break;
-            case "StartCanvas":
-                currentgo = gobject;
-                break;
-        }
-    }
-
     public void PlayGame()
     {
         SceneManager.LoadScene("GameScene");
@@ -124,14 +81,19 @@ public class MenusScript : MonoBehaviour
         Application.Quit();
     }
 
-
     public void PauseBack()
     {
         menuOpen = false;
     }
 
+    public void MainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
     public void RespawnPlayer()
     {
+        PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
         player.position = respawnScript.respawnPoint.position;
     }
 

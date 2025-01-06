@@ -26,16 +26,6 @@ public class SlotMachine : MonoBehaviour
     public int debuffI;
     private TextMeshProUGUI debuffTxt;
 
-
-    bool sprintAffected;
-    int sprintNumber;
-    bool crouchAffected;
-    int crouchNumber;
-    bool jumpAffected;
-    int jumpNumber;
-    bool slideAffected;
-    int slideNumber;
-
     public TMP_InputField inputField;
 
     private void Awake()
@@ -65,10 +55,11 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (inTrigger == true)
+        if (inTrigger == true && PlayerPrefs.GetInt("smCoin") >= 1)
         {
             if (interactAction.triggered)
             {
+                PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
                 RandomStats();
             }
         }
@@ -128,11 +119,6 @@ public class SlotMachine : MonoBehaviour
         ApplyBuff1(buffName);
         ApplyBuff2(buffName);
         ApplyDebuff(buffName);
-
-/*        movementScript.sprintSpeed = ApplySpeed(buffName);
-        movementScript.jumpForce = ApplyJump(buffName);
-        movementScript.crouchSpeed = ApplyCrouch(buffName);
-        movementScript.sliderForce = ApplySlide(buffName);*/
     }
     void ApplyBuff1(string buffName)
     {
@@ -205,69 +191,6 @@ public class SlotMachine : MonoBehaviour
             movementScript.sliderForce = movementScript.startSliderForce;
         }
     }
-
-/*    float ApplySpeed(string speed)
-    {
-        sprintAffected = true;
-        sprintNumber += 1;
-
-        switch (speed)
-        {
-            default:
-                return movementScript.sprintSpeed = movementScript.startSprintSpeed;
-            case "Increase Speed":
-                Debug.Log("buff");
-                return movementScript.sprintSpeed += 3;
-            case "Decrease Speed":
-                return movementScript.sprintSpeed -= 2;
-        }
-    }
-    float ApplyJump(string jump)
-    {
-        jumpAffected = true;
-        sprintNumber += 1;
-
-        switch (jump)
-        {
-            default:
-                return movementScript.jumpForce = movementScript.startJumpForce;
-            case "Increase Jump":
-                Debug.Log("buff again");
-                return movementScript.jumpForce += 5;
-            case "Decrease Jump":
-                return movementScript.jumpForce -= 3;
-        }
-    }
-    float ApplyCrouch(string crouch)
-    {
-        crouchAffected = true;
-        crouchNumber += 1;
-        switch (crouch)
-        {
-            default:
-                return movementScript.crouchSpeed = movementScript.startCrouchSpeed;
-            case "Increase Crouch Speed":
-                Debug.Log("buff once more");
-                return movementScript.crouchSpeed += 3.5f;
-            case "Decrease Crouch Speed":
-                return movementScript.crouchSpeed -= 2;
-        }
-    }
-    float ApplySlide(string slide)
-    {
-        slideAffected = true;
-        slideNumber += 1;
-        switch (slide)
-        {
-            default:
-                return movementScript.sliderForce = movementScript.startSliderForce;
-            case "Quicker Slide":
-                Debug.Log("damn bro");
-                return movementScript.sliderForce += 100;
-            case "Slower Slide":
-                return movementScript.sliderForce -= 50;
-        } 
-    }*/
 
     public void EndEdit()
     {

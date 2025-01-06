@@ -12,6 +12,7 @@ public class SpawnLevel : MonoBehaviour
     [SerializeField] GameObject[] levelArray;
     SpawnerScript spawnerScript;
     [SerializeField] Transform levelPos;
+    [SerializeField] GameObject levelDoor;
 
     private void Awake()
     {
@@ -38,8 +39,7 @@ public class SpawnLevel : MonoBehaviour
         {
             if (interactAction.triggered)
             {
-                DespawnLevel();
-                GenerateLevel();
+                StartCoroutine(LevelSpawn());
             }
         }
     }
@@ -63,6 +63,8 @@ public class SpawnLevel : MonoBehaviour
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel == null)
         {
+            PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
+            levelDoor.SetActive(false);
             Instantiate(levelArray[Random.Range(0, levelArray.Length)]);
             spawnerScript.StartLevelSpawning();
         }
@@ -72,8 +74,16 @@ public class SpawnLevel : MonoBehaviour
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel != null)
         {
+            levelDoor.SetActive(true);
             spawnerScript.RemoveObstacles();
             Destroy(currentLevel);
         }
+    }
+
+    IEnumerator LevelSpawn()
+    {
+        DespawnLevel();
+        yield return new WaitForSeconds(0.1f);
+        GenerateLevel();
     }
 }
