@@ -10,6 +10,8 @@ public class Movement : MonoBehaviour
     [Header("Player")]
     public Transform playerBody;
     Rigidbody rb;
+    [SerializeField] Camera pcam;
+    [SerializeField] bool godMode;
 
     [Header("Inputs")]
     PlayerInput playerInput;
@@ -17,6 +19,7 @@ public class Movement : MonoBehaviour
     InputAction sprintAction;
     InputAction crouchAction;
     InputAction slideAction;
+    InputAction activateAbilityAction;
 
     [Header("Movement")]
     public float startSprintSpeed;
@@ -27,6 +30,7 @@ public class Movement : MonoBehaviour
     Vector3 moveDirection;
     [SerializeField] float groundDrag;
     [SerializeField] Transform orientation;
+    [SerializeField] float dashForce;
 
     [Header("Bools")]
     bool isGrounded;
@@ -38,6 +42,7 @@ public class Movement : MonoBehaviour
     public float startJumpForce;
     public float jumpForce;
     [SerializeField] float jumpCooldown;
+    [SerializeField] float startJumpCooldown;
     [SerializeField] float airMultiplier;
     bool readyToJump;
 
@@ -76,6 +81,7 @@ public class Movement : MonoBehaviour
         sprintAction = playerInput.actions.FindAction("Sprint");
         crouchAction = playerInput.actions.FindAction("Crouch");
         slideAction = playerInput.actions.FindAction("Slide");
+        activateAbilityAction = playerInput.actions.FindAction("ActivateAbility");
         rb = GetComponent<Rigidbody>();
 
         startSphereSize = sphereSize;
@@ -83,6 +89,7 @@ public class Movement : MonoBehaviour
         startCrouchSpeed = crouchSpeed;
         startJumpForce = jumpForce;
         startSliderForce = sliderForce;
+        startJumpCooldown = jumpCooldown;
 
         startgcObject = gcObject.position;
         startXScale = transform.localScale.x;
@@ -109,6 +116,15 @@ public class Movement : MonoBehaviour
         else
         {
             rb.drag = 0;
+        }
+        if (godMode == true)
+        {
+            isGrounded = true;
+            jumpCooldown = 0;
+        }
+        else
+        {
+            jumpCooldown = startJumpCooldown;
         }
     }
     private void FixedUpdate()
@@ -327,5 +343,22 @@ public class Movement : MonoBehaviour
         }
     }
 
+    public void Dash()
+    {
+        if (!CantStand())
+        {
+            if (activateAbilityAction.triggered)
+            {
+                rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
+            }
+        }
+    }
 
+    public void PlaceJumpPad()
+    {
+        if (activateAbilityAction.triggered)
+        {
+            Debug.Log("Placed jump pad!");
+        }
+    }
 }

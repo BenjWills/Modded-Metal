@@ -88,7 +88,7 @@ public class SlotMachine : MonoBehaviour
         ApplyBuff1(buff1[buffI1]);
         buff1Txt.text = buff1[buffI1];
 
-        int doSecondBuff = Random.Range(0, 3);
+        int doSecondBuff = Random.Range(0, 2);
         if (doSecondBuff == 0)
         {
             buffI2 = Random.Range(0, buff2.Length);
@@ -148,21 +148,13 @@ public class SlotMachine : MonoBehaviour
     }
     void ApplyBuff2(string buffName)
     {
-        if (buffName == "Increase Speed")
+        if (buffName == "Dash")
         {
-            movementScript.sprintSpeed += 3;
+            movementScript.Dash();
         }
-        else if (buffName == "Increase Jump")
+        else if (buffName == "Place Jump Pad")
         {
-            movementScript.jumpForce += 5;
-        }
-        else if (buffName == "Increase Crouch Speed")
-        {
-            movementScript.crouchSpeed += 3.5f;
-        }
-        else if (buffName == "Quicker Slide")
-        {
-            movementScript.sliderForce += 100;
+            movementScript.PlaceJumpPad();
         }
     }
     void ApplyDebuff(string buffName)

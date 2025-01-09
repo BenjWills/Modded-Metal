@@ -15,6 +15,7 @@ public class MenusScript : MonoBehaviour
     GameObject pauseCanvas;
     GameObject mainCanvas;
     GameObject startCanvas;
+    [SerializeField] GameObject settingsCanvas;
 
     SlotMachine slotMachineScript;
     RespawnScript respawnScript;
@@ -73,7 +74,7 @@ public class MenusScript : MonoBehaviour
 
     public void Settings()
     {
-
+        settingsCanvas.SetActive(!settingsCanvas.activeSelf);
     }
 
     public void QuitGame()
