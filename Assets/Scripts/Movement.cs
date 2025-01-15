@@ -11,7 +11,6 @@ public class Movement : MonoBehaviour
     public Transform playerBody;
     Rigidbody rb;
     [SerializeField] Camera pcam;
-    [SerializeField] bool godMode;
 
     [Header("Inputs")]
     PlayerInput playerInput;
@@ -116,15 +115,6 @@ public class Movement : MonoBehaviour
         else
         {
             rb.drag = 0;
-        }
-        if (godMode == true)
-        {
-            isGrounded = true;
-            jumpCooldown = 0;
-        }
-        else
-        {
-            jumpCooldown = startJumpCooldown;
         }
     }
     private void FixedUpdate()

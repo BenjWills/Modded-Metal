@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using TMPro;
 
 public class SpawnLevel : MonoBehaviour
 {
@@ -13,6 +14,11 @@ public class SpawnLevel : MonoBehaviour
     SpawnerScript spawnerScript;
     [SerializeField] Transform levelPos;
     [SerializeField] GameObject levelDoor;
+    [SerializeField] TextMeshProUGUI timerText;
+    [SerializeField] TextMeshProUGUI bestTimeText;
+    public bool timerStarted;
+    float timerTime;
+
 
     private void Awake()
     {
@@ -29,7 +35,7 @@ public class SpawnLevel : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -39,9 +45,11 @@ public class SpawnLevel : MonoBehaviour
         {
             if (interactAction.triggered)
             {
-                StartCoroutine(LevelSpawn());
+                SpawnTheLevel();
             }
         }
+        Timer();
+        bestTimeText.text = "Best: " + PlayerPrefs.GetFloat("BestTime").ToString();
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -67,9 +75,11 @@ public class SpawnLevel : MonoBehaviour
             levelDoor.SetActive(false);
             Instantiate(levelArray[Random.Range(0, levelArray.Length)]);
             spawnerScript.StartLevelSpawning();
+            timerStarted = true;
+            PlayerPrefs.Save();
         }
     }
-    private void DespawnLevel()
+    public void DespawnLevel()
     {
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel != null)
@@ -77,7 +87,33 @@ public class SpawnLevel : MonoBehaviour
             levelDoor.SetActive(true);
             spawnerScript.RemoveObstacles();
             Destroy(currentLevel);
+            timerStarted = false;
         }
+    }
+
+    void Timer()
+    {
+        GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
+        if (currentLevel != null && timerStarted == true)
+        {
+            timerTime += Time.deltaTime;
+            timerText.text = timerTime.ToString();
+        }
+        else if (timerStarted == false) 
+        {
+            if (timerTime < PlayerPrefs.GetFloat("BestTime"))
+            {
+                PlayerPrefs.SetFloat("BestTime", timerTime);
+                PlayerPrefs.Save();
+            }
+            timerTime = 0;
+            timerText.text = timerTime.ToString();
+        }
+    }
+
+    public void SpawnTheLevel()
+    {
+        StartCoroutine(LevelSpawn());
     }
 
     IEnumerator LevelSpawn()

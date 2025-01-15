@@ -30,6 +30,14 @@ public class RespawnScript : MonoBehaviour
         {
             PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
             player.transform.position = respawnPoint.position;
+            PlayerPrefs.Save();
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
+        player.transform.position = respawnPoint.position;
+        PlayerPrefs.Save();
     }
 }

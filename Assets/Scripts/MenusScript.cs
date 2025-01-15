@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class MenusScript : MonoBehaviour
 {
@@ -20,6 +21,11 @@ public class MenusScript : MonoBehaviour
     SlotMachine slotMachineScript;
     RespawnScript respawnScript;
     Transform player;
+
+    [SerializeField] TextMeshProUGUI coins;
+    [SerializeField] TextMeshProUGUI wins;
+    [SerializeField] TextMeshProUGUI deaths;
+    [SerializeField] TextMeshProUGUI levelsSpawned;
 
     // Start is called before the first frame update
     void Start()
@@ -65,6 +71,11 @@ public class MenusScript : MonoBehaviour
                 Cursor.lockState = CursorLockMode.Locked;
             }
         }
+
+        coins.text = "Coins: " + PlayerPrefs.GetInt("smCoin").ToString();
+        wins.text = "Wins: " + PlayerPrefs.GetInt("winTotal").ToString();
+        deaths.text = "Deaths: " + PlayerPrefs.GetInt("deathTotal").ToString();
+        levelsSpawned.text = "Levels Spawned: " + PlayerPrefs.GetInt("levelsSpawned").ToString();
     }
 
     public void PlayGame()
@@ -79,6 +90,7 @@ public class MenusScript : MonoBehaviour
 
     public void QuitGame()
     {
+        PlayerPrefs.Save();
         Application.Quit();
     }
 
@@ -96,6 +108,7 @@ public class MenusScript : MonoBehaviour
     {
         PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
         player.position = respawnScript.respawnPoint.position;
+        PlayerPrefs.Save();
     }
 
     public void RSButton()

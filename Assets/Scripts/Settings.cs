@@ -10,6 +10,7 @@ public class Settings : MonoBehaviour
     [SerializeField] int deathTotal;
     [SerializeField] int winTotal;
     [SerializeField] int levelsSpawned;
+    [SerializeField] float bestTime;
 
     public static Settings Instance { get { return _instance; } }
 
@@ -23,6 +24,27 @@ public class Settings : MonoBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
+        }
+
+        if (!PlayerPrefs.HasKey("smCoin"))
+        {
+            PlayerPrefs.SetInt("smCoin", 0);
+        }
+        if (!PlayerPrefs.HasKey("deathTotal"))
+        {
+            PlayerPrefs.SetInt("deathTotal", 0);
+        }
+        if (!PlayerPrefs.HasKey("winTotal"))
+        {
+            PlayerPrefs.SetInt("winTotal", 0);
+        }
+        if (!PlayerPrefs.HasKey("levelSpawned"))
+        {
+            PlayerPrefs.SetInt("levelSpawned", 0);
+        }
+        if (!PlayerPrefs.HasKey("BestTime"))
+        {
+            PlayerPrefs.SetInt("BestTime", 9999);
         }
     }
     // Start is called before the first frame update
@@ -38,5 +60,6 @@ public class Settings : MonoBehaviour
         deathTotal = PlayerPrefs.GetInt("deathTotal");
         winTotal = PlayerPrefs.GetInt("winTotal");
         levelsSpawned = PlayerPrefs.GetInt("levelsSpawned");
+        bestTime = PlayerPrefs.GetFloat("BestTime");
     }
 }

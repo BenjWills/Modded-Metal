@@ -61,6 +61,7 @@ public class SlotMachine : MonoBehaviour
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
                 RandomStats();
+                PlayerPrefs.Save();
             }
         }
     }
