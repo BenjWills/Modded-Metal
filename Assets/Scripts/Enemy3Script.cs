@@ -22,6 +22,7 @@ public class Enemy3Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             respawnScript.RespawnPlayer();
+            this.gameObject.SetActive(false);
         }
     }
 }

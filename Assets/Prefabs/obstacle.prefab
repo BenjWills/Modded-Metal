@@ -120,8 +120,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 5169993983906450687, guid: 62dbb8652b70a0042919d89ac92fc28a, type: 3}
-  rotationSpeed: 10
-  flightSpeed: 50
+  flightSpeed: 5
+  destructionTimeInt: 3
 --- !u!1 &5265765657878068513
 GameObject:
   m_ObjectHideFlags: 0
