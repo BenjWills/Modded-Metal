@@ -11,7 +11,7 @@ public class Enemy2Script : MonoBehaviour
     MeshRenderer meshRenderer;
     [SerializeField] Vector3 sizeExpansion;
     RaycastHit hit;
-    bool canDie;
+    bool canDie = false;
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +28,7 @@ public class Enemy2Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Physics.Raycast(this.gameObject.transform.position, player.transform.position, out hit, 3))
+        if (Physics.Raycast(this.gameObject.transform.position, player.transform.position, out hit, 5))
         {
             StartCoroutine(OnTouchTime());
         }
@@ -46,6 +46,7 @@ public class Enemy2Script : MonoBehaviour
     {
         meshRenderer.enabled = true;
         childObj.SetActive(true);
+        canDie = true;
         if (thisObj.transform.localScale != sizeExpansion)
         {
             thisObj.transform.localScale = new Vector3(thisObj.transform.localScale.x + 0.1f, thisObj.transform.localScale.y + 0.1f, thisObj.transform.localScale.z + 0.1f);
