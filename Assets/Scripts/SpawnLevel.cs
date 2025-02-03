@@ -73,7 +73,7 @@ public class SpawnLevel : MonoBehaviour
         {
             PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
             levelDoor.SetActive(false);
-            Instantiate(levelArray[Random.Range(0, levelArray.Length)]);
+            Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
             spawnerScript.StartLevelSpawning();
             timerStarted = true;
             PlayerPrefs.Save();

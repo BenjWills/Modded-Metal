@@ -38,9 +38,9 @@ public class Settings : MonoBehaviour
         {
             PlayerPrefs.SetInt("winTotal", 0);
         }
-        if (!PlayerPrefs.HasKey("levelSpawned"))
+        if (!PlayerPrefs.HasKey("levelsSpawned"))
         {
-            PlayerPrefs.SetInt("levelSpawned", 0);
+            PlayerPrefs.SetInt("levelsSpawned", 0);
         }
         if (!PlayerPrefs.HasKey("BestTime"))
         {

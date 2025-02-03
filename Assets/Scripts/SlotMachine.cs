@@ -47,9 +47,33 @@ public class SlotMachine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        buff1Txt.text = "None";
-        buff2Txt.text = "None";
-        debuffTxt.text = "None";
+        if (PlayerPrefs.HasKey("Buff1"))
+        {
+            ApplyBuff1(buff1[PlayerPrefs.GetInt("Buff1")]);
+            buff1Txt.text = buff1[PlayerPrefs.GetInt("Buff1")];
+        }
+        else
+        {
+            buff1Txt.text = "None";
+        }
+        if (PlayerPrefs.HasKey("Buff2"))
+        {
+            ApplyBuff2(buff2[PlayerPrefs.GetInt("Buff2")]);
+            buff2Txt.text = buff2[PlayerPrefs.GetInt("Buff2")];
+        }
+        else
+        {
+            buff2Txt.text = "None";
+        }
+        if (PlayerPrefs.HasKey("Debuff"))
+        {
+            ApplyDebuff(debuff[PlayerPrefs.GetInt("Debuff")]);
+            debuffTxt.text = debuff[PlayerPrefs.GetInt("Debuff")];
+        }
+        else
+        {
+            debuffTxt.text = "None";
+        }
     }
 
     // Update is called once per frame
@@ -86,6 +110,7 @@ public class SlotMachine : MonoBehaviour
         RemoveStats();
 
         buffI1 = Random.Range(0, buff1.Length);
+        PlayerPrefs.SetInt("Buff1", buffI1);
         ApplyBuff1(buff1[buffI1]);
         buff1Txt.text = buff1[buffI1];
 
@@ -93,16 +118,19 @@ public class SlotMachine : MonoBehaviour
         if (doSecondBuff == 0)
         {
             buffI2 = Random.Range(0, buff2.Length);
+            PlayerPrefs.SetInt("Buff2", buffI2);
             ApplyBuff2(buff2[buffI2]);
             buff2Txt.text = buff2[buffI2];
         }
         else
         {
+            PlayerPrefs.DeleteKey("Buff2");
             ApplyBuff2("None");
             buff2Txt.text = "None";
         }
 
         debuffI = Random.Range(0, debuff.Length);
+        PlayerPrefs.SetInt("Debuff", debuffI);
         ApplyDebuff(debuff[debuffI]);
         debuffTxt.text = debuff[debuffI];
     }
@@ -183,13 +211,5 @@ public class SlotMachine : MonoBehaviour
             movementScript.crouchSpeed = movementScript.startCrouchSpeed;
             movementScript.sliderForce = movementScript.startSliderForce;
         }
-    }
-
-    public void EndEdit()
-    {
-        ApplyStats(inputField.text);
-        buff1Txt.text = buff1[buffI1];
-        buff2Txt.text = buff2[buffI2];
-        debuffTxt.text = debuff[debuffI];
     }
 }
