@@ -8,6 +8,9 @@ public class RespawnScript : MonoBehaviour
     GameObject player;
     float playerHeight;
     public Transform respawnPoint;
+    [SerializeField] Camera pCam;
+
+    [SerializeField] ParticleSystem explosion;
 
     private void Awake()
     {
@@ -37,7 +40,17 @@ public class RespawnScript : MonoBehaviour
     public void RespawnPlayer()
     {
         PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
-        player.transform.position = respawnPoint.position;
+        StartCoroutine(ExplosionTime());
         PlayerPrefs.Save();
+    }
+
+    IEnumerator ExplosionTime()
+    {
+        pCam.transform.position = new Vector3(3, 0, 0);
+        yield return new WaitForSeconds(0.1f);
+        explosion.Play();
+        yield return new WaitForSeconds(1);
+        pCam.transform.position = new Vector3(0, 0, 0);
+        player.transform.position = respawnPoint.position;
     }
 }

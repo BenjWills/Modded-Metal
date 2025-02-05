@@ -1682,6 +1682,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!198 &553607628 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 2807682301805035183, guid: 62dbb8652b70a0042919d89ac92fc28a,
+    type: 3}
+  m_PrefabInstance: {fileID: 476086036376082737}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &604155363
 GameObject:
   m_ObjectHideFlags: 0
@@ -4149,6 +4155,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lowestLevel: -10
   respawnPoint: {fileID: 0}
+  pCam: {fileID: 330585545}
+  explosion: {fileID: 553607628}
 --- !u!4 &1367028662
 Transform:
   m_ObjectHideFlags: 0
@@ -6517,6 +6525,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
+      propertyPath: pcam
+      value: 
+      objectReference: {fileID: 330585545}
+    - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
       propertyPath: jumpForce
       value: 7
       objectReference: {fileID: 0}
@@ -6524,6 +6537,11 @@ PrefabInstance:
         type: 3}
       propertyPath: airMultiplier
       value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2807682301805035183, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: playOnAwake
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2904137056550003885, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
