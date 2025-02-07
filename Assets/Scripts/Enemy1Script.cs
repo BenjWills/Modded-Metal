@@ -23,12 +23,8 @@ public class Enemy1Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        Debug.Log(PlayerLockOn());
-
         if (PlayerLockOn() == true)
         {
-            Debug.Log("BOOM");
             transform.position += transform.forward * flightSpeed * Time.deltaTime;
             StartCoroutine(DestructionTimer());
         }
@@ -72,7 +68,7 @@ public class Enemy1Script : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             respawnScript.RespawnPlayer();
-            this.gameObject.SetActive(false);
+            Destroy(this.gameObject);
         }
     }
 

@@ -31,7 +31,6 @@ public class MenusScript : MonoBehaviour
     void Start()
     {
         currentScene = SceneManager.GetActiveScene();
-        Debug.Log(currentScene.name);
 
         if (currentScene.name == "MainMenu")
         {

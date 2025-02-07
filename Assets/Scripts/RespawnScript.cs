@@ -40,7 +40,8 @@ public class RespawnScript : MonoBehaviour
     public void RespawnPlayer()
     {
         PlayerPrefs.SetInt("deathTotal", PlayerPrefs.GetInt("deathTotal") + 1);
-        StartCoroutine(ExplosionTime());
+        //StartCoroutine(ExplosionTime());
+        player.transform.position = respawnPoint.position;
         PlayerPrefs.Save();
     }
 
@@ -51,6 +52,5 @@ public class RespawnScript : MonoBehaviour
         explosion.Play();
         yield return new WaitForSeconds(1);
         pCam.transform.position = new Vector3(0, 0, 0);
-        player.transform.position = respawnPoint.position;
     }
 }
