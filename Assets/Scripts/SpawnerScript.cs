@@ -8,6 +8,7 @@ public class SpawnerScript : MonoBehaviour
     [SerializeField] GameObject obstacle;
     [SerializeField] GameObject[] obstacles;
     GameObject[] activeObstacles;
+    public SpawningRestriction[] sr;
     public bool[] upSpace;
     public bool[] downSpace;
     public bool[] leftSpace;

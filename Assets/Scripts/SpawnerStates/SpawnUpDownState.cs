@@ -16,12 +16,12 @@ public class SpawnUpDownState : BaseSpawnerState
             ss.randomX[i] = Random.Range(-ss.spawnSpots[i].transform.localScale.x / 2 + 0.5f, ss.spawnSpots[i].transform.localScale.x / 2 - 0.5f);
             ss.randomY[i] = Random.Range(-ss.spawnSpots[i].transform.localScale.y / 2 + 0.5f, ss.spawnSpots[i].transform.localScale.y / 2 - 0.5f);
             ss.randomZ[i] = Random.Range(-ss.spawnSpots[i].transform.localScale.z / 2 + 0.5f, ss.spawnSpots[i].transform.localScale.z / 2 - 0.5f);
-            if (ss.upSpace[i] == true)
+            if (ss.upSpace[i] == true && ss.sr[i].up == true)
             {
                 Vector3 tempVectorU = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y + ss.spawnSpots[i].transform.localScale.y / 2 + 0.5f, ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
                 ss.SpawnObstacle("up", tempVectorU);
             }
-            if (ss.downSpace[i] == true)
+            if (ss.downSpace[i] == true && ss.sr[i].down == true)
             {
                 Vector3 tempVectorD = new Vector3(ss.spawnSpots[i].transform.position.x + ss.randomX[i], ss.spawnSpots[i].transform.position.y - ss.spawnSpots[i].transform.localScale.y / 2 - 0.5f, ss.spawnSpots[i].transform.position.z + ss.randomZ[i]);
                 ss.SpawnObstacle("down", tempVectorD);

@@ -11,6 +11,7 @@ public class UpDownState : BaseSpawnerState
         int spawnSpotsAmount = GameObject.FindGameObjectsWithTag("Spawnable").Length;
         ss.spawnSpots = new GameObject[spawnSpotsAmount];
         ss.spawnSpots = GameObject.FindGameObjectsWithTag("Spawnable");
+        ss.sr = new SpawningRestriction[ss.spawnSpots.Length];
 
         ss.spawnDone = false;
         ss.reset = false;
@@ -20,6 +21,7 @@ public class UpDownState : BaseSpawnerState
 
         for (int i = 0; i < ss.spawnSpots.Length; i++)
         {
+            ss.sr[i] = ss.spawnSpots[i].GetComponent<SpawningRestriction>();
             if (Physics.Raycast(ss.spawnSpots[i].transform.position + ss.spawnSpots[i].transform.localScale / 2, Vector3.up, out ss.hit, 2) == false)
             {
                 ss.upSpace[i] = true;

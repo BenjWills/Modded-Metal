@@ -4,14 +4,12 @@ using UnityEngine;
 
 public class Enemy3Script : MonoBehaviour
 {
-    RespawnScript respawnScript;
     bool invisable;
     [SerializeField] GameObject childObj;
 
     // Start is called before the first frame update
     void Start()
     {
-        respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
         StartCoroutine(InvisTime());
     }
 
@@ -27,14 +25,7 @@ public class Enemy3Script : MonoBehaviour
             childObj.SetActive(true);
         }
     }
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            respawnScript.RespawnPlayer();
-            Destroy(this.gameObject);
-        }
-    }
+
     IEnumerator InvisTime()
     {
         invisable = true;

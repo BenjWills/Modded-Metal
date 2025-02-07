@@ -1073,6 +1073,7 @@ MonoBehaviour:
   - {fileID: 2652501892115927027, guid: cfc6c7dd94eba314c820c0f0736b979d, type: 3}
   - {fileID: 1571230190280977028, guid: 93135a44c3de3a94eaf488dea03f5234, type: 3}
   - {fileID: 6079475996176742212, guid: 0acbebdaa7dcb684bbc7da5f6f69eb3f, type: 3}
+  sr: []
   upSpace: 
   downSpace: 
   leftSpace: 
