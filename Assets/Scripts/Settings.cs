@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class Settings : MonoBehaviour
 {
@@ -11,6 +13,11 @@ public class Settings : MonoBehaviour
     [SerializeField] int winTotal;
     [SerializeField] int levelsSpawned;
     [SerializeField] float bestTime;
+    [SerializeField] bool isFullscreen;
+    [SerializeField] float brightness;
+
+    Volume postProcessing;
+    public LiftGammaGain liftGammagGain;
 
     public static Settings Instance { get { return _instance; } }
 
@@ -25,6 +32,9 @@ public class Settings : MonoBehaviour
             _instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
+
+        postProcessing = this.gameObject.GetComponentInChildren<Volume>();
+        postProcessing.profile.TryGet(out liftGammagGain);
 
         if (!PlayerPrefs.HasKey("smCoin"))
         {
@@ -46,6 +56,14 @@ public class Settings : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestTime", 9999);
         }
+        if (!PlayerPrefs.HasKey("Fullscreen"))
+        {
+            PlayerPrefs.SetInt("Fullscreen", (isFullscreen ? 1 : 0));
+        }
+        if (!PlayerPrefs.HasKey("Brightness"))
+        {
+            PlayerPrefs.SetFloat("Brightness", brightness);
+        }
     }
     // Start is called before the first frame update
     void Start()
@@ -61,5 +79,6 @@ public class Settings : MonoBehaviour
         winTotal = PlayerPrefs.GetInt("winTotal");
         levelsSpawned = PlayerPrefs.GetInt("levelsSpawned");
         bestTime = PlayerPrefs.GetFloat("BestTime");
+        isFullscreen = PlayerPrefs.GetInt("Fullscreen") != 0;
     }
 }
