@@ -7,6 +7,7 @@ TagManager:
   - Spawnable
   - Obstacle
   - Level
+  - Settings
   layers:
   - Default
   - TransparentFX
