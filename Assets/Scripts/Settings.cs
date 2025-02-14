@@ -79,6 +79,14 @@ public class Settings : MonoBehaviour
         winTotal = PlayerPrefs.GetInt("winTotal");
         levelsSpawned = PlayerPrefs.GetInt("levelsSpawned");
         bestTime = PlayerPrefs.GetFloat("BestTime");
-        isFullscreen = PlayerPrefs.GetInt("Fullscreen") != 0;
+        if (PlayerPrefs.GetInt("Fullscreen") != 0)
+        {
+            isFullscreen = true;
+        }
+        else
+        {
+            isFullscreen = false;
+        }
+        brightness = PlayerPrefs.GetFloat("Brightness");
     }
 }

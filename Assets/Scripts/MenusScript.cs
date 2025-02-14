@@ -22,7 +22,8 @@ public class MenusScript : MonoBehaviour
     Toggle fullscreenToggle;
     Slider brightnessSlider;
 
-    bool valueSet;
+    bool bValueSet;
+    bool fValueSet;
 
     SlotMachine slotMachineScript;
     RespawnScript respawnScript;
@@ -56,6 +57,7 @@ public class MenusScript : MonoBehaviour
             openMenuAction = playerInput.actions.FindAction("OpenMenu");
             fullscreenToggle = GameObject.Find("Fullscreen Toggle").GetComponent<Toggle>();
         }
+        SetSettings();
     }
 
     // Update is called once per frame
@@ -65,10 +67,21 @@ public class MenusScript : MonoBehaviour
         {
             fullscreenToggle = GameObject.Find("Fullscreen Toggle").GetComponent<Toggle>();
             brightnessSlider = GameObject.Find("Brightness Slider").GetComponent<Slider>();
-            if (PlayerPrefs.HasKey("Brightness") && valueSet == false)
+            if (PlayerPrefs.HasKey("Brightness") && bValueSet == false)
             {
                 brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
-                valueSet = true;
+                bValueSet = true;
+            }
+            if (PlayerPrefs.HasKey("Fullscreen") && fValueSet == false)
+            {
+                if (PlayerPrefs.GetInt("Fullscreen") != 0)
+                {
+                    fullscreenToggle.isOn = true;
+                }
+                else
+                {
+                    fullscreenToggle.isOn = false;
+                }
             }
         }
 
@@ -97,6 +110,25 @@ public class MenusScript : MonoBehaviour
         }
     }
 
+    void SetSettings()
+    {
+        if (PlayerPrefs.HasKey("Brightness"))
+        {
+            settingsScript.liftGammagGain.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("Brightness"));
+        }
+        if (PlayerPrefs.HasKey("Fullscreen"))
+        {
+            if (PlayerPrefs.GetInt("Fullscreen") != 0)
+            {
+                Screen.fullScreen = true;
+            }
+            else
+            {
+                Screen.fullScreen = false;
+            }
+        }
+    }
+
     public void PlayGame()
     {
         SceneManager.LoadScene("GameScene");
@@ -120,18 +152,10 @@ public class MenusScript : MonoBehaviour
 
     public void FullscreenToggle()
     {
-        if (fullscreenToggle.isOn)
-        {
-            Screen.fullScreen = true;
-            PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen ? 1 : 0));
-            PlayerPrefs.Save();
-        }
-        else
-        {
-            Screen.fullScreen = false;
-            PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen ? 1 : 0));
-            PlayerPrefs.Save();
-        }
+        Screen.fullScreen = fullscreenToggle.isOn;
+        PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen ? 1 : 0));
+        PlayerPrefs.Save();
+        Debug.Log(fullscreenToggle.isOn);
     }
 
     public void Brightness()
