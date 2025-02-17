@@ -5,6 +5,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.UI;
+using System;
 
 public class MenusScript : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class MenusScript : MonoBehaviour
 
     bool bValueSet;
     bool fValueSet;
+    bool objectsSet;
 
     SlotMachine slotMachineScript;
     RespawnScript respawnScript;
@@ -38,54 +40,13 @@ public class MenusScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        currentScene = SceneManager.GetActiveScene();
 
-        if (currentScene.name == "MainMenu")
-        {
-            settingsScript = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
-            startCanvas = GameObject.Find("StartCanvas");
-        }
-        if (currentScene.name == "GameScene")
-        {
-            settingsScript = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
-            mainCanvas = GameObject.Find("MainCanvas");
-            pauseCanvas = GameObject.Find("PauseCanvas");
-            playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
-            respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
-            player = GameObject.Find("Player").GetComponent<Transform>();
-            slotMachineScript = GameObject.Find("Slot Machine").GetComponent<SlotMachine>();
-            openMenuAction = playerInput.actions.FindAction("OpenMenu");
-            fullscreenToggle = GameObject.Find("Fullscreen Toggle").GetComponent<Toggle>();
-        }
-        SetSettings();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (settingsCanvas.activeSelf == true)
-        {
-            fullscreenToggle = GameObject.Find("Fullscreen Toggle").GetComponent<Toggle>();
-            brightnessSlider = GameObject.Find("Brightness Slider").GetComponent<Slider>();
-            if (PlayerPrefs.HasKey("Brightness") && bValueSet == false)
-            {
-                brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
-                bValueSet = true;
-            }
-            if (PlayerPrefs.HasKey("Fullscreen") && fValueSet == false)
-            {
-                if (PlayerPrefs.GetInt("Fullscreen") != 0)
-                {
-                    fullscreenToggle.isOn = true;
-                    fValueSet = true;
-                }
-                else
-                {
-                    fullscreenToggle.isOn = false;
-                    fValueSet = true;
-                }
-            }
-        }
+        SetObjects();
 
         if (currentScene.name == "GameScene")
         {
@@ -110,6 +71,70 @@ public class MenusScript : MonoBehaviour
             deaths.text = "Deaths: " + PlayerPrefs.GetInt("deathTotal").ToString();
             levelsSpawned.text = "Levels Spawned: " + PlayerPrefs.GetInt("levelsSpawned").ToString();
         }
+    }
+
+    void SetObjects()
+    {
+        if (objectsSet == false)
+        {
+            GameObject[] goArray = Resources.FindObjectsOfTypeAll<GameObject>();
+            for (int i = 0; i < goArray.Length; i++)
+            {
+                switch (goArray[i].name)
+                {
+                    case "StartCanvas":
+                        startCanvas = goArray[i];
+                        return;
+                    case "Settings Values":
+                        settingsScript = goArray[i].GetComponent<Settings>();
+                        return;
+                    case "MainCanvas":
+                        mainCanvas = goArray[i];
+                        return;
+                    case "PauseCanvas":
+                        pauseCanvas = goArray[i];
+                        return;
+                    case "Player":
+                        playerInput = goArray[i].GetComponent<PlayerInput>();
+                        player = goArray[i].GetComponent<Transform>();
+                        return;
+                    case "Respawn Point":
+                        respawnScript = goArray[i].GetComponent<RespawnScript>();
+                        return;
+                    case "Slot Machine":
+                        slotMachineScript = goArray[i].GetComponent<SlotMachine>();
+                        return;
+                    case "Fullscreen Toggle":
+                        fullscreenToggle = goArray[i].GetComponent<Toggle>();
+                        return;
+                    case "Brightness Slider":
+                        brightnessSlider = goArray[i].GetComponent<Slider>();
+                        return;
+                }
+            }
+            openMenuAction = playerInput.actions.FindAction("OpenMenu");
+            objectsSet = true;
+        }
+        if (PlayerPrefs.HasKey("Brightness") && bValueSet == false)
+        {
+            brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
+            bValueSet = true;
+        }
+        if (PlayerPrefs.HasKey("Fullscreen") && fValueSet == false)
+        {
+            if (PlayerPrefs.GetInt("Fullscreen") != 0)
+            {
+                fullscreenToggle.isOn = true;
+                fValueSet = true;
+            }
+            else
+            {
+                fullscreenToggle.isOn = false;
+                fValueSet = true;
+            }
+        }
+
+        SetSettings();
     }
 
     void SetSettings()
