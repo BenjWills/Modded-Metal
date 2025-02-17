@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.EventSystems;
 using UnityEngine;
 
 public class Enemy2Script : MonoBehaviour
@@ -34,6 +33,7 @@ public class Enemy2Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -51,10 +51,6 @@ public class Enemy2Script : MonoBehaviour
             chargeParticles.Play();
             StartCoroutine(OnTouchTime());
         }
-    }
-
-    void OnTouch()
-    {
     }
 
     IEnumerator OnTouchTime()

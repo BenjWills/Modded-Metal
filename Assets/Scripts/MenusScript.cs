@@ -77,10 +77,12 @@ public class MenusScript : MonoBehaviour
                 if (PlayerPrefs.GetInt("Fullscreen") != 0)
                 {
                     fullscreenToggle.isOn = true;
+                    fValueSet = true;
                 }
                 else
                 {
                     fullscreenToggle.isOn = false;
+                    fValueSet = true;
                 }
             }
         }
