@@ -23,8 +23,8 @@ public class MenusScript : MonoBehaviour
     Toggle fullscreenToggle;
     Slider brightnessSlider;
 
-    bool bValueSet;
-    bool fValueSet;
+    bool bValueSet = false;
+    bool fValueSet = false;
     bool objectsSet;
 
     SlotMachine slotMachineScript;
@@ -48,8 +48,15 @@ public class MenusScript : MonoBehaviour
     {
         SetObjects();
 
+        currentScene = SceneManager.GetActiveScene();
+
         if (currentScene.name == "GameScene")
         {
+            playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
+            player = GameObject.Find("Player").GetComponent<Transform>();
+
+            openMenuAction = playerInput.actions.FindAction("OpenMenu");
+
             mainCanvas.SetActive(!pauseCanvas.activeSelf);
             pauseCanvas.SetActive(menuOpen);
             Time.timeScale = mainCanvas.activeSelf ? 1 : 0;
@@ -84,43 +91,39 @@ public class MenusScript : MonoBehaviour
                 {
                     case "StartCanvas":
                         startCanvas = goArray[i];
-                        return;
+                        break;
                     case "Settings Values":
                         settingsScript = goArray[i].GetComponent<Settings>();
-                        return;
+                        break;
                     case "MainCanvas":
                         mainCanvas = goArray[i];
-                        return;
+                        break;
                     case "PauseCanvas":
                         pauseCanvas = goArray[i];
-                        return;
-                    case "Player":
-                        playerInput = goArray[i].GetComponent<PlayerInput>();
-                        player = goArray[i].GetComponent<Transform>();
-                        return;
+                        break;
                     case "Respawn Point":
                         respawnScript = goArray[i].GetComponent<RespawnScript>();
-                        return;
+                        break;
                     case "Slot Machine":
                         slotMachineScript = goArray[i].GetComponent<SlotMachine>();
-                        return;
+                        break;
                     case "Fullscreen Toggle":
                         fullscreenToggle = goArray[i].GetComponent<Toggle>();
-                        return;
+                        break;
                     case "Brightness Slider":
                         brightnessSlider = goArray[i].GetComponent<Slider>();
-                        return;
+                        break;
                 }
             }
-            openMenuAction = playerInput.actions.FindAction("OpenMenu");
+
             objectsSet = true;
         }
-        if (PlayerPrefs.HasKey("Brightness") && bValueSet == false)
+        if (PlayerPrefs.HasKey("Brightness") && bValueSet == false && currentScene.name == "MainMenu")
         {
             brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
             bValueSet = true;
         }
-        if (PlayerPrefs.HasKey("Fullscreen") && fValueSet == false)
+        if (PlayerPrefs.HasKey("Fullscreen") && fValueSet == false && currentScene.name == "MainMenu")
         {
             if (PlayerPrefs.GetInt("Fullscreen") != 0)
             {
@@ -189,6 +192,7 @@ public class MenusScript : MonoBehaviour
     {
         PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
         settingsScript.liftGammagGain.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("Brightness"));
+        PlayerPrefs.Save();
     }
 
     public void MainMenu()
