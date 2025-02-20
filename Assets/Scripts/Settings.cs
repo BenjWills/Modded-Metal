@@ -56,14 +56,6 @@ public class Settings : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestTime", 9999);
         }
-        if (!PlayerPrefs.HasKey("Fullscreen"))
-        {
-            PlayerPrefs.SetInt("Fullscreen", (isFullscreen ? 1 : 0));
-        }
-        if (!PlayerPrefs.HasKey("Brightness"))
-        {
-            PlayerPrefs.SetFloat("Brightness", brightness);
-        }
     }
     // Start is called before the first frame update
     void Start()
