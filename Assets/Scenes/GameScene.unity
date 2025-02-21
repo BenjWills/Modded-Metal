@@ -1376,6 +1376,7 @@ MonoBehaviour:
   mouseSensX: 30
   mouseSensY: 30
   orientation: {fileID: 2038067404}
+  playerCam: {fileID: 330585545}
 --- !u!1 &361604265
 GameObject:
   m_ObjectHideFlags: 0
@@ -5094,7 +5095,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27b42a5ecb674364c8bbb63400c8f770, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  settingsCanvas: {fileID: 0}
   coins: {fileID: 196556026}
   wins: {fileID: 1140502332}
   deaths: {fileID: 482217644}

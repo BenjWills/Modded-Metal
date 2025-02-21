@@ -12,6 +12,7 @@ public class CameraScript : MonoBehaviour
     [SerializeField] float mouseSensX;
     [SerializeField] float mouseSensY;
     [SerializeField] Transform orientation;
+    [SerializeField] Camera playerCam;
 
     // Start is called before the first frame update
     void Start()
@@ -19,11 +20,15 @@ public class CameraScript : MonoBehaviour
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         lookAction = playerInput.actions.FindAction("Look");
         Cursor.lockState = CursorLockMode.Locked;
+        playerCam = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        mouseSensX = PlayerPrefs.GetFloat("XSens");
+        mouseSensY = PlayerPrefs.GetFloat("YSens");
+        playerCam.fieldOfView = PlayerPrefs.GetFloat("FOV");
         Look();
     }
 
