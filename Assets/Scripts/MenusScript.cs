@@ -35,6 +35,7 @@ public class MenusScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI deaths;
     [SerializeField] TextMeshProUGUI levelsSpawned;
     public TMP_Text interactTxt;
+    public TMP_Text interactTxt1;
 
     Resolution[] resolutions;
     List<Resolution> filteredResolutions;
@@ -45,6 +46,11 @@ public class MenusScript : MonoBehaviour
     void Start()
     {
         SetObjects();
+        if (currentScene.name == "GameScene")
+        {
+            interactTxt.enabled = false;
+            interactTxt1.enabled = false;
+        }
     }
 
     // Update is called once per frame
@@ -109,6 +115,9 @@ public class MenusScript : MonoBehaviour
                         break;
                     case "Interact Text (TMP)":
                         interactTxt = goArray[i].GetComponent<TMP_Text>();
+                        break;
+                    case "Interact Text (TMP) (1)":
+                        interactTxt1 = goArray[i].GetComponent<TMP_Text>();
                         break;
                 }
             }

@@ -15,6 +15,7 @@ public class SlotMachine : MonoBehaviour
 
     SphereCollider slotMachineRange;
     bool inTrigger;
+    bool inTriggerSet;
 
     public string[] buff1;
     public int buffI1;
@@ -82,10 +83,6 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        while (inTrigger == true)
-        {
-            menuScript.interactTxt.enabled = true;
-        }
         if (inTrigger == true && PlayerPrefs.GetInt("smCoin") >= 1)
         {
             if (interactAction.triggered)
@@ -94,6 +91,16 @@ public class SlotMachine : MonoBehaviour
                 RandomStats();
                 PlayerPrefs.Save();
             }
+        }
+        if (inTrigger == true)
+        {
+            Debug.Log("works");
+            menuScript.interactTxt1.enabled = true;
+        }
+        else
+        {
+            Debug.Log("works2");
+            menuScript.interactTxt1.enabled = false;
         }
     }
 

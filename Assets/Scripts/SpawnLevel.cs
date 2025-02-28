@@ -11,6 +11,7 @@ public class SpawnLevel : MonoBehaviour
     InputAction interactAction;
     SphereCollider buttonRange;
     private bool inTrigger;
+    private bool inTriggerSet;
     [SerializeField] GameObject[] levelArray;
     SpawnerScript spawnerScript;
     [SerializeField] Transform levelPos;
@@ -130,4 +131,6 @@ public class SpawnLevel : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         GenerateLevel();
     }
+
+    
 }
