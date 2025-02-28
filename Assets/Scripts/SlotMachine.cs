@@ -94,12 +94,10 @@ public class SlotMachine : MonoBehaviour
         }
         if (inTrigger == true)
         {
-            Debug.Log("works");
             menuScript.interactTxt1.enabled = true;
         }
         else
         {
-            Debug.Log("works2");
             menuScript.interactTxt1.enabled = false;
         }
     }
