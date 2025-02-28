@@ -30,10 +30,13 @@ public class MenusScript : MonoBehaviour
     Settings settingsScript;
     Transform player;
 
+    [Header("Player Stats Text")]
     [SerializeField] TextMeshProUGUI coins;
     [SerializeField] TextMeshProUGUI wins;
     [SerializeField] TextMeshProUGUI deaths;
     [SerializeField] TextMeshProUGUI levelsSpawned;
+
+    [Header("Other Text")]
     public TMP_Text interactTxt;
     public TMP_Text interactTxt1;
 
