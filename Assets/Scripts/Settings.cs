@@ -13,6 +13,7 @@ public class Settings : MonoBehaviour
 {
     public static Settings _instance;
 
+    [Header("PlayerPrefs Stats")]
     [SerializeField] int smCoin;
     [SerializeField] int deathTotal;
     [SerializeField] int winTotal;
@@ -26,12 +27,19 @@ public class Settings : MonoBehaviour
 
     Toggle fullscreenToggle;
 
+    [Header("Brightness")]
     [SerializeField] float brightnessMax;
     [SerializeField] float brightnessMin;
+
+    [Header("X Sensitivity")]
     [SerializeField] float xSensMax;
     [SerializeField] float xSensMin;
+
+    [Header("Y Sensitivity")]
     [SerializeField] float ySensMax;
     [SerializeField] float ySensMin;
+
+    [Header("Field Of Vision")]
     [SerializeField] float fovMax;
     [SerializeField] float fovMin;
 
@@ -41,8 +49,9 @@ public class Settings : MonoBehaviour
     List<string> options = new List<string>();
     List<Resolution> filteredResolutions;
     double currentRefreshRate;
-    int currentResolutionIndex;
+    [SerializeField] int currentResolutionIndex;
 
+    [Header("Text")]
     [SerializeField] TMP_Text brightnessTxt;
     [SerializeField] TMP_Text resolutionTxt;
     [SerializeField] TMP_Text fovTxt;
@@ -214,9 +223,9 @@ public class Settings : MonoBehaviour
     }
     public void ResolutionUp()
     {
-        if (currentResolutionIndex > filteredResolutions.Count)
+        if (currentResolutionIndex >= filteredResolutions.Count - 1)
         {
-            currentResolutionIndex = filteredResolutions.Count;
+            currentResolutionIndex = filteredResolutions.Count - 1;
         }
         else
         {
@@ -226,7 +235,7 @@ public class Settings : MonoBehaviour
     }
     public void ResolutionDown()
     {
-        if (currentResolutionIndex < 0)
+        if (currentResolutionIndex <= 0)
         {
             currentResolutionIndex = 0;
         }
@@ -288,6 +297,18 @@ public class Settings : MonoBehaviour
         }
         PlayerPrefs.Save();
     }
+    public void SensXUp5()
+    {
+        if (PlayerPrefs.GetFloat("XSens") >= xSensMax)
+        {
+            PlayerPrefs.SetFloat("XSens", xSensMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("XSens", PlayerPrefs.GetFloat("XSens") + 5);
+        }
+        PlayerPrefs.Save();
+    }
     public void SensXDown()
     {
         if (PlayerPrefs.GetFloat("XSens") <= xSensMin)
@@ -297,6 +318,18 @@ public class Settings : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("XSens", PlayerPrefs.GetFloat("XSens") - 1);
+        }
+        PlayerPrefs.Save();
+    }
+    public void SensXDown5()
+    {
+        if (PlayerPrefs.GetFloat("XSens") <= xSensMin)
+        {
+            PlayerPrefs.SetFloat("XSens", xSensMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("XSens", PlayerPrefs.GetFloat("XSens") - 5);
         }
         PlayerPrefs.Save();
     }
@@ -313,6 +346,18 @@ public class Settings : MonoBehaviour
         }
         PlayerPrefs.Save();
     }
+    public void SensYUp5()
+    {
+        if (PlayerPrefs.GetFloat("YSens") >= ySensMax)
+        {
+            PlayerPrefs.SetFloat("YSens", ySensMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("YSens", PlayerPrefs.GetFloat("YSens") + 5);
+        }
+        PlayerPrefs.Save();
+    }
     public void SensYDown()
     {
         if (PlayerPrefs.GetFloat("YSens") <= ySensMin)
@@ -322,6 +367,18 @@ public class Settings : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("YSens", PlayerPrefs.GetFloat("YSens") - 1);
+        }
+        PlayerPrefs.Save();
+    }
+    public void SensYDown5()
+    {
+        if (PlayerPrefs.GetFloat("YSens") <= ySensMin)
+        {
+            PlayerPrefs.SetFloat("YSens", ySensMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("YSens", PlayerPrefs.GetFloat("YSens") - 5);
         }
         PlayerPrefs.Save();
     }
@@ -338,6 +395,18 @@ public class Settings : MonoBehaviour
         }
         PlayerPrefs.Save();
     }
+    public void FOVUp5()
+    {
+        if (PlayerPrefs.GetFloat("FOV") >= fovMax)
+        {
+            PlayerPrefs.SetFloat("FOV", fovMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") + 5);
+        }
+        PlayerPrefs.Save();
+    }
     public void FOVDown()
     {
         if (PlayerPrefs.GetFloat("FOV") <= fovMin)
@@ -347,6 +416,18 @@ public class Settings : MonoBehaviour
         else
         {
             PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") - 1);
+        }
+        PlayerPrefs.Save();
+    }
+    public void FOVDown5()
+    {
+        if (PlayerPrefs.GetFloat("FOV") <= fovMin)
+        {
+            PlayerPrefs.SetFloat("FOV", fovMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") - 5);
         }
         PlayerPrefs.Save();
     }

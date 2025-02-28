@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy3Script : MonoBehaviour
 {
-    bool invisable;
+    bool invisible;
     [SerializeField] GameObject childObj;
 
     // Start is called before the first frame update
@@ -16,21 +16,17 @@ public class Enemy3Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (invisable == true)
+        if(childObj)
         {
-            childObj.SetActive(false);
-        }
-        else
-        {
-            childObj.SetActive(true);
+            childObj.SetActive(!invisible);
         }
     }
 
     IEnumerator InvisTime()
     {
-        invisable = true;
+        invisible = true;
         yield return new WaitForSeconds(5);
-        invisable = false;
+        invisible = false;
         yield return new WaitForSeconds(5);
         StartCoroutine(InvisTime());
     }
