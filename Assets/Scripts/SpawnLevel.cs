@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEditor;
 
 public class SpawnLevel : MonoBehaviour
 {
@@ -18,7 +19,7 @@ public class SpawnLevel : MonoBehaviour
     [SerializeField] TextMeshProUGUI bestTimeText;
     public bool timerStarted;
     float timerTime;
-
+    MenusScript menuScript;
 
     private void Awake()
     {
@@ -30,6 +31,8 @@ public class SpawnLevel : MonoBehaviour
         buttonRange = this.gameObject.AddComponent<SphereCollider>();
         buttonRange.radius = 1.2f;
         buttonRange.isTrigger = true;
+
+        menuScript = GameObject.Find("Menus").GetComponent<MenusScript>();
     }
 
     // Start is called before the first frame update
@@ -43,10 +46,15 @@ public class SpawnLevel : MonoBehaviour
     {
         if (inTrigger == true)
         {
+            menuScript.interactTxt.enabled = true;
             if (interactAction.triggered)
             {
                 SpawnTheLevel();
             }
+        }
+        else
+        {
+            menuScript.interactTxt.enabled = false;
         }
         Timer();
         bestTimeText.text = "Best: " + PlayerPrefs.GetFloat("BestTime").ToString();

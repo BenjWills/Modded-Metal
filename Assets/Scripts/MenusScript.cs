@@ -34,6 +34,7 @@ public class MenusScript : MonoBehaviour
     [SerializeField] TextMeshProUGUI wins;
     [SerializeField] TextMeshProUGUI deaths;
     [SerializeField] TextMeshProUGUI levelsSpawned;
+    public TMP_Text interactTxt;
 
     Resolution[] resolutions;
     List<Resolution> filteredResolutions;
@@ -105,6 +106,9 @@ public class MenusScript : MonoBehaviour
                         break;
                     case "Slot Machine":
                         slotMachineScript = goArray[i].GetComponent<SlotMachine>();
+                        break;
+                    case "Interact Text (TMP)":
+                        interactTxt = goArray[i].GetComponent<TMP_Text>();
                         break;
                 }
             }

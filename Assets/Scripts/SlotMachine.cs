@@ -28,6 +28,8 @@ public class SlotMachine : MonoBehaviour
 
     public TMP_InputField inputField;
 
+    MenusScript menuScript;
+
     private void Awake()
     {
         slotMachine = GameObject.Find("Slot Machine").GetComponent<Transform>();
@@ -38,6 +40,7 @@ public class SlotMachine : MonoBehaviour
         buff1Txt = GameObject.Find("Buff1 Text (TMP)").GetComponent<TextMeshProUGUI>();
         buff2Txt = GameObject.Find("Buff2 Text (TMP)").GetComponent<TextMeshProUGUI>();
         debuffTxt = GameObject.Find("Debuff Text (TMP)").GetComponent<TextMeshProUGUI>();
+        menuScript = GameObject.Find("Menus").GetComponent<MenusScript>();
 
         slotMachineRange = this.gameObject.AddComponent<SphereCollider>();
         slotMachineRange.radius = 1.2f;
@@ -79,6 +82,10 @@ public class SlotMachine : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        while (inTrigger == true)
+        {
+            menuScript.interactTxt.enabled = true;
+        }
         if (inTrigger == true && PlayerPrefs.GetInt("smCoin") >= 1)
         {
             if (interactAction.triggered)
