@@ -94,9 +94,6 @@ public class MenusScript : MonoBehaviour
                     case "StartCanvas":
                         startCanvas = goArray[i];
                         break;
-                    case "Settings Values":
-                        Debug.Log("Bwuh");
-                        break;
                     case "MainCanvas":
                         mainCanvas = goArray[i];
                         break;

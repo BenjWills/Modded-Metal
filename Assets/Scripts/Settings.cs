@@ -25,17 +25,29 @@ public class Settings : MonoBehaviour
     public LiftGammaGain liftGammagGain;
 
     Toggle fullscreenToggle;
-    Slider brightnessSlider;
-    Slider xSensSlider;
-    Slider ySensSlider;
-    Slider fovSlider;
-    TMP_Dropdown rDropdown;
+
+    [SerializeField] float brightnessMax;
+    [SerializeField] float brightnessMin;
+    [SerializeField] float xSensMax;
+    [SerializeField] float xSensMin;
+    [SerializeField] float ySensMax;
+    [SerializeField] float ySensMin;
+    [SerializeField] float fovMax;
+    [SerializeField] float fovMin;
+
     public GameObject settingsCanvas;
     Settings settingsScript;
     Resolution[] resolutions;
+    List<string> options = new List<string>();
     List<Resolution> filteredResolutions;
     double currentRefreshRate;
     int currentResolutionIndex;
+
+    [SerializeField] TMP_Text brightnessTxt;
+    [SerializeField] TMP_Text resolutionTxt;
+    [SerializeField] TMP_Text fovTxt;
+    [SerializeField] TMP_Text sensXTxt;
+    [SerializeField] TMP_Text sensYTxt;
 
     public static Settings Instance { get { return _instance; } }
 
@@ -86,36 +98,20 @@ public class Settings : MonoBehaviour
                 case "Settings Values":
                     settingsScript = goArray[i].GetComponent<Settings>();
                     break;
-                case "Resolution Dropdown":
-                    rDropdown = goArray[i].GetComponent<TMP_Dropdown>();
-                    break;
-                case "Brightness Slider":
-                    brightnessSlider = goArray[i].GetComponent<Slider>();
-                    break;
                 case "SettingsCanvas":
                     settingsCanvas = goArray[i];
-                    break;
-                case "XSens Slider":
-                    xSensSlider = goArray[i].GetComponent<Slider>();
-                    break;
-                case "YSens Slider":
-                    ySensSlider = goArray[i].GetComponent<Slider>();
-                    break;
-                case "FOV Slider":
-                    fovSlider = goArray[i].GetComponent<Slider>();
                     break;
             }
         }
         resolutions = Screen.resolutions;
         filteredResolutions = new List<Resolution>();
-        rDropdown.ClearOptions();
         currentRefreshRate = Screen.currentResolution.refreshRateRatio.value;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        ResolutionDropdown();
+        ResolutionList();
         SetSettings();
     }
 
@@ -136,9 +132,15 @@ public class Settings : MonoBehaviour
             isFullscreen = false;
         }
         brightness = PlayerPrefs.GetFloat("Brightness");
+
+        brightnessTxt.text = brightness.ToString();
+        resolutionTxt.text = options[PlayerPrefs.GetInt("Resolution")];
+        sensXTxt.text = PlayerPrefs.GetFloat("XSens").ToString();
+        sensYTxt.text = PlayerPrefs.GetFloat("YSens").ToString();
+        fovTxt.text = PlayerPrefs.GetFloat("FOV").ToString();
     }
 
-    void ResolutionDropdown()
+    void ResolutionList()
     {
         for (int i = 0; i < resolutions.Length; i++)
         {
@@ -148,7 +150,6 @@ public class Settings : MonoBehaviour
             }
         }
 
-        List<string> options = new List<string>();
         for (int i = 0; i < filteredResolutions.Count; i++)
         {
             string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + " " + filteredResolutions[i].refreshRateRatio.value + " Hz";
@@ -159,20 +160,11 @@ public class Settings : MonoBehaviour
             }
         }
 
-        rDropdown.AddOptions(options);
-
         if (!PlayerPrefs.HasKey("Resolution"))
         {
             PlayerPrefs.SetInt("Resolution", currentResolutionIndex);
             PlayerPrefs.Save();
-            rDropdown.value = currentResolutionIndex;
         }
-        else
-        {
-            rDropdown.value = PlayerPrefs.GetInt("Resolution");
-        }
-
-        rDropdown.RefreshShownValue();
     }
 
     void SetSettings()
@@ -211,27 +203,38 @@ public class Settings : MonoBehaviour
                 fullscreenToggle.isOn = false;
             }
         }
-        if (PlayerPrefs.HasKey("Brightness"))
+    }
+
+    public void ResolutionSet(int resolutionIndex)
+    {
+        Resolution resolution = filteredResolutions[resolutionIndex];
+        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
+        PlayerPrefs.SetInt("Resolution", resolutionIndex);
+        PlayerPrefs.Save();
+    }
+    public void ResolutionUp()
+    {
+        if (currentResolutionIndex > filteredResolutions.Count)
         {
-            brightnessSlider.value = PlayerPrefs.GetFloat("Brightness");
+            currentResolutionIndex = filteredResolutions.Count;
         }
-        if (PlayerPrefs.HasKey("Resolution"))
+        else
         {
-            rDropdown.value = PlayerPrefs.GetInt("Resolution");
-            rDropdown.RefreshShownValue();
+            currentResolutionIndex++;
         }
-        if (PlayerPrefs.HasKey("XSens"))
+        ResolutionSet(currentResolutionIndex);
+    }
+    public void ResolutionDown()
+    {
+        if (currentResolutionIndex < 0)
         {
-            xSensSlider.value = PlayerPrefs.GetFloat("XSens");
+            currentResolutionIndex = 0;
         }
-        if (PlayerPrefs.HasKey("YSens"))
+        else
         {
-            ySensSlider.value = PlayerPrefs.GetFloat("YSens");
+            currentResolutionIndex--;
         }
-        if (PlayerPrefs.HasKey("FOV"))
-        {
-            fovSlider.value = PlayerPrefs.GetFloat("FOV");
-        }
+        ResolutionSet(currentResolutionIndex);
     }
 
     public void SettingsClose()
@@ -242,40 +245,109 @@ public class Settings : MonoBehaviour
     public void FullscreenToggle()
     {
         Screen.fullScreen = fullscreenToggle.isOn;
-        PlayerPrefs.SetInt("Fullscreen", (Screen.fullScreen ? 1 : 0));
+        PlayerPrefs.SetInt("Fullscreen", (fullscreenToggle.isOn ? 1 : 0));
         PlayerPrefs.Save();
     }
 
-    public void Brightness()
+    public void BrightnessUp()
     {
-        PlayerPrefs.SetFloat("Brightness", brightnessSlider.value);
+        if (PlayerPrefs.GetFloat("Brightness") >= brightnessMax)
+        {
+            PlayerPrefs.SetFloat("Brightness", brightnessMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Brightness", MathF.Round(PlayerPrefs.GetFloat("Brightness") + 0.1f, 1));
+        }
+        settingsScript.liftGammagGain.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("Brightness"));
+        PlayerPrefs.Save();
+    }
+    public void BrightnessDown()
+    {
+        if (PlayerPrefs.GetFloat("Brightness") <= brightnessMin)
+        {
+            PlayerPrefs.SetFloat("Brightness", brightnessMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Brightness", MathF.Round(PlayerPrefs.GetFloat("Brightness") - 0.1f, 1));
+        }
         settingsScript.liftGammagGain.gamma.value = new Vector4(1, 1, 1, PlayerPrefs.GetFloat("Brightness"));
         PlayerPrefs.Save();
     }
 
-    public void ResolutionSet(int resolutionIndex)
+    public void SensXUp()
     {
-        Resolution resolution = filteredResolutions[resolutionIndex];
-        Screen.SetResolution(resolution.width, resolution.height, Screen.fullScreen);
-        PlayerPrefs.SetInt("Resolution", resolutionIndex);
+        if (PlayerPrefs.GetFloat("XSens") >= xSensMax)
+        {
+            PlayerPrefs.SetFloat("XSens", xSensMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("XSens", PlayerPrefs.GetFloat("XSens") + 1);
+        }
+        PlayerPrefs.Save();
+    }
+    public void SensXDown()
+    {
+        if (PlayerPrefs.GetFloat("XSens") <= xSensMin)
+        {
+            PlayerPrefs.SetFloat("XSens", xSensMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("XSens", PlayerPrefs.GetFloat("XSens") - 1);
+        }
         PlayerPrefs.Save();
     }
 
-    public void SensXSet(float XSens)
+    public void SensYUp()
     {
-        PlayerPrefs.SetFloat("XSens", XSens);
+        if (PlayerPrefs.GetFloat("YSens") >= ySensMax)
+        {
+            PlayerPrefs.SetFloat("YSens", ySensMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("YSens", PlayerPrefs.GetFloat("YSens") + 1);
+        }
+        PlayerPrefs.Save();
+    }
+    public void SensYDown()
+    {
+        if (PlayerPrefs.GetFloat("YSens") <= ySensMin)
+        {
+            PlayerPrefs.SetFloat("YSens", ySensMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("YSens", PlayerPrefs.GetFloat("YSens") - 1);
+        }
         PlayerPrefs.Save();
     }
 
-    public void SensYSet(float YSens)
+    public void FOVUp()
     {
-        PlayerPrefs.SetFloat("YSens", YSens);
+        if (PlayerPrefs.GetFloat("FOV") >= fovMax)
+        {
+            PlayerPrefs.SetFloat("FOV", fovMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") + 1);
+        }
         PlayerPrefs.Save();
     }
-
-    public void FOVSet(float fov)
+    public void FOVDown()
     {
-        PlayerPrefs.SetFloat("FOV", fov);
+        if (PlayerPrefs.GetFloat("FOV") <= fovMin)
+        {
+            PlayerPrefs.SetFloat("FOV", fovMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") - 1);
+        }
         PlayerPrefs.Save();
     }
 }
