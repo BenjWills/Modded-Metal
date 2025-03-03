@@ -8,6 +8,7 @@ using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.Audio;
 
 public class Settings : MonoBehaviour
 {
@@ -43,8 +44,21 @@ public class Settings : MonoBehaviour
     [SerializeField] float fovMax;
     [SerializeField] float fovMin;
 
+    [Header("Main Volume")]
+    [SerializeField] float mainVolMax;
+    [SerializeField] float mainVolMin;
+
+    [Header("Music")]
+    [SerializeField] float musicMax;
+    [SerializeField] float musicMin;
+
+    [Header("Sound")]
+    [SerializeField] float soundMax;
+    [SerializeField] float soundMin;
+
     [Header("Game Objects")]
     public GameObject settingsCanvas;
+    [SerializeField] AudioMixer audioMixer;
 
     Settings settingsScript;
     Resolution[] resolutions;
@@ -59,6 +73,9 @@ public class Settings : MonoBehaviour
     [SerializeField] TMP_Text fovTxt;
     [SerializeField] TMP_Text sensXTxt;
     [SerializeField] TMP_Text sensYTxt;
+    [SerializeField] TMP_Text mainVolTxt;
+    [SerializeField] TMP_Text musicTxt;
+    [SerializeField] TMP_Text soundTxt;
 
     public static Settings Instance { get { return _instance; } }
 
@@ -149,6 +166,9 @@ public class Settings : MonoBehaviour
         sensXTxt.text = PlayerPrefs.GetFloat("XSens").ToString();
         sensYTxt.text = PlayerPrefs.GetFloat("YSens").ToString();
         fovTxt.text = PlayerPrefs.GetFloat("FOV").ToString();
+        mainVolTxt.text = PlayerPrefs.GetFloat("MainVol").ToString();
+        soundTxt.text = PlayerPrefs.GetFloat("Sound").ToString();
+        musicTxt.text = PlayerPrefs.GetFloat("Music").ToString();
     }
 
     void ResolutionList()
@@ -431,6 +451,162 @@ public class Settings : MonoBehaviour
         {
             PlayerPrefs.SetFloat("FOV", PlayerPrefs.GetFloat("FOV") - 5);
         }
+        PlayerPrefs.Save();
+    }
+    public void MainVolUp()
+    {
+        if (PlayerPrefs.GetFloat("MainVol") >= mainVolMax)
+        {
+            PlayerPrefs.SetFloat("MainVol", mainVolMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MainVol", PlayerPrefs.GetFloat("MainVol") + 0.1f);
+        }
+        audioMixer.SetFloat("MainVolume", Mathf.Log10(PlayerPrefs.GetFloat("MainVol")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MainVolUp5()
+    {
+        if (PlayerPrefs.GetFloat("MainVol") >= mainVolMax)
+        {
+            PlayerPrefs.SetFloat("MainVol", mainVolMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MainVol", PlayerPrefs.GetFloat("MainVol") + 0.5f);
+        }
+        audioMixer.SetFloat("MainVolume", Mathf.Log10(PlayerPrefs.GetFloat("MainVol")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MainVolDown()
+    {
+        if (PlayerPrefs.GetFloat("MainVol") <= mainVolMin)
+        {
+            PlayerPrefs.SetFloat("MainVol", mainVolMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MainVol", PlayerPrefs.GetFloat("MainVol") - 0.11f);
+        }
+        audioMixer.SetFloat("MainVolume", Mathf.Log10(PlayerPrefs.GetFloat("MainVol")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MainVolDown5()
+    {
+        if (PlayerPrefs.GetFloat("MainVol") <= mainVolMin)
+        {
+            PlayerPrefs.SetFloat("MainVol", mainVolMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("MainVol", PlayerPrefs.GetFloat("MainVol") - 0.5f);
+        }
+        audioMixer.SetFloat("MainVolume", Mathf.Log10(PlayerPrefs.GetFloat("MainVol")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MusicUp()
+    {
+        if (PlayerPrefs.GetFloat("Music") >= musicMax)
+        {
+            PlayerPrefs.SetFloat("Music", musicMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Music", PlayerPrefs.GetFloat("Music") + 0.1f);
+        }
+        audioMixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MusicUp5()
+    {
+        if (PlayerPrefs.GetFloat("Music") >= musicMax)
+        {
+            PlayerPrefs.SetFloat("Music", musicMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Music", PlayerPrefs.GetFloat("Music") + 0.5f);
+        }
+        audioMixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MusicDown()
+    {
+        if (PlayerPrefs.GetFloat("Music") <= musicMin)
+        {
+            PlayerPrefs.SetFloat("Music", musicMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Music", PlayerPrefs.GetFloat("Music") - 0.1f);
+        }
+        audioMixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void MusicDown5()
+    {
+        if (PlayerPrefs.GetFloat("Music") <= musicMin)
+        {
+            PlayerPrefs.SetFloat("Music", musicMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Music", PlayerPrefs.GetFloat("Music") - 0.5f);
+        }
+        audioMixer.SetFloat("Music", Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void SoundUp()
+    {
+        if (PlayerPrefs.GetFloat("Sound") >= musicMax)
+        {
+            PlayerPrefs.SetFloat("Sound", musicMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Sound", PlayerPrefs.GetFloat("Sound") + 0.1f);
+        }
+        audioMixer.SetFloat("Sound", Mathf.Log10(PlayerPrefs.GetFloat("Sound")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void SoundUp5()
+    {
+        if (PlayerPrefs.GetFloat("Sound") >= musicMax)
+        {
+            PlayerPrefs.SetFloat("Sound", musicMax);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Sound", PlayerPrefs.GetFloat("Sound") + 0.5f);
+        }
+        audioMixer.SetFloat("Sound", Mathf.Log10(PlayerPrefs.GetFloat("Sound")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void SoundDown()
+    {
+        if (PlayerPrefs.GetFloat("Sound") <= musicMin)
+        {
+            PlayerPrefs.SetFloat("Sound", musicMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Sound", PlayerPrefs.GetFloat("Sound") - 0.1f);
+        }
+        audioMixer.SetFloat("Sound", Mathf.Log10(PlayerPrefs.GetFloat("Sound")) * 20);
+        PlayerPrefs.Save();
+    }
+    public void SoundDown5()
+    {
+        if (PlayerPrefs.GetFloat("Sound") <= musicMin)
+        {
+            PlayerPrefs.SetFloat("Sound", musicMin);
+        }
+        else
+        {
+            PlayerPrefs.SetFloat("Sound", PlayerPrefs.GetFloat("Sound") - 0.5f);
+        }
+        audioMixer.SetFloat("Sound", Mathf.Log10(PlayerPrefs.GetFloat("Sound")) * 20);
         PlayerPrefs.Save();
     }
 }
