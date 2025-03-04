@@ -144,6 +144,9 @@ public class Settings : MonoBehaviour
     {
         ResolutionList();
         SetSettings();
+        audioMixer.SetFloat("MainVolume", MathF.Round(Mathf.Log10(PlayerPrefs.GetFloat("MainVol")) * 20, 1));
+        audioMixer.SetFloat("Music", MathF.Round(Mathf.Log10(PlayerPrefs.GetFloat("Music")) * 20, 1));
+        audioMixer.SetFloat("Sound", MathF.Round(Mathf.Log10(PlayerPrefs.GetFloat("Sound")) * 20, 1));
     }
 
     // Update is called once per frame
