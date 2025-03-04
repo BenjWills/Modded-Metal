@@ -53,6 +53,14 @@ public class MenusScript : MonoBehaviour
         {
             interactTxt.enabled = false;
             interactTxt1.enabled = false;
+            for (int i = 0; i < settingsScript.music.Length; i++)
+            {
+                settingsScript.music[i].Stop();
+                if (settingsScript.music[i].gameObject.name == "Bass" || settingsScript.music[i].gameObject.name == "Drums")
+                {
+                    settingsScript.music[i].Play();
+                }
+            }
         }
     }
 

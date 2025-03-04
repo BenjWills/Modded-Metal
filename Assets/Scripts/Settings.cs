@@ -52,7 +52,7 @@ public class Settings : MonoBehaviour
     [Header("Music")]
     [SerializeField] float musicMax;
     [SerializeField] float musicMin;
-    [SerializeField] AudioSource[] music;
+    public AudioSource[] music;
 
     [Header("Sound")]
     [SerializeField] float soundMax;
@@ -175,6 +175,21 @@ public class Settings : MonoBehaviour
         mainVolTxt.text = PlayerPrefs.GetFloat("MainVol").ToString();
         soundTxt.text = PlayerPrefs.GetFloat("Sound").ToString();
         musicTxt.text = PlayerPrefs.GetFloat("Music").ToString();
+    }
+
+    public void MuteMusic()
+    {
+        for (int i = 0; i < music.Length; i++)
+        {
+            music[i].mute = true;
+        }
+    }
+    public void UnmuteMusic()
+    {
+        for (int i = 0; i < music.Length; i++)
+        {
+            music[i].mute = false;
+        }
     }
 
     void ResolutionList()

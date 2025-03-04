@@ -21,10 +21,12 @@ public class SpawnLevel : MonoBehaviour
     public bool timerStarted;
     float timerTime;
     MenusScript menuScript;
+    Settings settings;
 
     private void Awake()
     {
         spawnerScript = GameObject.Find("StuffSpawner").GetComponent<SpawnerScript>();
+        settings = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
 
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
@@ -80,6 +82,13 @@ public class SpawnLevel : MonoBehaviour
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel == null)
         {
+            settings.MuteMusic();
+            for (int i = 0; i < settings.music.Length; i++)
+            {
+                settings.music[i].Stop();
+                settings.UnmuteMusic();
+                settings.music[i].Play();
+            }
             PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
             levelDoor.SetActive(false);
             Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
@@ -93,6 +102,17 @@ public class SpawnLevel : MonoBehaviour
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel != null)
         {
+            settings.MuteMusic();
+
+            for (int i = 0; i < settings.music.Length; i++)
+            {
+                settings.music[i].Stop();
+                if (settings.music[i].gameObject.name == "Bass" || settings.music[i].gameObject.name == "Drums")
+                {
+                    settings.UnmuteMusic();
+                    settings.music[i].Play();
+                }
+            }
             levelDoor.SetActive(true);
             spawnerScript.RemoveObstacles();
             Destroy(currentLevel);
