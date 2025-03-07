@@ -30,7 +30,6 @@ public class Movement : MonoBehaviour
     [SerializeField] float groundDrag;
     [SerializeField] Transform orientation;
     [SerializeField] float dashForce;
-    [SerializeField] GameObject jumpPad;
 
     [Header("Bools")]
     bool isGrounded;
@@ -75,6 +74,7 @@ public class Movement : MonoBehaviour
     public float startSphereSize;
     public float sphereSize;
     public LayerMask groundMask;
+    [SerializeField] GameObject jumpPad;
 
     private void Awake()
     {
@@ -335,7 +335,6 @@ public class Movement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
     }
-
     public void Dash()
     {
         if (!CantStand())
@@ -344,6 +343,7 @@ public class Movement : MonoBehaviour
             {
                 if (dashAvailable == true)
                 {
+                    Debug.Log("Dash");
                     dashAvailable = false;
                     StartCoroutine(DashCooldown());
                 }
@@ -357,6 +357,7 @@ public class Movement : MonoBehaviour
         {
             if (activateAbilityAction.triggered)
             {
+                Debug.Log("Jump Pad");
                 jumpPadAvailable = false;
                 StartCoroutine(JumpPadCooldown());
             }

@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7757214813922365072}
   - component: {fileID: 8228658711438770270}
   - component: {fileID: 3848876711885645770}
-  - component: {fileID: 4667698335702260251}
-  - component: {fileID: 7359870959198657499}
+  - component: {fileID: 9173853026748173405}
+  - component: {fileID: 5564854083273083738}
   - component: {fileID: -7210710877839112717}
   m_Layer: 0
   m_Name: Bounce Pad
@@ -86,7 +86,7 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &4667698335702260251
+--- !u!65 &9173853026748173405
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -107,7 +107,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.0000001, y: 2, z: 1.0000002}
   m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
---- !u!54 &7359870959198657499
+--- !u!54 &5564854083273083738
 Rigidbody:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -147,4 +147,3 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   forceApplied: {x: 0, y: 10, z: 0}
-  throwForce: {x: 0, y: 0, z: 2}

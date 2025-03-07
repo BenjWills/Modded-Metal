@@ -210,12 +210,10 @@ public class SlotMachine : MonoBehaviour
     {
         if (buffName == "Dash")
         {
-            movementScript.Dash();
             dashBought = true;
         }
         else if (buffName == "Place Jump Pad")
         {
-            movementScript.PlaceJumpPad();
             jumpPadBought = true;
         }
         else
