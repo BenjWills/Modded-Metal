@@ -200,9 +200,4 @@ public class MenusScript : MonoBehaviour
         player.position = respawnScript.respawnPoint.position;
         PlayerPrefs.Save();
     }
-
-    public void RSButton()
-    {
-        slotMachineScript.RemoveStats();
-    }
 }
