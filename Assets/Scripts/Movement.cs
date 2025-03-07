@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
 
     [Header("Movement")]
     public float startSprintSpeed;
-    public float moveSpeed;
+    [SerializeField] float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     Vector2 moveInput;
@@ -30,15 +30,12 @@ public class Movement : MonoBehaviour
     [SerializeField] float groundDrag;
     [SerializeField] Transform orientation;
     [SerializeField] float dashForce;
-    [SerializeField] GameObject jumpPad;
 
     [Header("Bools")]
     bool isGrounded;
     bool isCrouching = false;
-    public bool isSprinting = false;
+    bool isSprinting = false;
     bool isSliding = false;
-    bool jumpPadAvailable = true;
-    bool dashAvailable = true;
 
     [Header("Jump")]
     public float startJumpForce;
@@ -342,38 +339,16 @@ public class Movement : MonoBehaviour
         {
             if (activateAbilityAction.triggered)
             {
-                if (dashAvailable == true)
-                {
-                    dashAvailable = false;
-                    StartCoroutine(DashCooldown());
-                }
+                rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
             }
         }
     }
 
     public void PlaceJumpPad()
     {
-        if (jumpPadAvailable == true)
+        if (activateAbilityAction.triggered)
         {
-            if (activateAbilityAction.triggered)
-            {
-                jumpPadAvailable = false;
-                StartCoroutine(JumpPadCooldown());
-            }
+            Debug.Log("Placed jump pad!");
         }
-    }
-
-    IEnumerator JumpPadCooldown()
-    {
-        Vector3 newSpawnPos = playerBody.transform.position + orientation.forward;
-        Instantiate(jumpPad, newSpawnPos, Quaternion.identity);
-        yield return new WaitForSeconds(1);
-        jumpPadAvailable = true;
-    }
-    IEnumerator DashCooldown()
-    {
-        rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(5);
-        dashAvailable = true;
     }
 }
