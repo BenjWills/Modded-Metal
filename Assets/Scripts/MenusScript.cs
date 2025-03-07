@@ -183,6 +183,14 @@ public class MenusScript : MonoBehaviour
 
     public void MainMenu()
     {
+        for (int i = 0; i < settingsScript.music.Length; i++)
+        {
+            settingsScript.music[i].Stop();
+            if (settingsScript.music[i].gameObject.name == "Bass" || settingsScript.music[i].gameObject.name == "Drums")
+            {
+                settingsScript.music[i].Play();
+            }
+        }
         SceneManager.LoadScene("MainMenu");
     }
 
