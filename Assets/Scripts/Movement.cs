@@ -36,6 +36,8 @@ public class Movement : MonoBehaviour
     bool isCrouching = false;
     public bool isSprinting = false;
     bool isSliding = false;
+    bool jumpPadAvailable = true;
+    bool dashAvailable = true;
 
     [Header("Jump")]
     public float startJumpForce;
@@ -72,8 +74,6 @@ public class Movement : MonoBehaviour
     public float startSphereSize;
     public float sphereSize;
     public LayerMask groundMask;
-    private bool dashAvailable;
-    private bool jumpPadAvailable;
     [SerializeField] GameObject jumpPad;
 
     private void Awake()

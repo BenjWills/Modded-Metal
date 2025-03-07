@@ -15,7 +15,8 @@ public class SlotMachine : MonoBehaviour
 
     SphereCollider slotMachineRange;
     bool inTrigger;
-    bool inTriggerSet;
+    bool dashBought;
+    bool jumpPadBought;
 
     public string[] buff1;
     public int buffI1;
@@ -101,6 +102,14 @@ public class SlotMachine : MonoBehaviour
         else
         {
             menuScript.interactTxt1.enabled = false;
+        }
+        if (dashBought == true)
+        {
+            movementScript.Dash();
+        }
+        if (jumpPadBought == true)
+        {
+            movementScript.PlaceJumpPad();
         }
     }
 
@@ -201,11 +210,16 @@ public class SlotMachine : MonoBehaviour
     {
         if (buffName == "Dash")
         {
-            movementScript.Dash();
+            dashBought = true;
         }
         else if (buffName == "Place Jump Pad")
         {
-            movementScript.PlaceJumpPad();
+            jumpPadBought = true;
+        }
+        else
+        {
+            dashBought = false;
+            jumpPadBought = false;
         }
     }
     void ApplyDebuff(string buffName)
