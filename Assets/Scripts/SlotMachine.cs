@@ -91,7 +91,6 @@ public class SlotMachine : MonoBehaviour
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
                 slotMachineSpin.SetTrigger("Spin");
-                RandomStats();
                 PlayerPrefs.Save();
             }
         }
@@ -188,6 +187,14 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.crouchSpeed = movementScript.startCrouchSpeed;
             movementScript.sliderForce = movementScript.startSliderForce;
+            if (movementScript.isSprinting == true)
+            {
+                movementScript.moveSpeed = movementScript.sprintSpeed;
+            }
+            else
+            {
+                movementScript.moveSpeed = movementScript.walkSpeed;
+            }
         }
     }
     void ApplyBuff2(string buffName)
@@ -225,6 +232,14 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.crouchSpeed = movementScript.startCrouchSpeed;
             movementScript.sliderForce = movementScript.startSliderForce;
+            if (movementScript.isSprinting == true)
+            {
+                movementScript.moveSpeed = movementScript.sprintSpeed;
+            }
+            else
+            {
+                movementScript.moveSpeed = movementScript.walkSpeed;
+            }
         }
     }
 }

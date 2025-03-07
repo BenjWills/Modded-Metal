@@ -14918,6 +14918,16 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 46900697197612662, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 2288395110045429321, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
     - target: {fileID: 2606566352580626359, guid: 7adc0386168068e4abbbaa5effb347b1,
         type: 3}
       propertyPath: m_Name
@@ -14973,6 +14983,41 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5437630921675928628, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 5437630921675928628, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.00008697125
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817451139142670983, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 6817451139142670983, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.00007331086
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359416898955870093, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 89.98021
+      objectReference: {fileID: 0}
+    - target: {fileID: 7359416898955870093, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0.00008697125
+      objectReference: {fileID: 0}
+    - target: {fileID: 8757141935996553079, guid: 7adc0386168068e4abbbaa5effb347b1,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: d34a19bf0f5aa3042ad47eed63b9e0b5, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
