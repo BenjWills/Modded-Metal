@@ -20,7 +20,6 @@ public class Settings : MonoBehaviour
     [SerializeField] int winTotal;
     [SerializeField] int levelsSpawned;
     [SerializeField] float bestTime;
-    //[SerializeField] bool isFullscreen;
     [SerializeField] float brightness;
 
     Volume postProcessing;
@@ -62,6 +61,7 @@ public class Settings : MonoBehaviour
     [Header("Game Objects")]
     public GameObject settingsCanvas;
     [SerializeField] AudioMixer audioMixer;
+    public List<GameObject> bouncePads = new();
 
     Settings settingsScript;
     Resolution[] resolutions;
@@ -117,6 +117,22 @@ public class Settings : MonoBehaviour
         {
             PlayerPrefs.SetInt("BestTime", 9999);
         }
+        if (!PlayerPrefs.HasKey("FOV"))
+        {
+            PlayerPrefs.SetFloat("FOV", 70);
+        }
+        if (!PlayerPrefs.HasKey("MainVol"))
+        {
+            PlayerPrefs.SetFloat("MainVol", 1);
+        }
+        if (!PlayerPrefs.HasKey("Sound"))
+        {
+            PlayerPrefs.SetFloat("Sound", 0.2f);
+        }
+        if (!PlayerPrefs.HasKey("Music"))
+        {
+            PlayerPrefs.SetFloat("Music", 0.1f);
+        }
 
         GameObject[] goArray = Resources.FindObjectsOfTypeAll<GameObject>();
         for (int i = 0; i < goArray.Length; i++)
@@ -160,14 +176,7 @@ public class Settings : MonoBehaviour
         winTotal = PlayerPrefs.GetInt("winTotal");
         levelsSpawned = PlayerPrefs.GetInt("levelsSpawned");
         bestTime = PlayerPrefs.GetFloat("BestTime");
-        //if (PlayerPrefs.GetInt("Fullscreen") != 0)
-        //{
-        //    isFullscreen = true;
-        //}
-        //else
-        //{
-        //    isFullscreen = false;
-        //}
+
         brightness = PlayerPrefs.GetFloat("Brightness");
 
         brightnessTxt.text = brightness.ToString();
