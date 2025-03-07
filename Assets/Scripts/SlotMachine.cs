@@ -31,6 +31,8 @@ public class SlotMachine : MonoBehaviour
 
     MenusScript menuScript;
 
+    [SerializeField] Animator slotMachineSpin;
+
     private void Awake()
     {
         slotMachine = GameObject.Find("Slot Machine").GetComponent<Transform>();
@@ -88,6 +90,7 @@ public class SlotMachine : MonoBehaviour
             if (interactAction.triggered)
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
+                slotMachineSpin.SetTrigger("Spin");
                 RandomStats();
                 PlayerPrefs.Save();
             }
