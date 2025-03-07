@@ -72,6 +72,9 @@ public class Movement : MonoBehaviour
     public float startSphereSize;
     public float sphereSize;
     public LayerMask groundMask;
+    private bool dashAvailable;
+    private bool jumpPadAvailable;
+    [SerializeField] GameObject jumpPad;
 
     private void Awake()
     {
@@ -332,23 +335,44 @@ public class Movement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
     }
-
     public void Dash()
     {
         if (!CantStand())
         {
             if (activateAbilityAction.triggered)
             {
-                rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
+                if (dashAvailable == true)
+                {
+                    dashAvailable = false;
+                    StartCoroutine(DashCooldown());
+                }
             }
         }
     }
 
     public void PlaceJumpPad()
     {
-        if (activateAbilityAction.triggered)
+        if (jumpPadAvailable == true)
         {
-            Debug.Log("Placed jump pad!");
+            if (activateAbilityAction.triggered)
+            {
+                jumpPadAvailable = false;
+                StartCoroutine(JumpPadCooldown());
+            }
         }
+    }
+
+    IEnumerator JumpPadCooldown()
+    {
+        Vector3 newSpawnPos = playerBody.transform.position + orientation.forward;
+        Instantiate(jumpPad, newSpawnPos, Quaternion.identity);
+        yield return new WaitForSeconds(1);
+        jumpPadAvailable = true;
+    }
+    IEnumerator DashCooldown()
+    {
+        rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
+        yield return new WaitForSeconds(5);
+        dashAvailable = true;
     }
 }
