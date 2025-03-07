@@ -20,7 +20,6 @@ public class Settings : MonoBehaviour
     [SerializeField] int winTotal;
     [SerializeField] int levelsSpawned;
     [SerializeField] float bestTime;
-    //[SerializeField] bool isFullscreen;
     [SerializeField] float brightness;
 
     Volume postProcessing;
@@ -177,14 +176,7 @@ public class Settings : MonoBehaviour
         winTotal = PlayerPrefs.GetInt("winTotal");
         levelsSpawned = PlayerPrefs.GetInt("levelsSpawned");
         bestTime = PlayerPrefs.GetFloat("BestTime");
-        //if (PlayerPrefs.GetInt("Fullscreen") != 0)
-        //{
-        //    isFullscreen = true;
-        //}
-        //else
-        //{
-        //    isFullscreen = false;
-        //}
+
         brightness = PlayerPrefs.GetFloat("Brightness");
 
         brightnessTxt.text = brightness.ToString();

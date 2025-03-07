@@ -22,7 +22,7 @@ public class Movement : MonoBehaviour
 
     [Header("Movement")]
     public float startSprintSpeed;
-    [SerializeField] float moveSpeed;
+    public float moveSpeed;
     public float walkSpeed;
     public float sprintSpeed;
     Vector2 moveInput;
@@ -35,7 +35,7 @@ public class Movement : MonoBehaviour
     [Header("Bools")]
     bool isGrounded;
     bool isCrouching = false;
-    bool isSprinting = false;
+    public bool isSprinting = false;
     bool isSliding = false;
     bool jumpPadAvailable = true;
     bool dashAvailable = true;
