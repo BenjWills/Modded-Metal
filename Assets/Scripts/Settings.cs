@@ -61,6 +61,7 @@ public class Settings : MonoBehaviour
     [Header("Game Objects")]
     public GameObject settingsCanvas;
     [SerializeField] AudioMixer audioMixer;
+    public List<GameObject> bouncePads = new List<GameObject>();
 
     Settings settingsScript;
     Resolution[] resolutions;
