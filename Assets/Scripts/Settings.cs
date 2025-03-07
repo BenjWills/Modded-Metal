@@ -62,6 +62,7 @@ public class Settings : MonoBehaviour
     [Header("Game Objects")]
     public GameObject settingsCanvas;
     [SerializeField] AudioMixer audioMixer;
+    public List<GameObject> bouncePads = new();
 
     Settings settingsScript;
     Resolution[] resolutions;
@@ -116,6 +117,22 @@ public class Settings : MonoBehaviour
         if (!PlayerPrefs.HasKey("BestTime"))
         {
             PlayerPrefs.SetInt("BestTime", 9999);
+        }
+        if (!PlayerPrefs.HasKey("FOV"))
+        {
+            PlayerPrefs.SetFloat("FOV", 70);
+        }
+        if (!PlayerPrefs.HasKey("MainVol"))
+        {
+            PlayerPrefs.SetFloat("MainVol", 1);
+        }
+        if (!PlayerPrefs.HasKey("Sound"))
+        {
+            PlayerPrefs.SetFloat("Sound", 0.2f);
+        }
+        if (!PlayerPrefs.HasKey("Music"))
+        {
+            PlayerPrefs.SetFloat("Music", 0.1f);
         }
 
         GameObject[] goArray = Resources.FindObjectsOfTypeAll<GameObject>();
