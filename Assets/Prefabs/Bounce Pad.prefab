@@ -120,4 +120,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659a9b464d976a948af3ba53ad58f56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceApplied: {x: 0, y: 0, z: 0}
+  forceApplied: {x: 0, y: 10, z: 0}
