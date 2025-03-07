@@ -15,7 +15,8 @@ public class SlotMachine : MonoBehaviour
 
     SphereCollider slotMachineRange;
     bool inTrigger;
-    bool inTriggerSet;
+    bool dashBought;
+    bool jumpPadBought;
 
     public string[] buff1;
     public int buffI1;
@@ -30,6 +31,8 @@ public class SlotMachine : MonoBehaviour
     public TMP_InputField inputField;
 
     MenusScript menuScript;
+
+    [SerializeField] Animator slotMachineSpin;
 
     private void Awake()
     {
@@ -88,7 +91,7 @@ public class SlotMachine : MonoBehaviour
             if (interactAction.triggered)
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
-                RandomStats();
+                slotMachineSpin.SetTrigger("Spin");
                 PlayerPrefs.Save();
             }
         }
@@ -99,6 +102,14 @@ public class SlotMachine : MonoBehaviour
         else
         {
             menuScript.interactTxt1.enabled = false;
+        }
+        if (dashBought == true)
+        {
+            movementScript.Dash();
+        }
+        if (jumpPadBought == true)
+        {
+            movementScript.PlaceJumpPad();
         }
     }
 
@@ -185,6 +196,14 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.crouchSpeed = movementScript.startCrouchSpeed;
             movementScript.sliderForce = movementScript.startSliderForce;
+            if (movementScript.isSprinting == true)
+            {
+                movementScript.moveSpeed = movementScript.sprintSpeed;
+            }
+            else
+            {
+                movementScript.moveSpeed = movementScript.walkSpeed;
+            }
         }
     }
     void ApplyBuff2(string buffName)
@@ -192,10 +211,17 @@ public class SlotMachine : MonoBehaviour
         if (buffName == "Dash")
         {
             movementScript.Dash();
+            dashBought = true;
         }
         else if (buffName == "Place Jump Pad")
         {
             movementScript.PlaceJumpPad();
+            jumpPadBought = true;
+        }
+        else
+        {
+            dashBought = false;
+            jumpPadBought = false;
         }
     }
     void ApplyDebuff(string buffName)
@@ -222,6 +248,14 @@ public class SlotMachine : MonoBehaviour
             movementScript.jumpForce = movementScript.startJumpForce;
             movementScript.crouchSpeed = movementScript.startCrouchSpeed;
             movementScript.sliderForce = movementScript.startSliderForce;
+            if (movementScript.isSprinting == true)
+            {
+                movementScript.moveSpeed = movementScript.sprintSpeed;
+            }
+            else
+            {
+                movementScript.moveSpeed = movementScript.walkSpeed;
+            }
         }
     }
 }
