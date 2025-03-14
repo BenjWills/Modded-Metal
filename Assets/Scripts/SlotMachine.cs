@@ -183,7 +183,7 @@ public class SlotMachine : MonoBehaviour
         }
         else if (buffName == "Increase Jump")
         {
-            movementScript.jumpForce += 5;
+            movementScript.jumpForce += 2;
         }
         else if (buffName == "Increase Crouch Speed")
         {
@@ -233,7 +233,7 @@ public class SlotMachine : MonoBehaviour
         }
         else if (buffName == "Decrease Jump")
         {
-            movementScript.jumpForce -= 2;
+            movementScript.jumpForce -= 1;
         }
         else if (buffName == "Decrease Crouch Speed")
         {

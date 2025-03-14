@@ -21,6 +21,10 @@ public class Enemy3Script : MonoBehaviour
         {
             childObj.SetActive(!invisible);
         }
+        else
+        {
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator InvisTime()
