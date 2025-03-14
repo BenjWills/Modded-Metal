@@ -22,6 +22,7 @@ public class SpawnLevel : MonoBehaviour
     float timerTime;
     MenusScript menuScript;
     Settings settings;
+    [SerializeField] DoorAnim doorAnim;
 
     private void Awake()
     {
@@ -52,7 +53,7 @@ public class SpawnLevel : MonoBehaviour
             menuScript.interactTxt.enabled = true;
             if (interactAction.triggered)
             {
-                SpawnTheLevel();
+                doorAnim.doorAnimator.SetTrigger("Door");
             }
         }
         else
@@ -97,6 +98,7 @@ public class SpawnLevel : MonoBehaviour
             PlayerPrefs.Save();
         }
     }
+
     public void DespawnLevel()
     {
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");

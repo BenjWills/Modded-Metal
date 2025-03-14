@@ -343,7 +343,6 @@ public class Movement : MonoBehaviour
             {
                 if (dashAvailable == true)
                 {
-                    Debug.Log("Dash");
                     dashAvailable = false;
                     StartCoroutine(DashCooldown());
                 }
@@ -357,7 +356,6 @@ public class Movement : MonoBehaviour
         {
             if (activateAbilityAction.triggered)
             {
-                Debug.Log("Jump Pad");
                 jumpPadAvailable = false;
                 StartCoroutine(JumpPadCooldown());
             }
