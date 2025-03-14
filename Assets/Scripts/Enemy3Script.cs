@@ -6,6 +6,7 @@ public class Enemy3Script : MonoBehaviour
 {
     bool invisible;
     [SerializeField] GameObject childObj;
+    [SerializeField] ParticleSystem warningParticle;
 
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,9 @@ public class Enemy3Script : MonoBehaviour
     IEnumerator InvisTime()
     {
         invisible = true;
-        yield return new WaitForSeconds(5);
+        yield return new WaitForSeconds(3);
+        warningParticle.Play();
+        yield return new WaitForSeconds(2);
         invisible = false;
         yield return new WaitForSeconds(5);
         StartCoroutine(InvisTime());

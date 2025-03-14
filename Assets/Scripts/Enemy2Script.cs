@@ -55,7 +55,7 @@ public class Enemy2Script : MonoBehaviour
 
     IEnumerator OnTouchTime()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(2);
         meshRenderer.enabled = true;
         childObj.SetActive(true);
         canDie = true;

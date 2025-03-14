@@ -18,7 +18,10 @@ public class BouncePad : MonoBehaviour
         rb = this.gameObject.GetComponent<Rigidbody>();
         rb.AddForce(orientation.forward * 10, ForceMode.Impulse);
         StartCoroutine(BouncePadEffectBuffer());
-        settingsScript.bouncePads.Add(this.gameObject);
+        if (this.gameObject.CompareTag("Bounce Pad"))
+        {
+            settingsScript.bouncePads.Add(this.gameObject);
+        }
         if (settingsScript.bouncePads.Count > 3)
         {
             Destroy(settingsScript.bouncePads[0]);

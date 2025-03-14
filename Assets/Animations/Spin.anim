@@ -10060,7 +10060,7 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 2.7833333
-    functionName: RandomStats
+    functionName: OnGamble
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

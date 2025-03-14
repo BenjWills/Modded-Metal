@@ -506,7 +506,7 @@ GameObject:
   m_Layer: 0
   m_Name: Level Position
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -519,7 +519,7 @@ Transform:
   m_GameObject: {fileID: 163164898}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.106, y: -0.161, z: 0}
+  m_LocalPosition: {x: 7.16, y: 0.01, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2085,8 +2085,8 @@ Transform:
   m_GameObject: {fileID: 663401308}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -35.52249, y: 13.779097, z: 11.159431}
-  m_LocalScale: {x: 14, y: 0.34354, z: 14}
+  m_LocalPosition: {x: -35.5, y: 13.779097, z: 11.159431}
+  m_LocalScale: {x: 14.27, y: 0.34354, z: 14}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 259370215}

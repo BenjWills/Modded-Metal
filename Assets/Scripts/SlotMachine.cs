@@ -93,6 +93,7 @@ public class SlotMachine : MonoBehaviour
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
                 slotMachineSpin.SetTrigger("Spin");
                 PlayerPrefs.Save();
+                slotMachineRange.radius = 0;
             }
         }
         if (inTrigger == true)
@@ -128,7 +129,7 @@ public class SlotMachine : MonoBehaviour
         }
     }
 
-    void RandomStats()
+    void OnGamble()
     {
         RemoveStats();
 
@@ -156,6 +157,8 @@ public class SlotMachine : MonoBehaviour
         PlayerPrefs.SetInt("Debuff", debuffI);
         ApplyDebuff(debuff[debuffI]);
         debuffTxt.text = debuff[debuffI];
+
+        slotMachineRange.radius = 1.2f;
     }
 
     public void RemoveStats()
@@ -230,7 +233,7 @@ public class SlotMachine : MonoBehaviour
         }
         else if (buffName == "Decrease Jump")
         {
-            movementScript.jumpForce -= 3;
+            movementScript.jumpForce -= 2;
         }
         else if (buffName == "Decrease Crouch Speed")
         {
