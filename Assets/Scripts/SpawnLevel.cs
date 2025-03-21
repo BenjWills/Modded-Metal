@@ -15,14 +15,13 @@ public class SpawnLevel : MonoBehaviour
     [SerializeField] GameObject[] levelArray;
     SpawnerScript spawnerScript;
     [SerializeField] Transform levelPos;
-    [SerializeField] GameObject levelDoor;
     [SerializeField] TextMeshProUGUI timerText;
     [SerializeField] TextMeshProUGUI bestTimeText;
     public bool timerStarted;
     float timerTime;
     MenusScript menuScript;
     Settings settings;
-    [SerializeField] DoorAnim doorAnim;
+    public DoorAnim doorAnim;
 
     private void Awake()
     {
@@ -53,7 +52,8 @@ public class SpawnLevel : MonoBehaviour
             menuScript.interactTxt.enabled = true;
             if (interactAction.triggered)
             {
-                doorAnim.doorAnimator.SetTrigger("Door");
+                doorAnim.ButtonPush();
+                doorAnim.doorAnimator.SetBool("Door", true);
             }
         }
         else
@@ -80,6 +80,7 @@ public class SpawnLevel : MonoBehaviour
 
     private void GenerateLevel()
     {
+        doorAnim.doorAnimator.SetBool("Door", true);
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel == null)
         {
@@ -91,7 +92,6 @@ public class SpawnLevel : MonoBehaviour
                 settings.music[i].Play();
             }
             PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
-            levelDoor.SetActive(false);
             Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
             spawnerScript.StartLevelSpawning();
             timerStarted = true;
@@ -115,7 +115,6 @@ public class SpawnLevel : MonoBehaviour
                     settings.music[i].Play();
                 }
             }
-            levelDoor.SetActive(true);
             spawnerScript.RemoveObstacles();
             Destroy(currentLevel);
             timerStarted = false;
@@ -153,6 +152,4 @@ public class SpawnLevel : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         GenerateLevel();
     }
-
-    
 }
