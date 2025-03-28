@@ -1074,7 +1074,7 @@ MonoBehaviour:
   obstacle: {fileID: 2652501892115927027, guid: cfc6c7dd94eba314c820c0f0736b979d,
     type: 3}
   obstacles:
-  - {fileID: 1980258713063677014, guid: 09713c537d46121498f995c5bf3756e0, type: 3}
+  - {fileID: 2652501892115927027, guid: cfc6c7dd94eba314c820c0f0736b979d, type: 3}
   - {fileID: 1571230190280977028, guid: 93135a44c3de3a94eaf488dea03f5234, type: 3}
   - {fileID: 6079475996176742212, guid: 0acbebdaa7dcb684bbc7da5f6f69eb3f, type: 3}
   sr: []
@@ -2414,6 +2414,7 @@ MonoBehaviour:
   levelArray:
   - {fileID: 7612321858714634110, guid: 76c8c8d826775f143880e64a53d04b7f, type: 3}
   levelPos: {fileID: 163164899}
+  levelDoor: {fileID: 1973767203}
   timerText: {fileID: 232761676}
   bestTimeText: {fileID: 1518150859}
   timerStarted: 0
