@@ -11,6 +11,7 @@ public class Enemy1Script : MonoBehaviour
     GameObject raycastHit;
     RespawnScript respawnScript;
     bool timeDone;
+    bool waitDone = false;
     [SerializeField] int destructionTimeInt;
 
     // Start is called before the first frame update
@@ -30,7 +31,12 @@ public class Enemy1Script : MonoBehaviour
         }
         else
         {
-            transform.LookAt(player.transform.position);
+            StartCoroutine(Wait());
+            if (waitDone == true)
+            {
+                transform.LookAt(player.transform.position);
+                transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
+            }
         }
 
         if (Physics.Raycast(this.gameObject.transform.position, transform.forward, out phit, 10))
@@ -41,7 +47,6 @@ public class Enemy1Script : MonoBehaviour
         {
             raycastHit = null;
         }
-        transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
     }
 
     bool PlayerLockOn()
@@ -76,5 +81,11 @@ public class Enemy1Script : MonoBehaviour
     {
         yield return new WaitForSeconds(destructionTimeInt);
         this.gameObject.SetActive(false);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(1);
+        waitDone = true;
     }
 }
