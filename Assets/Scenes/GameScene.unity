@@ -1208,7 +1208,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0.01
   far clip plane: 1000
   field of view: 60
   orthographic: 0
@@ -2414,7 +2414,6 @@ MonoBehaviour:
   levelArray:
   - {fileID: 7612321858714634110, guid: 76c8c8d826775f143880e64a53d04b7f, type: 3}
   levelPos: {fileID: 163164899}
-  levelDoor: {fileID: 1973767203}
   timerText: {fileID: 232761676}
   bestTimeText: {fileID: 1518150859}
   timerStarted: 0

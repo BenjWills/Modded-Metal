@@ -1,7 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 
 public class Enemy1Script : MonoBehaviour
 {
@@ -11,56 +12,42 @@ public class Enemy1Script : MonoBehaviour
     GameObject raycastHit;
     RespawnScript respawnScript;
     bool timeDone;
-    bool waitDone = false;
+
     [SerializeField] int destructionTimeInt;
+    Transform startPos;
+    bool startLookTimer = true;
 
     // Start is called before the first frame update
     void Start()
     {
         respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.Find("Player");
+        startPos = this.transform;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (PlayerLockOn() == true)
+        Physics.Raycast(this.transform.position, player.transform.position, out phit, 10);
+
+        if (playerLockOn() == true)
         {
+            if (startLookTimer == true)
+            {
+                transform.LookAt(player.transform.position);
+                startLookTimer = false;
+            }
+
             transform.position += transform.forward * flightSpeed * Time.deltaTime;
             StartCoroutine(DestructionTimer());
         }
-        else
-        {
-            StartCoroutine(Wait());
-            if (waitDone == true)
-            {
-                transform.LookAt(player.transform.position);
-                transform.rotation = new Quaternion(0, transform.rotation.y, 0, transform.rotation.w);
-            }
-        }
-
-        if (Physics.Raycast(this.gameObject.transform.position, transform.forward, out phit, 10))
-        {
-            raycastHit = phit.collider.gameObject;
-        }
-        else
-        {
-            raycastHit = null;
-        }
     }
 
-    bool PlayerLockOn()
+    bool playerLockOn()
     {
-        if (raycastHit != null)
+        if (phit.collider.gameObject.CompareTag("Player"))
         {
-            if (raycastHit.CompareTag("Player"))
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return true;
         }
         else
         {
@@ -83,9 +70,10 @@ public class Enemy1Script : MonoBehaviour
         this.gameObject.SetActive(false);
     }
 
-    IEnumerator Wait()
+    IEnumerator LookAtTimer()
     {
-        yield return new WaitForSeconds(1);
-        waitDone = true;
+        startLookTimer = true;
+        transform.LookAt(player.transform.position);
+        yield return new WaitForSeconds(0.1f);
     }
 }
