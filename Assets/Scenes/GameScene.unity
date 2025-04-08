@@ -1610,12 +1610,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1677060787}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!198 &553607628 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 2807682301805035183, guid: 62dbb8652b70a0042919d89ac92fc28a,
-    type: 3}
-  m_PrefabInstance: {fileID: 476086036376082737}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &604155363
 GameObject:
   m_ObjectHideFlags: 0
@@ -3771,7 +3765,7 @@ MonoBehaviour:
   lowestLevel: -10
   respawnPoint: {fileID: 0}
   pCam: {fileID: 330585545}
-  explosion: {fileID: 553607628}
+  explosion: {fileID: 0}
 --- !u!4 &1367028662
 Transform:
   m_ObjectHideFlags: 0
@@ -4348,7 +4342,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1677060787
 Transform:
   m_ObjectHideFlags: 0
@@ -5464,7 +5458,8 @@ PrefabInstance:
       value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 4269658176514261678, guid: 62dbb8652b70a0042919d89ac92fc28a, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 62dbb8652b70a0042919d89ac92fc28a, type: 3}

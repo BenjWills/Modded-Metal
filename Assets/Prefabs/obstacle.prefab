@@ -130,10 +130,15 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 736594629810345773}
     m_Modifications:
+    - target: {fileID: 1133153432939601135, guid: 2d6dab8d90f71dd42b1d59eeb2d283fc,
+        type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 58b422dcb005fd0488889a3daabc54f8, type: 2}
     - target: {fileID: 5913852427742518319, guid: 2d6dab8d90f71dd42b1d59eeb2d283fc,
         type: 3}
       propertyPath: m_Name
-      value: Robot 1 With Animations 1
+      value: Robot 1
       objectReference: {fileID: 0}
     - target: {fileID: 6438434289026385557, guid: 2d6dab8d90f71dd42b1d59eeb2d283fc,
         type: 3}
