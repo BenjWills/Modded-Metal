@@ -12,48 +12,70 @@ public class Enemy1Script : MonoBehaviour
     Collider[] colliders; 
     RespawnScript respawnScript;
     bool playerLockOn;
-    [SerializeField] int destructionTimeInt;
-    bool startLookTimer = true;
+    bool startLook = true;
     Animator animator;
+    bool doneOnce =false;
+    bool moveRobot;
+
+    SphereCollider sphereCollider;
 
     // Start is called before the first frame update
     void Start()
     {
         respawnScript = GameObject.Find("Respawn Point").GetComponent<RespawnScript>();
         player = GameObject.Find("Player");
-        animator = GameObject.Find("Robot 1").GetComponent<Animator>();
+        animator = transform.GetChild(0).GetComponent<Animator>();
+        sphereCollider = this.gameObject.AddComponent<SphereCollider>();
+        sphereCollider.radius = 5;
+        sphereCollider.isTrigger = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Physics.SphereCast(this.transform.position, 5, Vector3.forward, out hit);
-        colliders = Physics.OverlapSphere(transform.position, 5);
+        //colliders = Physics.OverlapSphere(transform.position, 5, 7);
+        //for (int i = 0; i < colliders.Length; i++)
+        //{
+        //    if (colliders[i].gameObject.CompareTag("Player"))
+        //    {
+        //        playerLockOn = true;
+        //        Debug.Log("true");
+        //    }
+        //    else
+        //    {
+        //        playerLockOn = false;
+        //        Debug.Log("false");
+        //    }
+        //}
 
-        for (int i = 0; i < colliders.Length; i++)
-        {
-            if (colliders[i].gameObject.CompareTag("Player"))
-            {
-                playerLockOn = true;
-            }
-            else
-            {
-                playerLockOn = false;
-            }
-        }
 
-        if (playerLockOn == true)
+        if (playerLockOn == true && doneOnce == false)
         {
-            if (startLookTimer == true)
+            if (startLook == true)
             {
                 transform.LookAt(player.transform.position);
-                startLookTimer = false;
+                startLook = false;
             }
             animator.SetTrigger("Attack");
+            doneOnce = true;
+        }
+        if (moveRobot == true)
+        {
             transform.position += transform.forward * flightSpeed * Time.deltaTime;
-            StartCoroutine(DestructionTimer());
         }
     }
+
+    public void EnemyMove()
+    {
+        Debug.Log("Move");
+        moveRobot = true;
+    }
+    public void EnemyDie()
+    {
+        Debug.Log("Die");
+        Destroy(this.gameObject);
+    }
+
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(this.transform.position, 5);
@@ -66,11 +88,25 @@ public class Enemy1Script : MonoBehaviour
             respawnScript.RespawnPlayer();
             Destroy(this.gameObject);
         }
+        if (collision.gameObject.CompareTag("OuterWall"))
+        {
+            Destroy(this.gameObject);
+        }
     }
-
-    IEnumerator DestructionTimer()
+    private void OnTriggerEnter(Collider other)
     {
-        yield return new WaitForSeconds(destructionTimeInt);
-        this.gameObject.SetActive(false);
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerLockOn = true;
+            Debug.Log("true");
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            playerLockOn = false;
+            Debug.Log("false");
+        }
     }
 }
