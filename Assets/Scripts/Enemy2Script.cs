@@ -40,7 +40,6 @@ public class Enemy2Script : MonoBehaviour
         if (canDie == true)
         {
             respawnScript.RespawnPlayer();
-            Debug.Log("BOOM");
             Destroy(this.gameObject);
         }
     }

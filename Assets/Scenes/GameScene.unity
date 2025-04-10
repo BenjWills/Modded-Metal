@@ -5371,6 +5371,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 139237441487144577, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
       propertyPath: pcam
@@ -5457,10 +5462,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5169993983906450687, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 5564344495503405182, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5860060774028244216, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
       propertyPath: m_Layer
       value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 6047080594015128320, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:

@@ -51,13 +51,18 @@ public class Enemy1Script : MonoBehaviour
 
         if (playerLockOn == true && doneOnce == false)
         {
-            if (startLook == true)
+            Debug.Log("locked on");
+            if (Physics.Raycast(transform.position, player.transform.position, 5, 7))
             {
-                transform.LookAt(player.transform.position);
-                startLook = false;
+                Debug.LogWarning("Ray hit");
+                if (startLook == true)
+                {
+                    transform.LookAt(player.transform.position);
+                    animator.SetTrigger("Attack");
+                    startLook = false;
+                }
+                doneOnce = true;
             }
-            animator.SetTrigger("Attack");
-            doneOnce = true;
         }
         if (moveRobot == true)
         {
@@ -88,7 +93,7 @@ public class Enemy1Script : MonoBehaviour
             respawnScript.RespawnPlayer();
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.CompareTag("OuterWall"))
+        if (collision.gameObject.CompareTag("Bounce Pad"))
         {
             Destroy(this.gameObject);
         }
@@ -98,7 +103,6 @@ public class Enemy1Script : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerLockOn = true;
-            Debug.Log("true");
         }
     }
     private void OnTriggerExit(Collider other)
@@ -106,7 +110,6 @@ public class Enemy1Script : MonoBehaviour
         if (other.gameObject.CompareTag("Player"))
         {
             playerLockOn = false;
-            Debug.Log("false");
         }
     }
 }
