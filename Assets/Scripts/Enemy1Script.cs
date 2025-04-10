@@ -51,17 +51,19 @@ public class Enemy1Script : MonoBehaviour
 
         if (playerLockOn == true && doneOnce == false)
         {
-            Debug.Log("locked on");
-            if (Physics.Raycast(transform.position, player.transform.position, 5, 7))
+            if (startLook == true)
             {
-                Debug.LogWarning("Ray hit");
-                if (startLook == true)
+                transform.LookAt(player.transform.position);
+                startLook = false;
+            }
+            if (Physics.Raycast(transform.position, player.transform.position, out hit, 5))
+            {
+                if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    transform.LookAt(player.transform.position);
+                    Debug.LogError("Ray hit");
                     animator.SetTrigger("Attack");
-                    startLook = false;
+                    doneOnce = true;
                 }
-                doneOnce = true;
             }
         }
         if (moveRobot == true)
@@ -84,6 +86,7 @@ public class Enemy1Script : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.DrawWireSphere(this.transform.position, 5);
+        Gizmos.DrawLine(this.transform.position, player.transform.position);
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -93,7 +96,7 @@ public class Enemy1Script : MonoBehaviour
             respawnScript.RespawnPlayer();
             Destroy(this.gameObject);
         }
-        if (collision.gameObject.CompareTag("Bounce Pad"))
+        if (collision.gameObject.CompareTag("Bounce Pad") || collision.gameObject.CompareTag("Obstacle"))
         {
             Destroy(this.gameObject);
         }
