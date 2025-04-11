@@ -33,41 +33,29 @@ public class Enemy1Script : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //colliders = Physics.OverlapSphere(transform.position, 5, 7);
-        //for (int i = 0; i < colliders.Length; i++)
-        //{
-        //    if (colliders[i].gameObject.CompareTag("Player"))
-        //    {
-        //        playerLockOn = true;
-        //        Debug.Log("true");
-        //    }
-        //    else
-        //    {
-        //        playerLockOn = false;
-        //        Debug.Log("false");
-        //    }
-        //}
-
-
         if (playerLockOn == true && doneOnce == false)
         {
-            if (startLook == true)
+            
+            if (Physics.Linecast(transform.position, player.transform.position, out hit))
             {
-                transform.LookAt(player.transform.position);
-                startLook = false;
-            }
-            if (Physics.Raycast(transform.position, player.transform.position, out hit, 5))
-            {
+                Debug.LogError("Ray hit");
                 if (hit.collider.gameObject.CompareTag("Player"))
                 {
-                    Debug.LogError("Ray hit");
+                    Debug.LogError("player hit");
+                    if (startLook == true)
+                    {
+                        transform.LookAt(player.transform.position);
+                        startLook = false;
+                    }
                     animator.SetTrigger("Attack");
                     doneOnce = true;
+                    
                 }
             }
         }
         if (moveRobot == true)
         {
+            Debug.Log("Move");
             transform.position += transform.forward * flightSpeed * Time.deltaTime;
         }
     }
