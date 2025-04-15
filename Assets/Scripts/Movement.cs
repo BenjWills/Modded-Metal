@@ -46,6 +46,7 @@ public class Movement : MonoBehaviour
     [SerializeField] float startJumpCooldown;
     [SerializeField] float airMultiplier;
     bool readyToJump;
+    AudioSource jumpAudioSource;
 
     [Header("Crouch")]
     public float startCrouchSpeed;
@@ -97,6 +98,8 @@ public class Movement : MonoBehaviour
         startXScale = transform.localScale.x;
         startYScale = transform.localScale.y;
         startZScale = transform.localScale.z;
+
+        jumpAudioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -282,6 +285,7 @@ public class Movement : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
+            jumpAudioSource.Play();
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }

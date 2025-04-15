@@ -21,6 +21,7 @@ public class SpawnLevel : MonoBehaviour
     float timerTime;
     MenusScript menuScript;
     Settings settings;
+    [SerializeField] BouncePad bouncePad;
     public DoorAnim doorAnim;
 
     private void Awake()
@@ -116,6 +117,7 @@ public class SpawnLevel : MonoBehaviour
                 }
             }
             spawnerScript.RemoveObstacles();
+            //bouncePad.DestroyBouncePad();
             Destroy(currentLevel);
             timerStarted = false;
         }

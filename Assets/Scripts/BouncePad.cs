@@ -34,6 +34,13 @@ public class BouncePad : MonoBehaviour
     {
 
     }
+    public void DestroyBouncePad()
+    {
+        for (int i = 0; i < settingsScript.bouncePads.Count; i++)
+        {
+            Destroy(settingsScript.bouncePads[i]);
+        }
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player") && canBeUsed == true)

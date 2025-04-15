@@ -16,7 +16,7 @@ public class Enemy1Script : MonoBehaviour
     Animator animator;
     bool doneOnce =false;
     bool moveRobot;
-
+    AudioSource attackAudioSource;
     SphereCollider sphereCollider;
 
     // Start is called before the first frame update
@@ -28,6 +28,7 @@ public class Enemy1Script : MonoBehaviour
         sphereCollider = this.gameObject.AddComponent<SphereCollider>();
         sphereCollider.radius = 5;
         sphereCollider.isTrigger = true;
+        attackAudioSource = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -64,6 +65,7 @@ public class Enemy1Script : MonoBehaviour
     {
         Debug.Log("Move");
         moveRobot = true;
+        attackAudioSource.Play();
     }
     public void EnemyDie()
     {
