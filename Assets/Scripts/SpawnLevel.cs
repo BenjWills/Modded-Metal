@@ -23,6 +23,7 @@ public class SpawnLevel : MonoBehaviour
     Settings settings;
     [SerializeField] BouncePad bouncePad;
     public DoorAnim doorAnim;
+    AudioSource buttonClickAudio;
 
     private void Awake()
     {
@@ -37,6 +38,7 @@ public class SpawnLevel : MonoBehaviour
         buttonRange.isTrigger = true;
 
         menuScript = GameObject.Find("Menus").GetComponent<MenusScript>();
+        buttonClickAudio = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -82,6 +84,7 @@ public class SpawnLevel : MonoBehaviour
     private void GenerateLevel()
     {
         doorAnim.doorAnimator.SetBool("Door", true);
+        buttonClickAudio.Play();
         GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel == null)
         {
