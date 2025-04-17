@@ -46,7 +46,10 @@ public class Movement : MonoBehaviour
     [SerializeField] float startJumpCooldown;
     [SerializeField] float airMultiplier;
     bool readyToJump;
-    AudioSource jumpAudioSource;
+    AudioSource audioSource;
+    [SerializeField] AudioClip[] audioClips;
+    bool firstPlay = true;
+    bool jumped;
 
     [Header("Crouch")]
     public float startCrouchSpeed;
@@ -99,7 +102,7 @@ public class Movement : MonoBehaviour
         startYScale = transform.localScale.y;
         startZScale = transform.localScale.z;
 
-        jumpAudioSource = GetComponent<AudioSource>();
+        audioSource = GetComponent<AudioSource>();
     }
 
     // Start is called before the first frame update
@@ -117,10 +120,24 @@ public class Movement : MonoBehaviour
         if (isGrounded == true)
         {
             rb.drag = groundDrag;
+            StartCoroutine(JumpAudio());
         }
         else
         {
             rb.drag = 0;
+            if (jumped == true)
+            {
+                Debug.Log("Jumped");
+                for (int i = 0; i < audioClips.Length; i++)
+                {
+                    if (audioClips[i].name == "Jump")
+                    {
+                        audioSource.clip = audioClips[i];
+                        audioSource.Play();
+                    }
+                }
+                firstPlay = false;
+            }
         }
     }
     private void FixedUpdate()
@@ -285,7 +302,7 @@ public class Movement : MonoBehaviour
 
             rb.velocity = new Vector3(rb.velocity.x, 0, rb.velocity.z);
             rb.AddForce(transform.up * jumpForce, ForceMode.Impulse);
-            jumpAudioSource.Play();
+            jumped = true;
 
             Invoke(nameof(ResetJump),jumpCooldown);
         }
@@ -296,6 +313,7 @@ public class Movement : MonoBehaviour
     {
         exitingSlope = false;
         readyToJump = true;
+        jumped = false;
     }
 
     //starts the players slide
@@ -378,5 +396,22 @@ public class Movement : MonoBehaviour
         rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
         yield return new WaitForSeconds(5);
         dashAvailable = true;
+    }
+
+    IEnumerator JumpAudio()
+    {
+        if (firstPlay == false)
+        {
+            for (int i = 0; i < audioClips.Length; i++)
+            {
+                if (audioClips[i].name == "Landing sound")
+                {
+                    audioSource.clip = audioClips[i];
+                    audioSource.Play();
+                    firstPlay = true;
+                }
+            }
+        }
+        yield return new WaitForSeconds(0.3f);
     }
 }

@@ -9,12 +9,14 @@ public class BouncePad : MonoBehaviour
     bool canBeUsed = false;
     Settings settingsScript;
     Transform orientation;
+    AudioSource audioSource;
 
     // Start is called before the first frame update
     void Start()
     {
         settingsScript = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
         orientation = GameObject.Find("Orientation").GetComponent<Transform>();
+        audioSource = GetComponent<AudioSource>();
         rb = this.gameObject.GetComponent<Rigidbody>();
         rb.AddForce(orientation.forward * 10, ForceMode.Impulse);
         StartCoroutine(BouncePadEffectBuffer());
@@ -45,6 +47,7 @@ public class BouncePad : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && canBeUsed == true)
         {
+            audioSource.Play();
             collision.gameObject.GetComponent<Rigidbody>().AddForce(forceApplied, ForceMode.Impulse);
         }
     }

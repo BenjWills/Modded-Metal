@@ -33,6 +33,7 @@ public class SlotMachine : MonoBehaviour
     MenusScript menuScript;
 
     [SerializeField] Animator slotMachineSpin;
+    AudioSource audioSource;
 
     private void Awake()
     {
@@ -45,6 +46,7 @@ public class SlotMachine : MonoBehaviour
         buff2Txt = GameObject.Find("Buff2 Text (TMP)").GetComponent<TextMeshProUGUI>();
         debuffTxt = GameObject.Find("Debuff Text (TMP)").GetComponent<TextMeshProUGUI>();
         menuScript = GameObject.Find("Menus").GetComponent<MenusScript>();
+        audioSource = GetComponent<AudioSource>();
 
         slotMachineRange = this.gameObject.AddComponent<SphereCollider>();
         slotMachineRange.radius = 1.2f;
@@ -92,6 +94,7 @@ public class SlotMachine : MonoBehaviour
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
                 slotMachineSpin.SetTrigger("Spin");
+                audioSource.Play();
                 PlayerPrefs.Save();
                 slotMachineRange.radius = 0;
             }
