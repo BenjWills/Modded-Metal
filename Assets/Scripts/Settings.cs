@@ -171,6 +171,10 @@ public class Settings : MonoBehaviour
         mainVolTxt.text = PlayerPrefs.GetFloat("MainVol").ToString();
         soundTxt.text = PlayerPrefs.GetFloat("Sound").ToString();
         musicTxt.text = PlayerPrefs.GetFloat("Music").ToString();
+        if (PlayerPrefs.GetFloat("Music") == 0)
+        {
+            MuteMusic();
+        }
     }
 
     public void MuteMusic()
