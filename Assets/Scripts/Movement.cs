@@ -127,7 +127,6 @@ public class Movement : MonoBehaviour
             rb.drag = 0;
             if (jumped == true)
             {
-                Debug.Log("Jumped");
                 for (int i = 0; i < audioClips.Length; i++)
                 {
                     if (audioClips[i].name == "Jump")

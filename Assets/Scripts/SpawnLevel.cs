@@ -24,6 +24,7 @@ public class SpawnLevel : MonoBehaviour
     [SerializeField] BouncePad bouncePad;
     public DoorAnim doorAnim;
     AudioSource buttonClickAudio;
+    int previousWins;
 
     private void Awake()
     {
@@ -99,6 +100,7 @@ public class SpawnLevel : MonoBehaviour
             Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
             spawnerScript.StartLevelSpawning();
             PlayerPrefs.Save();
+            previousWins = PlayerPrefs.GetInt("winTotal");
         }
     }
 
@@ -135,10 +137,13 @@ public class SpawnLevel : MonoBehaviour
         }
         else if (timerStarted == false) 
         {
-            if (timerTime < PlayerPrefs.GetFloat("BestTime"))
+            if (timerTime < PlayerPrefs.GetFloat("BestTime") && timerTime !=0 || PlayerPrefs.GetFloat("BestTime") == 0)
             {
-                PlayerPrefs.SetFloat("BestTime", timerTime);
-                PlayerPrefs.Save();
+                if (PlayerPrefs.GetInt("winTotal") > previousWins && PlayerPrefs.GetInt("winTotal") != 0)
+                {
+                    PlayerPrefs.SetFloat("BestTime", timerTime);
+                    PlayerPrefs.Save();
+                }
             }
             timerTime = 0;
             timerText.text = timerTime.ToString();
