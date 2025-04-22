@@ -16,7 +16,7 @@ public class SpawnLevel : MonoBehaviour
     SpawnerScript spawnerScript;
     [SerializeField] Transform levelPos;
     [SerializeField] TextMeshProUGUI timerText;
-    [SerializeField] TextMeshProUGUI bestTimeText;
+    [SerializeField] TextMeshPro bestTimeText;
     public bool timerStarted;
     float timerTime;
     MenusScript menuScript;
@@ -98,7 +98,6 @@ public class SpawnLevel : MonoBehaviour
             PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
             Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
             spawnerScript.StartLevelSpawning();
-            timerStarted = true;
             PlayerPrefs.Save();
         }
     }

@@ -36,4 +36,9 @@ public class DoorAnim : MonoBehaviour
     {
         spawnLevel.DespawnLevel();
     }
+
+    public void Timer()
+    {
+        spawnLevel.timerStarted = true;
+    }
 }
