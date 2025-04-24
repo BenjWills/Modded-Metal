@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: SpikeObstacle
+  m_Name: Spike Obstacle
   m_Shader: {fileID: -6465566751694194690, guid: bb3c9b3f6fa262249b3f20014366eddb,
     type: 3}
   m_Parent: {fileID: 0}
