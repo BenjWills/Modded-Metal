@@ -5795,7 +5795,7 @@ PrefabInstance:
         type: 3}
       propertyPath: jumpPad
       value: 
-      objectReference: {fileID: 6200483620248652034, guid: 9b3cac25beb27c147b5d8263ecdf6641,
+      objectReference: {fileID: 1186146355928768525, guid: bd30e5cd69f1df244aa161643f40be70,
         type: 3}
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}

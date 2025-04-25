@@ -10,6 +10,7 @@ public class BouncePad : MonoBehaviour
     Settings settingsScript;
     Transform orientation;
     AudioSource audioSource;
+    Animator animator;
 
     // Start is called before the first frame update
     void Start()
@@ -17,6 +18,7 @@ public class BouncePad : MonoBehaviour
         settingsScript = GameObject.FindGameObjectWithTag("Settings").GetComponent<Settings>();
         orientation = GameObject.Find("Orientation").GetComponent<Transform>();
         audioSource = GetComponent<AudioSource>();
+        animator = GetComponent<Animator>();
         rb = this.gameObject.GetComponent<Rigidbody>();
         rb.AddForce(orientation.forward * 10, ForceMode.Impulse);
         StartCoroutine(BouncePadEffectBuffer());
