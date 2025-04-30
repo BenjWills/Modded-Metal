@@ -21,7 +21,7 @@ public class MMScreen : MonoBehaviour
     {
         bestTime.text = "Best: " + PlayerPrefs.GetFloat("BestTime").ToString();
         wins.text = "Wins: " + PlayerPrefs.GetInt("winTotal").ToString();
-        deaths.text = "Deaths: " + PlayerPrefs.GetInt("deathTotal").ToString();
+        deaths.text = "Deaths: " + PlayerPrefs.GetInt("deathTotal").ToString(); 
         levelsSpawned.text = "Levels Spawned: " + PlayerPrefs.GetInt("levelsSpawned").ToString();
     }
 }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using UnityEngine.UI;
 
 public class SlotMachine : MonoBehaviour
 {
@@ -19,14 +20,28 @@ public class SlotMachine : MonoBehaviour
     bool jumpPadBought;
 
     public string[] buff1;
+    public Sprite[] buff1ImageArray;
+    private Image buff1Image;
     public int buffI1;
     private TextMeshProUGUI buff1Txt;
     public string[] buff2;
+    public Sprite[] buff2ImageArray;
+    private Image buff2Image;
     public int buffI2;
     private TextMeshProUGUI buff2Txt;
     public string[] debuff;
+    public Sprite[] debuffImageArray;
+    private Image debuffImage;
     public int debuffI;
     private TextMeshProUGUI debuffTxt;
+    public Sprite noneSprite;
+
+    public GameObject plane1;
+    public SpriteRenderer mat1;
+    public GameObject plane2;
+    public SpriteRenderer mat2;
+    public GameObject plane3;
+    public SpriteRenderer mat3;
 
     public TMP_InputField inputField;
 
@@ -43,8 +58,11 @@ public class SlotMachine : MonoBehaviour
         playerInput = GameObject.Find("Player").GetComponent<PlayerInput>();
         interactAction = playerInput.actions.FindAction("Interact");
         buff1Txt = GameObject.Find("Buff1 Text (TMP)").GetComponent<TextMeshProUGUI>();
+        buff1Image = GameObject.Find("Buff1 Image").GetComponent<Image>();
         buff2Txt = GameObject.Find("Buff2 Text (TMP)").GetComponent<TextMeshProUGUI>();
+        buff2Image = GameObject.Find("Buff2 Image").GetComponent<Image>();
         debuffTxt = GameObject.Find("Debuff Text (TMP)").GetComponent<TextMeshProUGUI>();
+        debuffImage = GameObject.Find("Debuff Image").GetComponent<Image>();
         menuScript = GameObject.Find("Menus").GetComponent<MenusScript>();
         audioSource = GetComponent<AudioSource>();
 
@@ -60,28 +78,40 @@ public class SlotMachine : MonoBehaviour
         {
             ApplyBuff1(buff1[PlayerPrefs.GetInt("Buff1")]);
             buff1Txt.text = buff1[PlayerPrefs.GetInt("Buff1")];
+            buff1Image.sprite = buff1ImageArray[PlayerPrefs.GetInt("Buff1")];
+            mat1.sprite = buff1ImageArray[PlayerPrefs.GetInt("Buff1")];
         }
         else
         {
             buff1Txt.text = "None";
+            buff1Image.sprite = noneSprite;
+            mat1.sprite = noneSprite;
         }
         if (PlayerPrefs.HasKey("Buff2"))
         {
             ApplyBuff2(buff2[PlayerPrefs.GetInt("Buff2")]);
             buff2Txt.text = buff2[PlayerPrefs.GetInt("Buff2")];
+            buff2Image.sprite = buff2ImageArray[PlayerPrefs.GetInt("Buff2")];
+            mat2.sprite = buff2ImageArray[PlayerPrefs.GetInt("Buff2")];
         }
         else
         {
             buff2Txt.text = "None";
+            buff2Image.sprite = noneSprite;
+            mat2.sprite = noneSprite;
         }
         if (PlayerPrefs.HasKey("Debuff"))
         {
             ApplyDebuff(debuff[PlayerPrefs.GetInt("Debuff")]);
             debuffTxt.text = debuff[PlayerPrefs.GetInt("Debuff")];
+            debuffImage.sprite = debuffImageArray[PlayerPrefs.GetInt("Debuff")];
+            mat3.sprite = debuffImageArray[PlayerPrefs.GetInt("Debuff")];
         }
         else
         {
             debuffTxt.text = "None";
+            debuffImage.sprite = noneSprite;
+            mat3.sprite = noneSprite;
         }
     }
 
@@ -93,6 +123,9 @@ public class SlotMachine : MonoBehaviour
             if (interactAction.triggered)
             {
                 PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") - 1);
+                plane1.SetActive(false);
+                plane2.SetActive(false);
+                plane3.SetActive(false);
                 slotMachineSpin.SetTrigger("Spin");
                 audioSource.Play();
                 PlayerPrefs.Save();
@@ -140,6 +173,9 @@ public class SlotMachine : MonoBehaviour
         PlayerPrefs.SetInt("Buff1", buffI1);
         ApplyBuff1(buff1[buffI1]);
         buff1Txt.text = buff1[buffI1];
+        buff1Image.sprite = buff1ImageArray[PlayerPrefs.GetInt("Buff1")];
+        plane1.SetActive(true);
+        mat1.sprite = buff1ImageArray[PlayerPrefs.GetInt("Buff1")];
 
         int doSecondBuff = Random.Range(0, 2);
         if (doSecondBuff == 0)
@@ -148,18 +184,27 @@ public class SlotMachine : MonoBehaviour
             PlayerPrefs.SetInt("Buff2", buffI2);
             ApplyBuff2(buff2[buffI2]);
             buff2Txt.text = buff2[buffI2];
+            buff2Image.sprite = buff2ImageArray[PlayerPrefs.GetInt("Buff2")];
+            plane2.SetActive(true);
+            mat2.sprite = buff2ImageArray[PlayerPrefs.GetInt("Buff2")];
         }
         else
         {
             PlayerPrefs.DeleteKey("Buff2");
             ApplyBuff2("None");
             buff2Txt.text = "None";
+            buff2Image.sprite = noneSprite;
+            plane2.SetActive(true);
+            mat2.sprite = noneSprite;
         }
 
         debuffI = Random.Range(0, debuff.Length);
         PlayerPrefs.SetInt("Debuff", debuffI);
         ApplyDebuff(debuff[debuffI]);
         debuffTxt.text = debuff[debuffI];
+        debuffImage.sprite = debuffImageArray[PlayerPrefs.GetInt("Debuff")];
+        plane3.SetActive(true);
+        mat3.sprite = debuffImageArray[PlayerPrefs.GetInt("Debuff")];
 
         slotMachineRange.radius = 1.2f;
     }
