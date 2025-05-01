@@ -26,10 +26,12 @@ public class DoorAnim : MonoBehaviour
 
     public void DoorOpen()
     {
+        Debug.Log("open");
         doorAnimator.SetBool("Door", true);
     }
     public void DoorClose()
     {
+        Debug.Log("close");
         doorAnimator.SetBool("Door", false);
     }
     public void DespawnLevel()

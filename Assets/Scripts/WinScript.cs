@@ -28,7 +28,7 @@ public class WinScript : MonoBehaviour
             PlayerPrefs.SetInt("winTotal", PlayerPrefs.GetInt("winTotal") + 1);
             PlayerPrefs.SetInt("smCoin", PlayerPrefs.GetInt("smCoin") + 1);
             player.transform.position = respawnScript.respawnPoint.position;
-            spawnLevel.doorAnim.doorAnimator.SetBool("Door", false);
+            spawnLevel.DespawnLevel();
         }
     }
 }

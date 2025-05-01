@@ -25,6 +25,9 @@ public class SpawnLevel : MonoBehaviour
     public DoorAnim doorAnim;
     AudioSource buttonClickAudio;
     int previousWins;
+    GameObject currentLevel;
+    public bool isSpawned;
+    public bool isDespawned;
 
     private void Awake()
     {
@@ -51,13 +54,13 @@ public class SpawnLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (inTrigger == true)
         {
             menuScript.interactTxt.enabled = true;
             if (interactAction.triggered)
             {
                 doorAnim.ButtonPush();
-                doorAnim.doorAnimator.SetBool("Door", true);
             }
         }
         else
@@ -84,52 +87,28 @@ public class SpawnLevel : MonoBehaviour
 
     private void GenerateLevel()
     {
-        doorAnim.doorAnimator.SetBool("Door", true);
         buttonClickAudio.Play();
-        GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
+        currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel == null)
         {
-            settings.MuteMusic();
-            for (int i = 0; i < settings.music.Length; i++)
-            {
-                settings.music[i].Stop();
-                settings.UnmuteMusic();
-                settings.music[i].Play();
-            }
-            PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
-            Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
-            spawnerScript.StartLevelSpawning();
-            PlayerPrefs.Save();
-            previousWins = PlayerPrefs.GetInt("winTotal");
+            isSpawned = true;
+            StartCoroutine(SpawningLevel());
         }
     }
 
     public void DespawnLevel()
     {
-        GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
+        currentLevel = GameObject.FindGameObjectWithTag("Level");
         if (currentLevel != null)
         {
-            settings.MuteMusic();
-
-            for (int i = 0; i < settings.music.Length; i++)
-            {
-                settings.music[i].Stop();
-                if (settings.music[i].gameObject.name == "Bass" || settings.music[i].gameObject.name == "Drums")
-                {
-                    settings.UnmuteMusic();
-                    settings.music[i].Play();
-                }
-            }
-            spawnerScript.RemoveObstacles();
-            //bouncePad.DestroyBouncePad();
-            Destroy(currentLevel);
-            timerStarted = false;
+            isDespawned = true;
+            StartCoroutine(DespawningLevel());
         }
     }
 
     void Timer()
     {
-        GameObject currentLevel = GameObject.FindGameObjectWithTag("Level");
+
         if (currentLevel != null && timerStarted == true)
         {
             timerTime += Time.deltaTime;
@@ -155,10 +134,59 @@ public class SpawnLevel : MonoBehaviour
         StartCoroutine(LevelSpawn());
     }
 
+
     IEnumerator LevelSpawn()
     {
         DespawnLevel();
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForEndOfFrame();
         GenerateLevel();
+    }
+
+    IEnumerator SpawningLevel()
+    {
+        while (isSpawned == true)
+        {
+            settings.MuteMusic();
+
+            for (int i = 0; i < settings.music.Length; i++)
+            {
+                settings.music[i].Stop();
+                settings.UnmuteMusic();
+                settings.music[i].Play();
+            }
+            PlayerPrefs.SetInt("levelsSpawned", PlayerPrefs.GetInt("levelsSpawned") + 1);
+            Instantiate(levelArray[Random.Range(0, levelArray.Length)], levelPos);
+            spawnerScript.StartLevelSpawning();
+            doorAnim.DoorOpen();
+            PlayerPrefs.Save();
+            previousWins = PlayerPrefs.GetInt("winTotal");
+            isSpawned = false;
+        }
+        yield return null;
+    }
+    IEnumerator DespawningLevel()
+    {
+        while (isDespawned == true)
+        {
+            doorAnim.DoorClose();
+            yield return new WaitForSeconds(1);
+            settings.MuteMusic();
+
+            for (int i = 0; i < settings.music.Length; i++)
+            {
+                settings.music[i].Stop();
+                if (settings.music[i].gameObject.name == "Bass" || settings.music[i].gameObject.name == "Drums")
+                {
+                    settings.UnmuteMusic();
+                    settings.music[i].Play();
+                }
+            }
+            spawnerScript.RemoveObstacles();
+            //bouncePad.DestroyBouncePad();
+            Destroy(currentLevel);
+            timerStarted = false;
+            isDespawned = false;
+        }
+        yield return null;
     }
 }
