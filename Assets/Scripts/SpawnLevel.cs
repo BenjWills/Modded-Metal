@@ -138,7 +138,7 @@ public class SpawnLevel : MonoBehaviour
     IEnumerator LevelSpawn()
     {
         DespawnLevel();
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.3f);
         GenerateLevel();
     }
 
@@ -169,7 +169,7 @@ public class SpawnLevel : MonoBehaviour
         while (isDespawned == true)
         {
             doorAnim.DoorClose();
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(0.2f);
             settings.MuteMusic();
 
             for (int i = 0; i < settings.music.Length; i++)
