@@ -67,7 +67,7 @@ public class SlotMachine : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
 
         slotMachineRange = this.gameObject.AddComponent<SphereCollider>();
-        slotMachineRange.radius = 1.2f;
+        slotMachineRange.radius = 3;
         slotMachineRange.isTrigger = true;
     }
 

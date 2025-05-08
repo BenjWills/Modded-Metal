@@ -6157,13 +6157,13 @@ PrefabInstance:
         type: 3}
       propertyPath: debuffImageArray.Array.data[2]
       value: 
-      objectReference: {fileID: 21300000, guid: 21ec61e41801b0f448cbac97ba1df8a7,
+      objectReference: {fileID: 21300000, guid: e2268bc7ec28ce74e98b875dd23d9018,
         type: 3}
     - target: {fileID: 657765770145777820, guid: 7adc0386168068e4abbbaa5effb347b1,
         type: 3}
       propertyPath: debuffImageArray.Array.data[3]
       value: 
-      objectReference: {fileID: 21300000, guid: e2268bc7ec28ce74e98b875dd23d9018,
+      objectReference: {fileID: 21300000, guid: 21ec61e41801b0f448cbac97ba1df8a7,
         type: 3}
     - target: {fileID: 2606566352580626359, guid: 7adc0386168068e4abbbaa5effb347b1,
         type: 3}
@@ -6588,6 +6588,11 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1811322587207412452, guid: 62dbb8652b70a0042919d89ac92fc28a,
+        type: 3}
+      propertyPath: m_Mass
+      value: 1.5
+      objectReference: {fileID: 0}
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
       propertyPath: pcam
@@ -6602,7 +6607,7 @@ PrefabInstance:
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}
       propertyPath: dashForce
-      value: 20
+      value: 30
       objectReference: {fileID: 0}
     - target: {fileID: 2026838727726209904, guid: 62dbb8652b70a0042919d89ac92fc28a,
         type: 3}

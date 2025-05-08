@@ -91,6 +91,7 @@ public class MenusScript : MonoBehaviour
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
+                settingsScript.settingsCanvas.SetActive(false);
             }
             coins.text = "Coins: " + PlayerPrefs.GetInt("smCoin").ToString();
             wins.text = "Wins: " + PlayerPrefs.GetInt("winTotal").ToString();
