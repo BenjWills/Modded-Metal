@@ -83,6 +83,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bounce Pad 1 1
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c60a17e4a6ab5a54a9feb7204eb1521c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c60a17e4a6ab5a54a9feb7204eb1521c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Bounce Pad
+      objectReference: {fileID: 0}
     - target: {fileID: 5074512353664290214, guid: c60a17e4a6ab5a54a9feb7204eb1521c,
         type: 3}
       propertyPath: m_Materials.Array.data[0]
@@ -180,7 +190,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 659a9b464d976a948af3ba53ad58f56d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  forceApplied: {x: 0, y: 12, z: 0}
+  forceApplied: {x: 0, y: 15, z: 0}
 --- !u!82 &-6655192252663238187
 AudioSource:
   m_ObjectHideFlags: 0

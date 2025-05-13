@@ -807,9 +807,9 @@ GameObject:
   - component: {fileID: 1585667397204233663}
   - component: {fileID: 1208993113019309403}
   - component: {fileID: 1453473984105370558}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: Cube (1)
-  m_TagString: Spawnable
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

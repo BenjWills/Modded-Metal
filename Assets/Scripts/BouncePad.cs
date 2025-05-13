@@ -20,7 +20,10 @@ public class BouncePad : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         animator = GetComponent<Animator>();
         rb = this.gameObject.GetComponent<Rigidbody>();
-        rb.AddForce(orientation.forward * 10, ForceMode.Impulse);
+        if (this.gameObject.layer == 8)
+        {
+            rb.AddForce(orientation.forward * 10, ForceMode.Impulse);
+        }
         StartCoroutine(BouncePadEffectBuffer());
         if (this.gameObject.CompareTag("Bounce Pad"))
         {

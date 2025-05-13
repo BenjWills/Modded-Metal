@@ -2180,7 +2180,7 @@ PrefabInstance:
     - target: {fileID: 4776867586101581301, guid: 8132c35cdf989dd45ad369d7292dec6c,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 18.63
+      value: 18.526
       objectReference: {fileID: 0}
     - target: {fileID: 4776867586101581301, guid: 8132c35cdf989dd45ad369d7292dec6c,
         type: 3}
@@ -2231,6 +2231,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Bounce Pad 1 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260494009345363791, guid: 8132c35cdf989dd45ad369d7292dec6c,
+        type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5260494009345363791, guid: 8132c35cdf989dd45ad369d7292dec6c,
+        type: 3}
+      propertyPath: m_TagString
+      value: Untagged
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

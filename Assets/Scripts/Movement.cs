@@ -30,6 +30,14 @@ public class Movement : MonoBehaviour
     [SerializeField] float groundDrag;
     [SerializeField] Transform orientation;
     [SerializeField] float dashForce;
+    [SerializeField] float jumpPadCooldown;
+    float jumpPadCooldownStart;
+    [SerializeField] GameObject jumpPadCooldownGO;
+    [SerializeField] TextMeshProUGUI jpCooldownText;
+    [SerializeField] float dashCooldown;
+    float dashCooldownStart;
+    [SerializeField] GameObject dashCooldownGO;
+    [SerializeField] TextMeshProUGUI dashCooldownText;
 
     [Header("Bools")]
     bool isGrounded;
@@ -102,6 +110,9 @@ public class Movement : MonoBehaviour
         startYScale = transform.localScale.y;
         startZScale = transform.localScale.z;
 
+        jumpPadCooldownStart = jumpPadCooldown;
+        dashCooldownStart = dashCooldown;
+
         audioSource = GetComponent<AudioSource>();
     }
 
@@ -136,6 +147,24 @@ public class Movement : MonoBehaviour
                     }
                 }
                 firstPlay = false;
+            }
+        }
+        jpCooldownText.text = jumpPadCooldown.ToString();
+        dashCooldownText.text = dashCooldown.ToString();
+        if (jumpPadCooldownGO.activeSelf == true)
+        {
+            jumpPadCooldown -= Time.deltaTime;
+            if (jumpPadCooldown <= 0)
+            {
+                jumpPadCooldownGO.SetActive(false);
+            }
+        }
+        if (dashCooldownGO.activeSelf == true)
+        {
+            dashCooldown -= Time.deltaTime;
+            if (dashCooldown <= 0)
+            {
+                dashCooldownGO.SetActive(false);
             }
         }
     }
@@ -198,17 +227,17 @@ public class Movement : MonoBehaviour
             transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
         }
 
-        if (sprintAction.triggered == true && isGrounded == true && isSprinting == false)
-        {
-            isCrouching = false;
-            transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
-            isSprinting = true;
-            moveSpeed = sprintSpeed;
-        }
-        else if (sprintAction.triggered == true && isSprinting == true)
-        {
-            isSprinting = false;
-        }
+        //if (sprintAction.triggered == true && isGrounded == true && isSprinting == false)
+        //{
+        //    isCrouching = false;
+        //    transform.localScale = new Vector3(transform.localScale.x, startYScale, transform.localScale.z);
+        //    isSprinting = true;
+        //    moveSpeed = sprintSpeed;
+        //}
+        //else if (sprintAction.triggered == true && isSprinting == true)
+        //{
+        //    isSprinting = false;
+        //}
     }
 
     //applys movement to the player using rigidbidy forces
@@ -387,13 +416,17 @@ public class Movement : MonoBehaviour
     {
         Vector3 newSpawnPos = playerBody.transform.position + orientation.forward;
         Instantiate(jumpPad, newSpawnPos, Quaternion.identity);
-        yield return new WaitForSeconds(1);
+        jumpPadCooldown = jumpPadCooldownStart;
+        jumpPadCooldownGO.SetActive(true);
+        yield return new WaitForSeconds(jumpPadCooldown);
         jumpPadAvailable = true;
     }
     IEnumerator DashCooldown()
     {
         rb.AddForce(pcam.transform.forward * dashForce, ForceMode.Impulse);
-        yield return new WaitForSeconds(5);
+        dashCooldown = dashCooldownStart;
+        dashCooldownGO.SetActive(true);
+        yield return new WaitForSeconds(dashCooldown);
         dashAvailable = true;
     }
 
